@@ -16,3 +16,9 @@ def tambah_stok(db: Session, product_id: int, jumlah_tambah: int):
 def get_stok_kritis(db: Session, threshold: int = 5):
     """Mendapatkan daftar produk yang stoknya di bawah batas minimal."""
     return db.query(Product).filter(Product.stock <= threshold).all()
+
+def get_semua_produk(db: Session):
+    return db.query(Product).filter(Product.is_active == True).all()
+
+def get_produk_by_id(db: Session, product_id: int):
+    return db.query(Product).filter(Product.id == product_id).first()
