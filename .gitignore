@@ -1,1 +1,69 @@
+# ========================
+# Environment & Secrets
+# ========================
 .env
+.env.local
+.env.production
+
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ========================
+# Virtual Environment
+# ========================
+venv/
+.venv/
+env/
+ENV/
+
+# ========================
+# Database (SQLite)
+# ========================
+*.db
+*.sqlite
+*.sqlite3
+
+# ========================
+# Jupyter Notebooks
+# ========================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ========================
+# Streamlit
+# ========================
+.streamlit/secrets.toml
+
+# ========================
+# IDE & Editor
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ========================
+# Data (opsional, uncommit kalau mau share data)
+# ========================
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# ========================
+# Logs
+# ========================
+*.log
+logs/
