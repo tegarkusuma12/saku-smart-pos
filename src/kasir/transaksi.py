@@ -59,3 +59,8 @@ def proses_checkout(db: Session, keranjang: list[dict], payment_method: str = "C
     except Exception as e:
         db.rollback()
         return {"status": "error", "message": str(e)}
+
+def get_riwayat_transaksi(db: Session, limit: int = 50):
+    return db.query(Transaction).order_by(
+        Transaction.timestamp.desc()
+    ).limit(limit).all()
