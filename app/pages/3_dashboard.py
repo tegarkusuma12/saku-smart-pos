@@ -88,3 +88,37 @@ with col_kanan:
 
     if pengeluaran:
         df_expense = pd.DataFrame([{
+            "kategori": e.category or "lainnya",
+            "amount": e.amount
+        } for e in pengeluaran])
+
+        df_kategori = df_expense.groupby("kategori")["amount"].sum().reset_index()
+        df_kategori.columns = ["Kategori", "Total"]
+        df_kategori = df_kategori.sort_values("Total", ascending=False)
+        df_kategori = df_kategori.set_index("Kategori")
+
+        st.bar_chart(df_kategori)
+    else:
+        st.info("Belum ada data pengeluaran.")
+
+st.markdown("---")
+
+# ── STOK KRITIS ────────────────────────────────────────
+st.subheader("⚠️ Stok Kritis (Stok ≤ 5)")
+
+produk_kritis = db.query(Product).filter(
+    Product.stock <= 5,
+    Product.is_active == True
+).all()
+
+if produk_kritis:
+    df_kritis = pd.DataFrame([{
+        "Produk": p.name,
+        "Stok": p.stock,
+        "Harga": f"Rp{p.price:,.0f}"
+    } for p in produk_kritis])
+    st.dataframe(df_kritis, use_container_width=True)
+else:
+    st.success("✅ Semua stok aman.")
+
+db.close()
