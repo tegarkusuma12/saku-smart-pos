@@ -1,0 +1,13 @@
+# Database
+sqlalchemy
+python-dotenv
+
+# Streamlit
+streamlit
+pandas
+
+# LangChain
+langchain
+langchain-groq        
+langchain-community
+pydantic
