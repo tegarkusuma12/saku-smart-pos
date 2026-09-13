@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 import streamlit as st
-
+from src.ai.agent import run_agent
 st.set_page_config(page_title="AI Assistant - SAKU", page_icon="🤖", layout="wide")
 st.title("🤖 AI Assistant")
 st.caption("Catat keuangan & tanya kondisi bisnis pakai bahasa sehari-hari.")
@@ -50,11 +50,16 @@ if user_input:
     with st.chat_message("user"):
         st.write(user_input)
 
-    # Placeholder response — nanti diganti LangChain Agent
     with st.chat_message("assistant"):
-        st.info("🚧 AI Agent sedang dalam pengembangan. Fitur ini akan segera aktif!")
+        with st.spinner("Sedang berpikir..."):
+            # Kirim semua history kecuali pesan user terakhir
+            response = run_agent(
+                user_input=user_input,
+                chat_history=st.session_state.messages[:-1]
+            )
+            st.write(response)
 
     st.session_state.messages.append({
         "role": "assistant",
-        "content": "🚧 AI Agent sedang dalam pengembangan. Fitur ini akan segera aktif!"
+        "content": response
     })
