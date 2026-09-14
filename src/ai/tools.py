@@ -1,11 +1,12 @@
 import json
 from langchain.tools import tool
 from database.connection import SessionLocal
-from database.models import Transaction, Expense, Income, Debt, Product
+from database.models import Transaction, Expense, Income, Debt, Product, TransactionDetail
 from src.akuntansi.pengeluaran import catat_pengeluaran
 from src.akuntansi.pemasukan import catat_pemasukan
 from src.akuntansi.hutang import catat_hutang, get_hutang_belum_lunas
 from sqlalchemy import func
+from sqlalchemy import desc
 
 # ── TOOLS CATAT DATA ──────────────────────────────────
 
@@ -90,7 +91,7 @@ def tool_ringkasan_keuangan(periode: str = "bulan_ini") -> str:
         if periode == "hari_ini":
             start = now.replace(hour=0, minute=0, second=0)
         elif periode == "minggu_ini":
-            start = now - timedelta(days=now.weekday())
+            start = (now - timedelta(days=now.weekday())).replace(hour=0, minute=0, second=0, microsecond=0)
         else:  # bulan_ini
             start = now.replace(day=1, hour=0, minute=0, second=0)
 
@@ -110,10 +111,10 @@ def tool_ringkasan_keuangan(periode: str = "bulan_ini") -> str:
         laba = total_penjualan + total_pemasukan_lain - total_pengeluaran
 
         return f"""📊 Ringkasan Keuangan ({periode.replace('_', ' ')}):
-💰 Total Penjualan    : Rp{total_penjualan:,.0f}
-➕ Pemasukan Lain     : Rp{total_pemasukan_lain:,.0f}
-💸 Total Pengeluaran  : Rp{total_pengeluaran:,.0f}
-📈 Laba Bersih        : Rp{laba:,.0f}"""
+                💰 Total Penjualan    : Rp{total_penjualan:,.0f}
+                ➕ Pemasukan Lain     : Rp{total_pemasukan_lain:,.0f}
+                💸 Total Pengeluaran  : Rp{total_pengeluaran:,.0f}
+                📈 Laba Bersih        : Rp{laba:,.0f}"""
     finally:
         db.close()
 
@@ -147,6 +148,8 @@ def tool_cek_hutang() -> str:
             result += f"  Total: Rp{sum(h.amount for h in supplier):,.0f}\n"
 
         return result
+    except Exception as e:
+        return f"❌ Gagal mengambil data: {str(e)}"
     finally:
         db.close()
 
@@ -161,9 +164,6 @@ def tool_produk_terlaris(limit: int = 5) -> str:
     """
     db = SessionLocal()
     try:
-        from database.models import TransactionDetail
-        from sqlalchemy import desc
-
         hasil = (
             db.query(
                 Product.name,
@@ -183,6 +183,8 @@ def tool_produk_terlaris(limit: int = 5) -> str:
         for i, (nama, total) in enumerate(hasil, 1):
             result += f"  {i}. {nama}: {total} terjual\n"
         return result
+    except Exception as e:
+        return f"❌ Gagal mengambil data: {str(e)}"
     finally:
         db.close()
 
@@ -209,6 +211,8 @@ def tool_cek_stok_kritis(threshold: int = 5) -> str:
         for p in produk_kritis:
             result += f"  • {p.name}: sisa {p.stock} {p.unit}\n"
         return result
+    except Exception as e:
+        return f"❌ Gagal mengambil data: {str(e)}"
     finally:
         db.close()
 
