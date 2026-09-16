@@ -31,50 +31,6 @@ Chatbot ini menggunakan **LangChain Agent** dengan tools yang terhubung langsung
 
 ---
 
-## 🚀 Cara Menjalankan
-
-### Prasyarat
-- Python 3.11+
-- API Key dari [Groq Console](https://console.groq.com) (gratis)
-
-### 1. Clone Repository
-```bash
-git clone https://github.com/tegarkusuma12/saku-smart-pos.git
-cd saku-smart-pos
-```
-
-### 2. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Setup API Key
-```bash
-cp .env.example .env
-```
-Buka file `.env`, lalu isi:
-```
-GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxx
-```
-
-### 4. Jalankan Demo Chatbot (Notebook)
-Buka file `notebooks/demo_chatbot.ipynb` di VSCode atau Jupyter, lalu jalankan semua sel secara berurutan.
-
-> Sel pertama akan otomatis membuat tabel database dan mengisi data dummy.
-
-Perintah yang tersedia di dalam chat:
-| Perintah | Fungsi |
-|---|---|
-| `exit` | Keluar dari sesi chat |
-| `reset` | Hapus riwayat percakapan |
-| `history` | Tampilkan riwayat chat |
-| `export` | Simpan riwayat ke file JSON |
-
-### 5. Jalankan Aplikasi Web (Opsional)
-```bash
-streamlit run app/main.py
-```
-
 ---
 
 ## 💬 Contoh Percakapan
@@ -186,7 +142,7 @@ Proyek ini dikembangkan dengan bantuan **Claude (Anthropic)** sebagai AI assista
 | `src/ai/prompts.py` | Mandiri |
 | `src/ai/tools.py` | Mandiri + review AI |
 | `app/pages/2_chatbot.py` | Bantuan AI |
-| `notebooks/demo_chatbot.ipynb` | Bantuan AI |
+| `notebooks/demo_chatbot.ipynb` | Mandiri + review AI |
 | Debugging & error fixing | Kolaborasi |
 
 ---
