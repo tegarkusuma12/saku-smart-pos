@@ -3,7 +3,7 @@ from database.models import Transaction, TransactionDetail, Product
 
 def proses_checkout(db: Session, keranjang: list[dict], payment_method: str = "Cash"):
     """
-    Memproses transaksi penjualan dan memotong stok.
+    Memproses transaksi penjualan dan memotong stok, sekaligus merekam snapshot HPP.
     
     Args:
         db (Session): SQLAlchemy session
@@ -33,11 +33,13 @@ def proses_checkout(db: Session, keranjang: list[dict], payment_method: str = "C
             subtotal = produk.price * item["qty"]
             total_belanja += subtotal
             
-            # Catat detail
+            # Catat detail dengan snapshot Harga Beli dan Harga Jual
             detail = TransactionDetail(
                 transaction_id=transaksi_baru.id,
                 product_id=produk.id,
                 quantity=item["qty"],
+                cost_price=produk.cost_price,   
+                selling_price=produk.price,      
                 subtotal=subtotal
             )
             db.add(detail)

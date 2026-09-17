@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
+from datetime import datetime
 from database.connection import Base
 
 class Category(Base):
@@ -14,11 +14,12 @@ class Product(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True, nullable=False)
     category_id = Column(Integer, ForeignKey("categories.id"))
-    price = Column(Float, nullable=False)
+    cost_price = Column(Float, nullable=False, default=0.0) 
+    price = Column(Float, nullable=False) 
     stock = Column(Integer, default=0)
     unit = Column(String, default="pcs")
     description = Column(String, nullable=True)
-    is_active = Column(Boolean, default=True)
+    is_active = Column(Boolean, default=True)  
     category = relationship("Category", back_populates="products")
     transaction_details = relationship("TransactionDetail", back_populates="product")
 
@@ -37,6 +38,8 @@ class TransactionDetail(Base):
     transaction_id = Column(Integer, ForeignKey("transactions.id"))
     product_id = Column(Integer, ForeignKey("products.id"))
     quantity = Column(Integer, nullable=False)
+    cost_price = Column(Float, nullable=False)    
+    selling_price = Column(Float, nullable=False) 
     subtotal = Column(Float, nullable=False)
     transaction = relationship("Transaction", back_populates="details")
     product = relationship("Product", back_populates="transaction_details")
