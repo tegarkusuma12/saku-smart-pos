@@ -23,24 +23,30 @@ def generate_dummy_data():
         cat_objs[c] = cat
     db.commit()
 
-    # 2. Produk
+    # 2. Produk (Nama, Kategori, Harga Jual, Harga Modal/HPP, Stok)
     products_data = [
-        ("Beras 5kg",        "Sembako",          75000, 50),
-        ("Telur 1kg",        "Sembako",          28000, 40),
-        ("Indomie Goreng",   "Sembako",           3500, 200),
-        ("Kopi Kapal Api",   "Minuman",           1500, 100),
-        ("Aqua 600ml",       "Minuman",           3500, 80),
-        ("Taro Snack",       "Snack",             2000, 60),
-        ("Chitato",          "Snack",             8000, 40),
-        ("Rokok Sampoerna",  "Rokok",            25000, 30),
-        ("Rokok Gudang Garam","Rokok",           20000, 30),
-        ("Sabun Lifebuoy",   "Kebutuhan Mandi",   4000, 50),
-        ("Shampo Pantene",   "Kebutuhan Mandi",  15000, 25),
+        ("Beras 5kg",        "Sembako",          75000, 65000, 50),
+        ("Telur 1kg",        "Sembako",          28000, 24000, 40),
+        ("Indomie Goreng",   "Sembako",           3500,  2800, 200),
+        ("Kopi Kapal Api",   "Minuman",           1500,  1100, 100),
+        ("Aqua 600ml",       "Minuman",           3500,  2500, 80),
+        ("Taro Snack",       "Snack",             2000,  1500, 60),
+        ("Chitato",          "Snack",             8000,  6500, 40),
+        ("Rokok Sampoerna",  "Rokok",            25000, 23000, 30),
+        ("Rokok Gudang Garam","Rokok",           20000, 18500, 30),
+        ("Sabun Lifebuoy",   "Kebutuhan Mandi",   4000,  3000, 50),
+        ("Shampo Pantene",   "Kebutuhan Mandi",  15000, 12000, 25),
     ]
 
     prod_objs = []
-    for name, cat_name, price, stock in products_data:
-        p = Product(name=name, category_id=cat_objs[cat_name].id, price=price, stock=stock)
+    for name, cat_name, price, cost_price, stock in products_data:
+        p = Product(
+            name=name, 
+            category_id=cat_objs[cat_name].id, 
+            price=price, 
+            cost_price=cost_price, 
+            stock=stock
+        )
         db.add(p)
         db.flush()
         prod_objs.append(p)
@@ -69,12 +75,14 @@ def generate_dummy_data():
             qty = random.randint(1, max_qty)
             sub = prod.price * qty
             total_amount += sub
-            prod.stock -= qty  # ✅ aman karena sudah dicek max_qty
+            prod.stock -= qty  
 
             db.add(TransactionDetail(
                 transaction_id=trx.id,
                 product_id=prod.id,
                 quantity=qty,
+                cost_price=prod.cost_price,   
+                selling_price=prod.price,     
                 subtotal=sub
             ))
 
@@ -83,11 +91,11 @@ def generate_dummy_data():
 
     # 4. Pengeluaran (beragam kategori)
     expenses = [
-        ("Bayar Listrik",           150000, "listrik"),
-        ("Beli Plastik Kresek",      15000, "operasional"),
-        ("Belanja Stok Indomie",    350000, "bahan_baku"),
-        ("Belanja Telur & Beras",   500000, "bahan_baku"),
-        ("Gaji Karyawan",          1500000, "gaji"),
+        ("Bayar Listrik",          150000, "listrik"),
+        ("Beli Plastik Kresek",     15000, "operasional"),
+        ("Belanja Stok Indomie",   350000, "bahan_baku"),
+        ("Belanja Telur & Beras",  500000, "bahan_baku"),
+        ("Gaji Karyawan",         1500000, "gaji"),
         ("Bayar Air",               50000,  "listrik"),
         ("Beli Rokok Sampoerna",   600000,  "bahan_baku"),
     ]
