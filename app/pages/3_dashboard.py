@@ -13,7 +13,7 @@ st.markdown("---")
 
 db = SessionLocal()
 
-# ── METRIK UTAMA ───────────────────────────────────────
+# ── METRIK UTAMA ────────────────────────
 st.subheader("Ringkasan Keuangan")
 
 # Ambil semua data
@@ -22,17 +22,25 @@ pengeluaran = db.query(Expense).all()
 pemasukan = db.query(Income).all()
 hutang_belum_lunas = db.query(Debt).filter(Debt.is_paid == False).all()
 
+# Hitung Total HPP dari detail transaksi
+detail_transaksi = db.query(TransactionDetail).all()
+total_hpp = sum(d.quantity * d.cost_price for d in detail_transaksi) if detail_transaksi else 0
+
 total_penjualan = sum(t.total_amount for t in transaksi)
 total_pengeluaran = sum(e.amount for e in pengeluaran)
 total_pemasukan_lain = sum(i.amount for i in pemasukan)
 total_hutang = sum(d.amount for d in hutang_belum_lunas)
-laba_bersih = total_penjualan + total_pemasukan_lain - total_pengeluaran
+
+# Rumus Laba Bersih yang presisi
+laba_kotor = total_penjualan - total_hpp
+laba_bersih = laba_kotor + total_pemasukan_lain - total_pengeluaran
 
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("💰 Total Penjualan", f"Rp{total_penjualan:,.0f}")
-col2.metric("📉 Total Pengeluaran", f"Rp{total_pengeluaran:,.0f}")
-col3.metric("📈 Laba Bersih", f"Rp{laba_bersih:,.0f}")
-col4.metric("⚠️ Hutang Belum Lunas", f"Rp{total_hutang:,.0f}")
+col1.metric("💰 Pendapatan Kasir", f"Rp{total_penjualan:,.0f}")
+# Kamu bisa menampilkan Laba Kotor atau Laba Bersih sesuai selera visual
+col2.metric("📈 Laba Kotor", f"Rp{laba_kotor:,.0f}") 
+col3.metric("✨ Laba Bersih", f"Rp{laba_bersih:,.0f}")
+col4.metric("📉 Pengeluaran", f"Rp{total_pengeluaran:,.0f}")
 
 st.markdown("---")
 
