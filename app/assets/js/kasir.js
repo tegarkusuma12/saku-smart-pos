@@ -88,6 +88,10 @@ function renderCart() {
     </div>
   `).join("") : '<div class="text-center text-muted py-5"><i class="fas fa-cart-shopping fa-2x mb-2 d-block"></i>Keranjang masih kosong.</div>';
 
+  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+  const countEl = document.getElementById("cartCount");
+  if (countEl) countEl.textContent = `${totalQty} item${totalQty === 1 ? "" : "s"}`;
+
   const totals = getTotals();
   document.getElementById("valSubtotal").textContent = rupiah(totals.subtotal);
   document.getElementById("valDiscount").textContent = "-" + rupiah(totals.discount);
@@ -128,4 +132,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("btnPay")?.addEventListener("click", checkout);
   document.getElementById("btnNew")?.addEventListener("click", newTransaction);
+  document.getElementById("btnPrint")?.addEventListener("click", () => window.print());
 });
