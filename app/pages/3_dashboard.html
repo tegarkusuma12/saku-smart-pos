@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard - SAKU POS</title>
+
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="saku-shell">
+
+
+    <div id="sidebar-container"></div>
+
+
+    <main class="saku-content">
+
+
+        <!-- HEADER -->
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+            <div>
+
+                <h1 class="page-title">
+                    Dashboard
+                </h1>
+
+                <p class="page-subtitle">
+                    Ringkasan performa bisnis kamu hari ini.
+                </p>
+
+            </div>
+
+
+            <div class="d-flex gap-2">
+
+                <button class="btn btn-outline-secondary">
+
+                    <i class="fa-solid fa-calendar me-2"></i>
+
+                    Bulan Ini
+
+                </button>
+
+
+                <button class="btn btn-primary">
+
+                    <i class="fa-solid fa-download me-2"></i>
+
+                    Export
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STATS -->
+
+        <div class="row g-3 mb-4">
+
+
+            <div class="col-12 col-sm-6 col-xl-3">
+
+                <div class="saku-card stat-card">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-money-bill-trend-up"></i>
+                        </div>
+
+                        <div>
+
+                            <small class="text-muted">
+                                Total Penjualan
+                            </small>
+
+                            <h4 class="fw-bold mb-1">
+                                Rp12.500.000
+                            </h4>
+
+                            <small class="text-success">
+                                ↑ 12,5% dari bulan lalu
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-12 col-sm-6 col-xl-3">
+
+                <div class="saku-card stat-card">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+
+                        <div>
+
+                            <small class="text-muted">
+                                Total Pengeluaran
+                            </small>
+
+                            <h4 class="fw-bold mb-1">
+                                Rp7.350.000
+                            </h4>
+
+                            <small class="text-danger">
+                                ↑ 4,2% dari bulan lalu
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-12 col-sm-6 col-xl-3">
+
+                <div class="saku-card stat-card">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+
+                        <div>
+
+                            <small class="text-muted">
+                                Total Laba
+                            </small>
+
+                            <h4 class="fw-bold mb-1">
+                                Rp5.150.000
+                            </h4>
+
+                            <small class="text-success">
+                                ↑ 18,7% dari bulan lalu
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-12 col-sm-6 col-xl-3">
+
+                <div class="saku-card stat-card">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="stat-icon">
+                            <i class="fa-solid fa-receipt"></i>
+                        </div>
+
+                        <div>
+
+                            <small class="text-muted">
+                                Total Transaksi
+                            </small>
+
+                            <h4 class="fw-bold mb-1">
+                                184
+                            </h4>
+
+                            <small class="text-success">
+                                ↑ 8,4% dari bulan lalu
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CHART + TOP PRODUCTS -->
+
+        <div class="row g-3 mb-4">
+
+
+            <div class="col-12 col-xl-8">
+
+                <div class="saku-card h-100">
+
+                    <div class="saku-card-header">
+
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <div>
+
+                                <h5 class="fw-bold mb-1">
+                                    Performa Penjualan
+                                </h5>
+
+                                <p class="page-subtitle small">
+                                    Penjualan 7 hari terakhir
+                                </p>
+
+                            </div>
+
+
+                            <button class="btn btn-sm btn-light">
+
+                                Minggu Ini
+
+                                <i class="fa-solid fa-chevron-down ms-1"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="p-3">
+
+                        <div style="height:320px">
+
+                            <canvas id="salesChart"></canvas>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-12 col-xl-4">
+
+                <div class="saku-card h-100">
+
+                    <div class="saku-card-header">
+
+                        <h5 class="fw-bold mb-1">
+                            Produk Terlaris
+                        </h5>
+
+                        <p class="page-subtitle small">
+                            Berdasarkan penjualan
+                        </p>
+
+                    </div>
+
+
+                    <div class="p-3">
+
+
+                        <div class="top-product">
+
+                            <div class="product-rank">
+                                1
+                            </div>
+
+                            <div class="product-info">
+
+                                <strong>
+                                    Indomie Goreng
+                                </strong>
+
+                                <small>
+                                    86 terjual
+                                </small>
+
+                            </div>
+
+                            <strong>
+                                Rp301.000
+                            </strong>
+
+                        </div>
+
+
+                        <div class="top-product">
+
+                            <div class="product-rank">
+                                2
+                            </div>
+
+                            <div class="product-info">
+
+                                <strong>
+                                    Aqua 600ml
+                                </strong>
+
+                                <small>
+                                    64 terjual
+                                </small>
+
+                            </div>
+
+                            <strong>
+                                Rp224.000
+                            </strong>
+
+                        </div>
+
+
+                        <div class="top-product">
+
+                            <div class="product-rank">
+                                3
+                            </div>
+
+                            <div class="product-info">
+
+                                <strong>
+                                    Teh Botol
+                                </strong>
+
+                                <small>
+                                    51 terjual
+                                </small>
+
+                            </div>
+
+                            <strong>
+                                Rp204.000
+                            </strong>
+
+                        </div>
+
+
+                        <div class="top-product">
+
+                            <div class="product-rank">
+                                4
+                            </div>
+
+                            <div class="product-info">
+
+                                <strong>
+                                    Roti Cokelat
+                                </strong>
+
+                                <small>
+                                    37 terjual
+                                </small>
+
+                            </div>
+
+                            <strong>
+                                Rp259.000
+                            </strong>
+
+                        </div>
+
+
+                        <div class="top-product">
+
+                            <div class="product-rank">
+                                5
+                            </div>
+
+                            <div class="product-info">
+
+                                <strong>
+                                    Kopi Sachet
+                                </strong>
+
+                                <small>
+                                    32 terjual
+                                </small>
+
+                            </div>
+
+                            <strong>
+                                Rp80.000
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TRANSACTIONS -->
+
+        <div class="saku-card">
+
+            <div class="saku-card-header">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <h5 class="fw-bold mb-1">
+                            Transaksi Terbaru
+                        </h5>
+
+                        <p class="page-subtitle small">
+                            Aktivitas transaksi terakhir
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="1_kasir.html"
+                        class="btn btn-sm btn-outline-primary"
+                    >
+
+                        <i class="fa-solid fa-plus me-1"></i>
+
+                        Transaksi Baru
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="table-responsive">
+
+                <table class="table table-hover mb-0">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+                            <th>Waktu</th>
+                            <th>Kasir</th>
+                            <th>Metode</th>
+                            <th>Status</th>
+                            <th class="text-end">Total</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>#TRX-0184</td>
+
+                            <td>14:32</td>
+
+                            <td>Admin</td>
+
+                            <td>Tunai</td>
+
+                            <td>
+                                <span class="badge text-bg-success">
+                                    Selesai
+                                </span>
+                            </td>
+
+                            <td class="text-end">
+                                Rp45.500
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>#TRX-0183</td>
+
+                            <td>14:18</td>
+
+                            <td>Admin</td>
+
+                            <td>QRIS</td>
+
+                            <td>
+                                <span class="badge text-bg-success">
+                                    Selesai
+                                </span>
+                            </td>
+
+                            <td class="text-end">
+                                Rp72.000
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>#TRX-0182</td>
+
+                            <td>13:56</td>
+
+                            <td>Admin</td>
+
+                            <td>Debit</td>
+
+                            <td>
+                                <span class="badge text-bg-success">
+                                    Selesai
+                                </span>
+                            </td>
+
+                            <td class="text-end">
+                                Rp125.500
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+
+<nav class="mobile-bottom-nav">
+
+    <a href="1_kasir.html">
+        <i class="fa-solid fa-cash-register"></i>
+        <span>Kasir</span>
+    </a>
+
+    <a
+        href="3_dashboard.html"
+        class="active"
+    >
+        <i class="fa-solid fa-chart-line"></i>
+        <span>Dashboard</span>
+    </a>
+
+    <a href="4_inventaris.html">
+        <i class="fa-solid fa-boxes-stacked"></i>
+        <span>Stok</span>
+    </a>
+
+    <a href="2_chatbot.html">
+        <i class="fa-solid fa-robot"></i>
+        <span>SakuBot</span>
+    </a>
+
+</nav>
+
+
+
+<script src="../assets/js/sidebar.js"></script>
+
+<script src="../assets/js/dashboard.js"></script>
+
+</body>
+
+</html>
