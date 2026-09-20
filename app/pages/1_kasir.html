@@ -1,84 +1,67 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasir - Saku POS</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Path disesuaikan keluar dari folder pages/ -->
-    <link rel="stylesheet" href="../assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kasir - SAKU POS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body class="bg-gray-100 font-sans text-gray-800 h-screen overflow-hidden flex flex-col md:flex-row">
-
-    <nav class="bg-indigo-700 text-white w-full md:w-20 lg:w-64 flex md:flex-col justify-around md:justify-start fixed bottom-0 md:relative z-50 h-16 md:h-screen shadow-lg">
-        <div class="hidden md:flex items-center justify-center h-16 border-b border-indigo-600">
-            <h1 class="text-xl font-bold lg:block hidden"><i class="fas fa-wallet mr-2"></i> SAKU POS</h1>
-            <i class="fas fa-wallet text-2xl lg:hidden"></i>
-        </div>
-        <div class="flex md:flex-col w-full md:w-auto p-2 gap-2">
-            <a href="1_kasir.html" class="flex-1 md:flex-none flex items-center justify-center lg:justify-start p-3 bg-indigo-900 rounded-lg text-white transition">
-                <i class="fas fa-cash-register lg:mr-3 text-xl"></i>
-                <span class="text-sm lg:block hidden">Kasir</span>
-            </a>
-            <a href="5_akuntansi.html" class="flex-1 md:flex-none flex items-center justify-center lg:justify-start p-3 hover:bg-indigo-600 rounded-lg text-indigo-200 transition">
-                <i class="fas fa-book lg:mr-3 text-xl"></i>
-                <span class="text-sm lg:block hidden">Akuntansi</span>
-            </a>
-            <!-- Tambahkan link ke halaman lain (Chatbot, Dashboard) di sini -->
-        </div>
+<body>
+<div class="saku-shell">
+  <aside class="saku-sidebar">
+    <a class="saku-brand" href="../index.html"><span class="saku-brand-icon"><i class="fas fa-wallet"></i></span><span class="saku-brand-text">SAKU POS</span></a>
+    <nav class="saku-nav">
+      <a class="saku-nav-link active" href="1_kasir.html"><i class="fas fa-cash-register"></i><span class="saku-nav-label">Kasir</span></a>
+      <a class="saku-nav-link" href="3_dashboard.html"><i class="fas fa-chart-line"></i><span class="saku-nav-label">Dashboard</span></a>
+      <a class="saku-nav-link" href="4_inventaris.html"><i class="fas fa-boxes-stacked"></i><span class="saku-nav-label">Inventaris</span></a>
+      <a class="saku-nav-link" href="5_akuntansi.html"><i class="fas fa-book"></i><span class="saku-nav-label">Akuntansi</span></a>
+      <a class="saku-nav-link" href="2_chatbot.html"><i class="fas fa-robot"></i><span class="saku-nav-label">SakuBot AI</span></a>
     </nav>
+  </aside>
 
-    <main class="flex-1 flex flex-col md:flex-row h-[calc(100vh-64px)] md:h-screen w-full">
-        <section class="w-full md:w-2/3 p-4 flex flex-col h-full bg-white border-r">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">📦 Menu Produk</h2>
-                <input type="text" id="searchInput" placeholder="🔍 Cari barang..." class="p-2 border rounded-lg w-1/2 focus:ring-2 focus:ring-indigo-500 outline-none">
+  <main class="saku-content">
+    <div class="row g-3">
+      <section class="col-12 col-xl-8">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div><h1 class="page-title">Kasir</h1><p class="page-subtitle">Pilih produk untuk menambahkan ke keranjang.</p></div>
+          <div class="input-group" style="max-width:320px"><span class="input-group-text bg-white"><i class="fas fa-search"></i></span><input id="searchInput" class="form-control" placeholder="Cari produk..."></div>
+        </div>
+        <div class="row g-3" id="productGrid"></div>
+      </section>
+
+      <aside class="col-12 col-xl-4">
+        <div class="saku-card cart-panel">
+          <div class="saku-card-header d-flex justify-content-between align-items-center">
+            <h5 class="fw-bold mb-0"><i class="fas fa-cart-shopping me-2 text-primary"></i>Keranjang</h5>
+            <span class="badge text-bg-light" id="cartCount">0 item</span>
+          </div>
+          <div id="cartItems" class="cart-items p-3"></div>
+          <div class="p-3 border-top">
+            <div class="row g-2 mb-3">
+              <div class="col-6"><label class="form-label small text-secondary">Diskon (%)</label><input type="number" id="inputDiscount" value="0" min="0" max="100" class="form-control text-end"></div>
+              <div class="col-6"><label class="form-label small text-secondary">PPN (%)</label><input type="number" id="inputTax" value="0" min="0" max="100" class="form-control text-end"></div>
             </div>
-            <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 overflow-y-auto no-scrollbar pb-4">
-                <!-- Data dari kasir.js -->
+            <div class="d-flex justify-content-between small mb-1"><span>Subtotal</span><strong id="valSubtotal">Rp0</strong></div>
+            <div class="d-flex justify-content-between small mb-1 text-secondary"><span>Diskon</span><span id="valDiscount">-Rp0</span></div>
+            <div class="d-flex justify-content-between small mb-2 text-secondary"><span>PPN</span><span id="valTax">Rp0</span></div>
+            <div class="d-flex justify-content-between fs-5 fw-bold border-top pt-2 mb-3"><span>Total</span><span class="text-primary" id="valTotal">Rp0</span></div>
+            <div id="actionCheckout"><button id="btnPay" class="btn btn-primary w-100 py-2 fw-semibold"><i class="fas fa-credit-card me-2"></i>Proses Bayar</button></div>
+            <div id="actionSuccess" class="d-none flex-column gap-2">
+              <div class="alert alert-success py-2 mb-0 text-center small fw-semibold">Transaksi berhasil!</div>
+              <div class="d-flex gap-2"><button id="btnPrint" class="btn btn-dark flex-fill"><i class="fas fa-print me-1"></i>Cetak</button><button id="btnWA" class="btn btn-success flex-fill"><i class="fab fa-whatsapp me-1"></i>WA</button></div>
+              <button id="btnNew" class="btn btn-light border w-100">Transaksi Baru</button>
             </div>
-        </section>
-
-        <section class="w-full md:w-1/3 flex flex-col bg-gray-50 h-full shadow-inner">
-            <div class="p-4 bg-white border-b text-center font-bold text-lg">🛒 Keranjang</div>
-            <div id="cartItems" class="flex-1 overflow-y-auto p-4 space-y-2 no-scrollbar"></div>
-
-            <div class="p-4 bg-white border-t shadow-lg pb-24 md:pb-4">
-                <div class="flex gap-2 mb-3">
-                    <div class="w-1/2">
-                        <label class="text-xs text-gray-500">Diskon (%)</label>
-                        <input type="number" id="inputDiscount" value="0" min="0" max="100" class="w-full p-2 border rounded text-right">
-                    </div>
-                    <div class="w-1/2">
-                        <label class="text-xs text-gray-500">PPN (%)</label>
-                        <input type="number" id="inputTax" value="0" min="0" max="100" class="w-full p-2 border rounded text-right">
-                    </div>
-                </div>
-
-                <div class="flex justify-between font-bold text-gray-700 mb-1">
-                    <span>Subtotal:</span> <span id="valSubtotal">Rp 0</span>
-                </div>
-                <div class="flex justify-between font-bold text-xl text-indigo-700 mb-4">
-                    <span>Total:</span> <span id="valTotal">Rp 0</span>
-                </div>
-
-                <div id="actionCheckout">
-                    <button id="btnPay" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-lg shadow-md hover:bg-indigo-700 active:scale-95 transition">💳 Proses Bayar</button>
-                </div>
-                <div id="actionSuccess" class="hidden flex-col gap-2">
-                    <div class="bg-green-100 text-green-700 p-2 text-center rounded text-sm font-bold">✅ Transaksi Sukses!</div>
-                    <div class="flex gap-2">
-                        <button id="btnPrint" class="flex-1 bg-gray-800 text-white py-2 rounded text-sm hover:bg-gray-700"><i class="fas fa-print"></i> Cetak</button>
-                        <button id="btnWA" class="flex-1 bg-green-500 text-white py-2 rounded text-sm hover:bg-green-600"><i class="fab fa-whatsapp"></i> WA</button>
-                    </div>
-                    <button id="btnNew" class="w-full bg-gray-200 text-gray-800 py-2 rounded text-sm hover:bg-gray-300">Transaksi Baru</button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Path disesuaikan keluar dari folder pages/ -->
-    <script src="../assets/js/kasir.js"></script>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+<nav class="mobile-bottom-nav">
+  <a class="active" href="1_kasir.html"><i class="fas fa-cash-register"></i><span>Kasir</span></a><a href="3_dashboard.html"><i class="fas fa-chart-line"></i><span>Dashboard</span></a><a href="4_inventaris.html"><i class="fas fa-boxes-stacked"></i><span>Stok</span></a><a href="5_akuntansi.html"><i class="fas fa-book"></i><span>Akuntansi</span></a><a href="2_chatbot.html"><i class="fas fa-robot"></i><span>AI</span></a>
+</nav>
+<script src="../assets/js/kasir.js"></script>
 </body>
 </html>
