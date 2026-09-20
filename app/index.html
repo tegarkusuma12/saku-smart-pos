@@ -1,58 +1,81 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saku Smart POS - Beranda</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAKU POS - Beranda</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="bg-gray-100 font-sans text-gray-800 h-screen flex items-center justify-center">
-    
-    <div class="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-8 text-center border-t-4 border-indigo-600 mx-4">
-        <h1 class="text-4xl font-bold text-gray-800 mb-4">
-            <i class="fas fa-wallet text-indigo-600 mr-2"></i> SAKU POS
-        </h1>
-        <p class="text-gray-500 mb-8">Sistem kasir dan akuntansi cerdas untuk UMKM.</p>
+<body>
+  <div class="saku-shell">
+    <aside class="saku-sidebar">
+      <a class="saku-brand" href="index.html">
+        <span class="saku-brand-icon"><i class="fas fa-wallet"></i></span>
+        <span class="saku-brand-text">SAKU POS</span>
+      </a>
+      <nav class="saku-nav">
+        <a class="saku-nav-link" href="pages/1_kasir.html"><i class="fas fa-cash-register"></i><span class="saku-nav-label">Kasir</span></a>
+        <a class="saku-nav-link" href="pages/3_dashboard.html"><i class="fas fa-chart-line"></i><span class="saku-nav-label">Dashboard</span></a>
+        <a class="saku-nav-link" href="pages/4_inventaris.html"><i class="fas fa-boxes-stacked"></i><span class="saku-nav-label">Inventaris</span></a>
+        <a class="saku-nav-link" href="pages/5_akuntansi.html"><i class="fas fa-book"></i><span class="saku-nav-label">Akuntansi</span></a>
+        <a class="saku-nav-link" href="pages/2_chatbot.html"><i class="fas fa-robot"></i><span class="saku-nav-label">SakuBot AI</span></a>
+      </nav>
+    </aside>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <!-- Navigasi ke Kasir -->
-            <a href="pages/1_kasir.html" class="flex items-center p-4 bg-indigo-50 rounded-xl hover:bg-indigo-600 hover:text-white transition group border border-indigo-100 shadow-sm">
-                <i class="fas fa-cash-register text-3xl text-indigo-600 group-hover:text-white mr-4"></i>
-                <div class="text-left">
-                    <h2 class="font-bold text-lg">Kasir POS</h2>
-                    <p class="text-sm opacity-80">Transaksi operasional harian</p>
-                </div>
-            </a>
+    <main class="saku-content">
+      <div class="mb-4">
+        <h1 class="page-title">Selamat datang di SAKU 👋</h1>
+        <p class="page-subtitle">Sistem kasir dan akuntansi cerdas untuk UMKM.</p>
+      </div>
 
-            <!-- Navigasi ke Akuntansi -->
-            <a href="pages/5_akuntansi.html" class="flex items-center p-4 bg-green-50 rounded-xl hover:bg-green-600 hover:text-white transition group border border-green-100 shadow-sm">
-                <i class="fas fa-book text-3xl text-green-600 group-hover:text-white mr-4"></i>
-                <div class="text-left">
-                    <h2 class="font-bold text-lg">Buku Akuntansi</h2>
-                    <p class="text-sm opacity-80">Buku besar & neraca keuangan</p>
-                </div>
-            </a>
-
-            <!-- Placeholder untuk Halaman Chatbot (Bisa kamu isi nanti) -->
-            <a href="pages/2_chatbot.html" class="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-200 transition group border border-gray-200">
-                <i class="fas fa-robot text-3xl text-gray-400 group-hover:text-gray-600 mr-4"></i>
-                <div class="text-left">
-                    <h2 class="font-bold text-lg text-gray-600">SakuBot AI</h2>
-                    <p class="text-sm text-gray-500">Asisten chatbot (Tahap Dev)</p>
-                </div>
-            </a>
-
-            <!-- Placeholder untuk Halaman Dashboard -->
-            <a href="pages/3_dashboard.html" class="flex items-center p-4 bg-gray-50 rounded-xl hover:bg-gray-200 transition group border border-gray-200">
-                <i class="fas fa-chart-line text-3xl text-gray-400 group-hover:text-gray-600 mr-4"></i>
-                <div class="text-left">
-                    <h2 class="font-bold text-lg text-gray-600">Dashboard</h2>
-                    <p class="text-sm text-gray-500">Analitik & Laporan (Tahap Dev)</p>
-                </div>
-            </a>
+      <div class="row g-3">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="pages/1_kasir.html" class="saku-card d-block p-4 h-100">
+            <div class="stat-icon mb-3"><i class="fas fa-cash-register"></i></div>
+            <h5 class="fw-bold text-dark">Kasir POS</h5>
+            <p class="text-secondary mb-0">Catat transaksi penjualan dengan cepat.</p>
+          </a>
         </div>
-    </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="pages/3_dashboard.html" class="saku-card d-block p-4 h-100">
+            <div class="stat-icon mb-3"><i class="fas fa-chart-line"></i></div>
+            <h5 class="fw-bold text-dark">Dashboard</h5>
+            <p class="text-secondary mb-0">Pantau performa bisnis dan laporan.</p>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="pages/4_inventaris.html" class="saku-card d-block p-4 h-100">
+            <div class="stat-icon mb-3"><i class="fas fa-boxes-stacked"></i></div>
+            <h5 class="fw-bold text-dark">Inventaris</h5>
+            <p class="text-secondary mb-0">Kelola stok barang usaha.</p>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="pages/5_akuntansi.html" class="saku-card d-block p-4 h-100">
+            <div class="stat-icon mb-3"><i class="fas fa-book"></i></div>
+            <h5 class="fw-bold text-dark">Akuntansi</h5>
+            <p class="text-secondary mb-0">Lihat buku besar dan posisi keuangan.</p>
+          </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="pages/2_chatbot.html" class="saku-card d-block p-4 h-100">
+            <div class="stat-icon mb-3"><i class="fas fa-robot"></i></div>
+            <h5 class="fw-bold text-dark">SakuBot AI</h5>
+            <p class="text-secondary mb-0">Tanya kondisi bisnis dengan bahasa sehari-hari.</p>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
 
+  <nav class="mobile-bottom-nav">
+    <a href="pages/1_kasir.html"><i class="fas fa-cash-register"></i><span>Kasir</span></a>
+    <a href="pages/3_dashboard.html"><i class="fas fa-chart-line"></i><span>Dashboard</span></a>
+    <a href="pages/4_inventaris.html"><i class="fas fa-boxes-stacked"></i><span>Stok</span></a>
+    <a href="pages/5_akuntansi.html"><i class="fas fa-book"></i><span>Akuntansi</span></a>
+    <a href="pages/2_chatbot.html"><i class="fas fa-robot"></i><span>AI</span></a>
+  </nav>
 </body>
 </html>
