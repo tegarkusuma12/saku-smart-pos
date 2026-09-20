@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akuntansi - Saku POS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="bg-gray-100 font-sans text-gray-800 h-screen overflow-hidden flex flex-col md:flex-row">
+
+    <nav class="bg-indigo-700 text-white w-full md:w-20 lg:w-64 flex md:flex-col justify-around md:justify-start fixed bottom-0 md:relative z-50 h-16 md:h-screen shadow-lg">
+        <div class="hidden md:flex items-center justify-center h-16 border-b border-indigo-600">
+            <h1 class="text-xl font-bold lg:block hidden"><i class="fas fa-wallet mr-2"></i> SAKU POS</h1>
+            <i class="fas fa-wallet text-2xl lg:hidden"></i>
+        </div>
+        <div class="flex md:flex-col w-full md:w-auto p-2 gap-2">
+            <a href="1_kasir.html" class="flex-1 md:flex-none flex items-center justify-center lg:justify-start p-3 hover:bg-indigo-600 rounded-lg text-indigo-200 transition">
+                <i class="fas fa-cash-register lg:mr-3 text-xl"></i>
+                <span class="text-sm lg:block hidden">Kasir</span>
+            </a>
+            <a href="5_akuntansi.html" class="flex-1 md:flex-none flex items-center justify-center lg:justify-start p-3 bg-indigo-900 rounded-lg text-white transition">
+                <i class="fas fa-book lg:mr-3 text-xl"></i>
+                <span class="text-sm lg:block hidden">Akuntansi</span>
+            </a>
+        </div>
+    </nav>
+
+    <main class="flex-1 p-4 md:p-8 overflow-y-auto pb-24 md:pb-8">
+        <div class="flex justify-between items-center mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800">📊 Laporan Akuntansi</h2>
+                <p class="text-gray-500 text-sm">General Ledger & Balance Sheet</p>
+            </div>
+            <button onclick="exportCSV()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg shadow text-sm font-semibold transition">
+                <i class="fas fa-file-excel mr-2"></i>Export CSV
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Balance Sheet -->
+            <div class="lg:col-span-1 space-y-4">
+                <div class="bg-white p-5 rounded-xl shadow-sm border-t-4 border-indigo-500">
+                    <h3 class="font-bold text-gray-700 mb-4"><i class="fas fa-scale-balanced mr-2"></i>Neraca (Balance Sheet)</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between text-gray-600 border-b pb-1">
+                            <span>Kas & Bank (Aset)</span>
+                            <span class="font-semibold text-gray-900" id="valAssetCash">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between text-gray-600 border-b pb-1">
+                            <span>Nilai Stok (Aset)</span>
+                            <span class="font-semibold text-gray-900" id="valAssetStock">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between text-gray-600 border-b pb-1">
+                            <span>Hutang Supplier (Kewajiban)</span>
+                            <span class="font-semibold text-red-500" id="valLiability">Rp 0</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t-2 flex justify-between font-bold text-lg">
+                        <span>Total Ekuitas</span>
+                        <span class="text-indigo-700" id="valEquity">Rp 0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- General Ledger -->
+            <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border overflow-hidden">
+                <div class="p-4 bg-gray-50 border-b">
+                    <h3 class="font-bold text-gray-700"><i class="fas fa-book-open mr-2"></i>Buku Besar (General Ledger)</h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-100 text-gray-600 uppercase text-xs">
+                            <tr>
+                                <th class="px-4 py-3">Tanggal</th>
+                                <th class="px-4 py-3">Deskripsi</th>
+                                <th class="px-4 py-3 text-right">Debit</th>
+                                <th class="px-4 py-3 text-right">Kredit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ledgerTable" class="divide-y divide-gray-200">
+                            <!-- Data dari akuntansi.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/akuntansi.js"></script>
+</body>
+</html>
