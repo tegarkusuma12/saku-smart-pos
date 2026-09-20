@@ -22,6 +22,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         sidebarContainer.innerHTML = sidebarHTML;
 
 
+        // Sesuaikan path link jika di dalam folder /pages/
+        adjustSidebarLinks();
+
         // Set menu aktif
         setActiveSidebar();
 
@@ -33,6 +36,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
 });
+
+function adjustSidebarLinks() {
+    const currentPath = window.location.pathname;
+    if (currentPath.includes("/pages/")) {
+        const links = document.querySelectorAll(".saku-nav-link");
+        links.forEach(link => {
+            const href = link.getAttribute("href");
+            if (href && href.startsWith("pages/")) {
+                link.setAttribute("href", href.substring(6)); // Hapus "pages/"
+            }
+        });
+    }
+}
 
 
 
