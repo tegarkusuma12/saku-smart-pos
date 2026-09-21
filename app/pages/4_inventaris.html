@@ -1,101 +1,149 @@
 <!DOCTYPE html>
+
 <html lang="id">
 
 <head>
 
-    <meta charset="UTF-8">
+```
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>Inventaris - SAKU POS</title>
+<title>Inventaris - SAKU POS</title>
 
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
 
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../assets/css/style.css"
-    >
+<link
+    rel="stylesheet"
+    href="../assets/css/style.css"
+>
+```
 
 </head>
 
-
 <body>
-
 
 <div class="saku-shell">
 
-
-    <div id="sidebar-container"></div>
-
-
-    <main class="saku-content">
+```
+<div id="sidebar-container"></div>
 
 
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+<main class="saku-content">
 
-            <div>
 
-                <h1 class="page-title">
-                    Inventaris
-                </h1>
+    <!-- PAGE HEADER -->
 
-                <p class="page-subtitle">
-                    Kelola stok barang dan persediaan toko.
-                </p>
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+        <div>
+
+            <h1 class="page-title">
+                Inventaris
+            </h1>
+
+            <p class="page-subtitle">
+                Kelola stok barang dan persediaan toko.
+            </p>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="btn btn-primary"
+            id="addProductButton"
+        >
+
+            <i class="fa-solid fa-plus me-2"></i>
+
+            Tambah Produk
+
+        </button>
+
+    </div>
+
+
+
+    <!-- STATS -->
+
+    <div class="row g-3 mb-4">
+
+
+        <!-- TOTAL PRODUK -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="saku-card stat-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="stat-icon">
+
+                        <i class="fa-solid fa-boxes-stacked"></i>
+
+                    </div>
+
+                    <div>
+
+                        <small class="text-muted">
+                            Total Produk
+                        </small>
+
+                        <h4
+                            class="fw-bold mb-0"
+                            id="totalProducts"
+                        >
+                            -
+                        </h4>
+
+                    </div>
+
+                </div>
 
             </div>
-
-
-            <button class="btn btn-primary">
-
-                <i class="fa-solid fa-plus me-2"></i>
-
-                Tambah Produk
-
-            </button>
 
         </div>
 
 
 
-        <!-- STATS -->
+        <!-- STOK MENIPIS -->
 
-        <div class="row g-3 mb-4">
+        <div class="col-12 col-md-4">
 
+            <div class="saku-card stat-card">
 
-            <div class="col-12 col-md-4">
+                <div class="d-flex align-items-center gap-3">
 
-                <div class="saku-card stat-card">
+                    <div class="stat-icon">
 
-                    <div class="d-flex align-items-center gap-3">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
 
-                        <div class="stat-icon">
-                            <i class="fa-solid fa-boxes-stacked"></i>
-                        </div>
+                    </div>
 
-                        <div>
+                    <div>
 
-                            <small class="text-muted">
-                                Total Produk
-                            </small>
+                        <small class="text-muted">
+                            Stok Menipis
+                        </small>
 
-                            <h4 class="fw-bold mb-0">
-                                7
-                            </h4>
-
-                        </div>
+                        <h4
+                            class="fw-bold mb-0"
+                            id="lowStockProducts"
+                        >
+                            -
+                        </h4>
 
                     </div>
 
@@ -103,28 +151,36 @@
 
             </div>
 
+        </div>
 
-            <div class="col-12 col-md-4">
 
-                <div class="saku-card stat-card">
 
-                    <div class="d-flex align-items-center gap-3">
+        <!-- STOK HABIS -->
 
-                        <div class="stat-icon">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                        </div>
+        <div class="col-12 col-md-4">
 
-                        <div>
+            <div class="saku-card stat-card">
 
-                            <small class="text-muted">
-                                Stok Menipis
-                            </small>
+                <div class="d-flex align-items-center gap-3">
 
-                            <h4 class="fw-bold mb-0">
-                                3
-                            </h4>
+                    <div class="stat-icon">
 
-                        </div>
+                        <i class="fa-solid fa-circle-xmark"></i>
+
+                    </div>
+
+                    <div>
+
+                        <small class="text-muted">
+                            Stok Habis
+                        </small>
+
+                        <h4
+                            class="fw-bold mb-0"
+                            id="outOfStockProducts"
+                        >
+                            -
+                        </h4>
 
                     </div>
 
@@ -132,30 +188,70 @@
 
             </div>
 
+        </div>
 
-            <div class="col-12 col-md-4">
 
-                <div class="saku-card stat-card">
+    </div>
 
-                    <div class="d-flex align-items-center gap-3">
 
-                        <div class="stat-icon">
-                            <i class="fa-solid fa-circle-xmark"></i>
-                        </div>
 
-                        <div>
+    <!-- TABLE -->
 
-                            <small class="text-muted">
-                                Stok Habis
-                            </small>
+    <div class="saku-card">
 
-                            <h4 class="fw-bold mb-0">
-                                1
-                            </h4>
 
-                        </div>
+        <!-- SEARCH & FILTER -->
+
+        <div class="saku-card-header">
+
+            <div class="row g-2">
+
+                <div class="col-12 col-md-8">
+
+                    <div class="input-group">
+
+                        <span class="input-group-text bg-white">
+
+                            <i class="fa-solid fa-search"></i>
+
+                        </span>
+
+                        <input
+                            type="text"
+                            id="inventorySearch"
+                            class="form-control"
+                            placeholder="Cari produk..."
+                        >
 
                     </div>
+
+                </div>
+
+
+                <div class="col-12 col-md-4">
+
+                    <select
+                        id="stockFilter"
+                        class="form-select"
+                    >
+
+                        <option value="all">
+                            Semua Status
+                        </option>
+
+                        <option value="Aman">
+                            Aman
+                        </option>
+
+                        <option value="Menipis">
+                            Menipis
+                        </option>
+
+                        <option value="Habis">
+                            Habis
+                        </option>
+
+                    </select>
 
                 </div>
 
@@ -167,157 +263,112 @@
 
         <!-- TABLE -->
 
-        <div class="saku-card">
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Kode</th>
+
+                        <th>Produk</th>
+
+                        <th>Kategori</th>
+
+                        <th>Stok</th>
+
+                        <th>Harga</th>
+
+                        <th>Status</th>
+
+                        <th class="text-end">
+                            Aksi
+                        </th>
+
+                    </tr>
+
+                </thead>
 
 
-            <div class="saku-card-header">
+                <tbody id="inventoryTable">
 
-                <div class="row g-2">
+                    <tr>
 
-                    <div class="col-12 col-md-8">
-
-                        <div class="input-group">
-
-                            <span class="input-group-text bg-white">
-
-                                <i class="fa-solid fa-search"></i>
-
-                            </span>
-
-                            <input
-                                type="text"
-                                id="inventorySearch"
-                                class="form-control"
-                                placeholder="Cari produk..."
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="col-12 col-md-4">
-
-                        <select
-                            id="stockFilter"
-                            class="form-select"
+                        <td
+                            colspan="7"
+                            class="text-center py-4 text-muted"
                         >
 
-                            <option value="all">
-                                Semua Status
-                            </option>
+                            <i class="fa-solid fa-spinner fa-spin me-2"></i>
 
-                            <option value="Aman">
-                                Aman
-                            </option>
+                            Memuat data inventaris...
 
-                            <option value="Menipis">
-                                Menipis
-                            </option>
+                        </td>
 
-                            <option value="Habis">
-                                Habis
-                            </option>
+                    </tr>
 
-                        </select>
+                </tbody>
 
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="table-responsive">
-
-                <table class="table table-hover align-middle mb-0">
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Kode</th>
-
-                            <th>Produk</th>
-
-                            <th>Kategori</th>
-
-                            <th>Stok</th>
-
-                            <th>Harga</th>
-
-                            <th>Status</th>
-
-                            <th class="text-end">
-                                Aksi
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody id="inventoryTable">
-
-                    </tbody>
-
-                </table>
-
-            </div>
+            </table>
 
         </div>
 
 
-    </main>
+    </div>
+
+
+</main>
+```
 
 </div>
 
-
+<!-- MOBILE BOTTOM NAV -->
 
 <nav class="mobile-bottom-nav">
 
-    <a href="1_kasir.html">
+```
+<a href="1_kasir.html">
 
-        <i class="fa-solid fa-cash-register"></i>
+    <i class="fa-solid fa-cash-register"></i>
 
-        <span>Kasir</span>
+    <span>Kasir</span>
 
-    </a>
-
-
-    <a href="3_dashboard.html">
-
-        <i class="fa-solid fa-chart-line"></i>
-
-        <span>Dashboard</span>
-
-    </a>
+</a>
 
 
-    <a
-        href="4_inventaris.html"
-        class="active"
-    >
+<a href="3_dashboard.html">
 
-        <i class="fa-solid fa-boxes-stacked"></i>
+    <i class="fa-solid fa-chart-line"></i>
 
-        <span>Stok</span>
+    <span>Dashboard</span>
 
-    </a>
+</a>
 
 
-    <a href="2_chatbot.html">
+<a
+    href="4_inventaris.html"
+    class="active"
+>
 
-        <i class="fa-solid fa-robot"></i>
+    <i class="fa-solid fa-boxes-stacked"></i>
 
-        <span>SakuBot</span>
+    <span>Stok</span>
 
-    </a>
+</a>
+
+
+<a href="2_chatbot.html">
+
+    <i class="fa-solid fa-robot"></i>
+
+    <span>SakuBot</span>
+
+</a>
+```
 
 </nav>
-
-
 
 <script src="../assets/js/sidebar.js"></script>
 
