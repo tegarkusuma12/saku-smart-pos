@@ -94,3 +94,61 @@ def get_inventory(db: Session = Depends(get_db)):
             for product in products
         ]
     }
+
+# ============================================================
+# INVENTORY STATISTICS
+# ============================================================
+
+@app.get("/api/inventory/stats")
+def get_inventory_stats(db: Session = Depends(get_db)):
+    products = db.query(Product).filter(
+        Product.is_active == True
+    ).all()
+
+    total_produk = len(products)
+
+    total_stok = sum(
+        product.stock or 0
+        for product in products
+    )
+
+    stok_habis = sum(
+        1
+        for product in products
+        if product.stock <= 0
+    )
+
+    stok_menipis = sum(
+        1
+        for product in products
+        if 0 < product.stock <= 10
+    )
+
+    stok_aman = sum(
+        1
+        for product in products
+        if product.stock > 10
+    )
+
+    total_nilai_modal = sum(
+        (product.stock or 0) * (product.cost_price or 0)
+        for product in products
+    )
+
+    total_nilai_jual = sum(
+        (product.stock or 0) * (product.price or 0)
+        for product in products
+    )
+
+    return {
+        "status": "success",
+        "data": {
+            "total_produk": total_produk,
+            "total_stok": total_stok,
+            "stok_habis": stok_habis,
+            "stok_menipis": stok_menipis,
+            "stok_aman": stok_aman,
+            "total_nilai_modal": total_nilai_modal,
+            "total_nilai_jual": total_nilai_jual
+        }
+    }
