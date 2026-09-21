@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field
 
 from database.connection import get_db
 from database.models import Product
+from src.ai.agent import run_agent
 
 
 app = FastAPI(
@@ -41,6 +42,9 @@ class RestockRequest(BaseModel):
         description="Jumlah stok yang ditambahkan"
     )
 
+class ChatRequest(BaseModel):
+    message: str
+    chat_history: list[dict] = Field(default_factory=list)
 
 # ============================================================
 # HELPER
@@ -113,6 +117,28 @@ def test_database(
         "total_products": total_products
     }
 
+# ============================================================
+# CHATBOT
+# ============================================================
+
+@app.post("/api/chat")
+def chat(request: ChatRequest):
+
+    if not request.message.strip():
+        raise HTTPException(
+            status_code=400,
+            detail="Pesan tidak boleh kosong."
+        )
+
+    response = run_agent(
+        user_input=request.message,
+        chat_history=request.chat_history
+    )
+
+    return {
+        "status": "success",
+        "response": response
+    }
 
 # ============================================================
 # INVENTORY
