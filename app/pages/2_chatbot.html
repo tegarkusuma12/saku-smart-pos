@@ -13,19 +13,43 @@
     <title>SakuBot AI - SAKU POS</title>
 
 
+    <!-- =====================================================
+         BOOTSTRAP
+         ===================================================== -->
+
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
 
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
+
+    <!-- =====================================================
+         GLOBAL CSS
+         ===================================================== -->
+
     <link
         rel="stylesheet"
         href="../assets/css/style.css"
+    >
+
+
+    <!-- =====================================================
+         CHATBOT CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/chatbot.css"
     >
 
 </head>
@@ -34,37 +58,446 @@
 <body>
 
 
-<div class="saku-shell">
+    <!-- =====================================================
+         SAKU SHELL
+         ===================================================== -->
+
+    <div class="saku-shell">
 
 
-    <div id="sidebar-container"></div>
+        <!-- =================================================
+             SIDEBAR
+             ================================================= -->
+
+        <div id="sidebar-container"></div>
 
 
-    <main class="saku-content">
+        <!-- =================================================
+             MAIN CONTENT
+             ================================================= -->
+
+        <main class="saku-content chatbot-page">
 
 
-        <div class="mb-4">
+            <!-- =============================================
+                 PAGE HEADER
+                 ============================================= -->
 
-            <h1 class="page-title">
-                SakuBot AI
-            </h1>
+            <div class="mb-4">
 
-            <p class="page-subtitle">
-                Tanya kondisi bisnis kamu menggunakan bahasa sehari-hari.
-            </p>
+                <h1 class="page-title">
+                    SakuBot AI
+                </h1>
 
-        </div>
+                <p class="page-subtitle">
+                    Tanya kondisi bisnis kamu menggunakan bahasa sehari-hari.
+                </p>
 
-
-
-        <div class="saku-card chat-container">
+            </div>
 
 
-            <div class="saku-card-header">
+            <!-- =============================================
+                 CONTOH PERTANYAAN
+                 ============================================= -->
 
-                <div class="d-flex align-items-center gap-3">
+            <div class="chat-examples">
 
-                    <div class="stat-icon">
+
+                <!-- HEADER -->
+
+                <button
+                    type="button"
+                    class="chat-examples-header"
+                    id="exampleToggle"
+                >
+
+                    <span class="chat-examples-title">
+
+                        <i class="fa-solid fa-lightbulb"></i>
+
+                        Contoh yang bisa kamu tanyakan
+
+                    </span>
+
+
+                    <i
+                        id="exampleChevron"
+                        class="fa-solid fa-chevron-down chat-examples-chevron"
+                    ></i>
+
+                </button>
+
+
+                <!-- CONTENT -->
+
+                <div
+                    id="exampleContent"
+                    class="chat-examples-content"
+                >
+
+
+                    <!-- Pengeluaran -->
+
+                    <button
+                        type="button"
+                        class="example-question"
+                        data-message="Tadi beli tepung 2kg sama gula, totalnya 85ribu"
+                    >
+                        💸 Catat pengeluaran
+                    </button>
+
+
+                    <!-- Pemasukan -->
+
+                    <button
+                        type="button"
+                        class="example-question"
+                        data-message="Hari ini dapat pemasukan lain 200rb dari jasa antar"
+                    >
+                        💰 Catat pemasukan
+                    </button>
+
+
+                    <!-- Hutang -->
+
+                    <button
+                        type="button"
+                        class="example-question"
+                        data-message="Si Budi kasbon 25rb"
+                    >
+                        💳 Catat hutang
+                    </button>
+
+
+                    <!-- Keuangan -->
+
+                    <button
+                        type="button"
+                        class="example-question"
+                        data-message="Bulan ini aku untung berapa?"
+                    >
+                        📊 Cek keuntungan
+                    </button>
+
+
+                    <!-- Produk -->
+
+                    <button
+                        type="button"
+                        class="example-question"
+                        data-message="Produk apa yang paling laris?"
+                    >
+                        🏆 Produk terlaris
+                    </button>
+
+
+                    <!-- Stok -->
+
+                    <button
+                        type="button"
+                        class="example-question"
+                        data-message="Ada stok yang hampir habis?"
+                    >
+                        📦 Cek stok
+                    </button>
+
+
+                    <!-- Tips -->
+
+                    <button
+                        type="button"
+                        class="example-question"
+                        data-message="Kasih tips dong biar usaha saya lebih ramai"
+                    >
+                        💡 Tips bisnis
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 CHAT CONTAINER
+                 ============================================= -->
+
+            <div class="saku-card chat-container">
+
+
+                <!-- =========================================
+                     CHAT HEADER
+                     ========================================= -->
+
+                <div class="saku-card-header">
+
+
+                    <div class="chatbot-header-left">
+
+
+                        <!-- BOT AVATAR -->
+
+                        <div class="chatbot-avatar">
+
+                            <i class="fa-solid fa-robot"></i>
+
+                        </div>
+
+
+                        <!-- BOT INFORMATION -->
+
+                        <div>
+
+                            <h5 class="chatbot-name">
+                                SakuBot
+                            </h5>
+
+
+                            <div class="chatbot-status">
+
+                                <i class="fa-solid fa-circle"></i>
+
+                                Online
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =====================================
+                         CONTROLS
+                         ===================================== -->
+
+                    <div class="chatbot-controls">
+
+
+                        <!-- RESET -->
+
+                        <button
+                            type="button"
+                            id="resetChat"
+                            class="chatbot-control-btn danger"
+                            title="Reset chat"
+                        >
+
+                            <i class="fa-solid fa-rotate-left"></i>
+
+                            <span>
+                                Reset
+                            </span>
+
+                        </button>
+
+
+                        <!-- EXPORT -->
+
+                        <button
+                            type="button"
+                            id="exportChat"
+                            class="chatbot-control-btn"
+                            title="Export riwayat chat"
+                        >
+
+                            <i class="fa-solid fa-download"></i>
+
+                            <span>
+                                Export
+                            </span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     CHAT MESSAGES
+                     ========================================= -->
+
+                <div
+                    id="chatMessages"
+                    class="chat-messages"
+                >
+
+
+                    <!-- =====================================
+                         INITIAL BOT MESSAGE
+                         ===================================== -->
+
+                    <div class="chat-message bot">
+
+
+                        <!-- BOT AVATAR -->
+
+                        <div class="chat-avatar">
+
+                            <i class="fa-solid fa-robot"></i>
+
+                        </div>
+
+
+                        <!-- BOT MESSAGE -->
+
+                        <div class="chat-bubble">
+
+                            Halo! Aku SAKU Assistant 👋
+
+                            <br><br>
+
+                            Kamu bisa mencatat:
+
+                            <ul>
+
+                                <li>
+                                    Pengeluaran
+                                </li>
+
+                                <li>
+                                    Pemasukan
+                                </li>
+
+                                <li>
+                                    Hutang pelanggan
+                                </li>
+
+                                <li>
+                                    Hutang supplier
+                                </li>
+
+                            </ul>
+
+                            Kamu juga bisa bertanya tentang kondisi
+                            keuangan, produk terlaris, stok, atau
+                            meminta tips bisnis.
+
+                            <br><br>
+
+                            Mau mulai dari mana?
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     CHAT INPUT
+                     ========================================= -->
+
+                <div class="chat-input">
+
+
+                    <div class="input-group">
+
+
+                        <!-- INPUT -->
+
+                        <input
+                            type="text"
+                            id="chatInput"
+                            class="form-control"
+                            placeholder="Ketik pertanyaan atau perintah..."
+                            autocomplete="off"
+                        >
+
+
+                        <!-- SEND BUTTON -->
+
+                        <button
+                            type="button"
+                            id="sendChat"
+                            class="btn btn-primary"
+                            title="Kirim pesan"
+                        >
+
+                            <i class="fa-solid fa-paper-plane"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =============================================
+                 CHAT STATISTICS
+                 ============================================= -->
+
+            <div class="chat-statistics">
+
+
+                <!-- TOTAL PESAN -->
+
+                <div class="chat-stat-card">
+
+
+                    <div class="chat-stat-icon">
+
+                        <i class="fa-solid fa-comments"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <p class="chat-stat-label">
+                            Total Pesan
+                        </p>
+
+                        <p
+                            class="chat-stat-value"
+                            id="totalMessages"
+                        >
+                            1
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PESAN USER -->
+
+                <div class="chat-stat-card">
+
+
+                    <div class="chat-stat-icon">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <p class="chat-stat-label">
+                            Pesanmu
+                        </p>
+
+                        <p
+                            class="chat-stat-value"
+                            id="userMessages"
+                        >
+                            0
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RESPONS BOT -->
+
+                <div class="chat-stat-card">
+
+
+                    <div class="chat-stat-icon">
 
                         <i class="fa-solid fa-robot"></i>
 
@@ -73,52 +506,16 @@
 
                     <div>
 
-                        <h5 class="fw-bold mb-1">
-                            SakuBot
-                        </h5>
+                        <p class="chat-stat-label">
+                            Respons SakuBot
+                        </p>
 
-                        <small class="text-success">
-
-                            <i class="fa-solid fa-circle"></i>
-
-                            Online
-
-                        </small>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div
-                id="chatMessages"
-                class="chat-messages"
-            >
-
-                <div class="chat-message bot">
-
-                    <div class="chat-bubble">
-
-                        Halo! 👋 Saya SakuBot.
-
-                        <br><br>
-
-                        Saya bisa membantu kamu melihat:
-
-                        <ul class="mb-0 mt-2">
-
-                            <li>Penjualan</li>
-
-                            <li>Stok barang</li>
-
-                            <li>Laba</li>
-
-                            <li>Kondisi bisnis</li>
-
-                        </ul>
+                        <p
+                            class="chat-stat-value"
+                            id="botMessages"
+                        >
+                            1
+                        </p>
 
                     </div>
 
@@ -127,72 +524,88 @@
             </div>
 
 
+        </main>
 
-            <div class="chat-input">
-
-                <div class="input-group">
-
-                    <input
-                        type="text"
-                        id="chatInput"
-                        class="form-control"
-                        placeholder="Tanyakan sesuatu..."
-                    >
-
-                    <button
-                        class="btn btn-primary"
-                        id="sendChat"
-                    >
-
-                        <i class="fa-solid fa-paper-plane"></i>
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
+    </div>
 
 
-    </main>
+    <!-- =====================================================
+         MOBILE BOTTOM NAVIGATION
+         ===================================================== -->
 
-</div>
-
-
-
-<nav class="mobile-bottom-nav">
-
-    <a href="1_kasir.html">
-        <i class="fa-solid fa-cash-register"></i>
-        <span>Kasir</span>
-    </a>
-
-    <a href="3_dashboard.html">
-        <i class="fa-solid fa-chart-line"></i>
-        <span>Dashboard</span>
-    </a>
-
-    <a href="4_inventaris.html">
-        <i class="fa-solid fa-boxes-stacked"></i>
-        <span>Stok</span>
-    </a>
-
-    <a
-        href="2_chatbot.html"
-        class="active"
-    >
-        <i class="fa-solid fa-robot"></i>
-        <span>SakuBot</span>
-    </a>
-
-</nav>
+    <nav class="mobile-bottom-nav">
 
 
+        <!-- KASIR -->
 
-<script src="../assets/js/sidebar.js"></script>
+        <a href="1_kasir.html">
 
-<script src="../assets/js/chatbot.js"></script>
+            <i class="fa-solid fa-cash-register"></i>
+
+            <span>
+                Kasir
+            </span>
+
+        </a>
+
+
+        <!-- DASHBOARD -->
+
+        <a href="3_dashboard.html">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <!-- INVENTARIS -->
+
+        <a href="4_inventaris.html">
+
+            <i class="fa-solid fa-boxes-stacked"></i>
+
+            <span>
+                Stok
+            </span>
+
+        </a>
+
+
+        <!-- SAKUBOT -->
+
+        <a
+            href="2_chatbot.html"
+            class="active"
+        >
+
+            <i class="fa-solid fa-robot"></i>
+
+            <span>
+                SakuBot
+            </span>
+
+        </a>
+
+    </nav>
+
+
+    <!-- =====================================================
+         SIDEBAR JAVASCRIPT
+         ===================================================== -->
+
+    <script src="../assets/js/sidebar.js"></script>
+
+
+    <!-- =====================================================
+         CHATBOT JAVASCRIPT
+         ===================================================== -->
+
+    <script src="../assets/js/chatbot.js"></script>
+
 
 </body>
 
