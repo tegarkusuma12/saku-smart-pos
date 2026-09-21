@@ -497,6 +497,10 @@ function addMessage(
 // FORMAT MESSAGE
 // ============================================================
 
+// ============================================================
+// FORMAT MESSAGE
+// ============================================================
+
 function formatMessage(message) {
 
     if (!message) {
@@ -504,49 +508,504 @@ function formatMessage(message) {
     }
 
 
-    let text =
-        escapeHTML(
-            String(message)
-        );
+    let text = String(message);
 
 
-    // ==========================================
-    // BOLD MARKDOWN
-    // ==========================================
+    // ========================================================
+    // NORMALISASI LINE BREAK
+    // ========================================================
 
-    text =
-        text.replace(
-            /\*\*(.*?)\*\*/g,
-            "<strong>$1</strong>"
-        );
+    text = text.replace(/\r\n/g, "\n");
 
 
-    // ==========================================
-    // BULLET
-    // ==========================================
+    // ========================================================
+    // ESCAPE HTML
+    // ========================================================
 
-    text =
-        text.replace(
-            /^• (.*)$/gm,
-            "• $1"
-        );
+    text = escapeHTML(text);
 
 
-    // ==========================================
+    // ========================================================
+    // CODE BLOCK
+    // ========================================================
+
+    const codeBlocks = [];
+
+    text = text.replace(
+        /```(?:\w+)?\n?([\s\S]*?)```/g,
+        function (_, code) {
+
+            const index =
+                codeBlocks.length;
+
+            codeBlocks.push(code.trim());
+
+            return `@@CODEBLOCK_${index}@@`;
+
+        }
+    );
+
+
+    // ========================================================
+    // MARKDOWN TABLE
+    // ========================================================
+
+    text = parseMarkdownTables(text);
+
+
+    // ========================================================
+    // HEADINGS
+    // ========================================================
+
+    text = text.replace(
+        /^### (.+)$/gm,
+        "<h6>$1</h6>"
+    );
+
+    text = text.replace(
+        /^## (.+)$/gm,
+        "<h5>$1</h5>"
+    );
+
+    text = text.replace(
+        /^# (.+)$/gm,
+        "<h4>$1</h4>"
+    );
+
+
+    // ========================================================
+    // BOLD
+    // ========================================================
+
+    text = text.replace(
+        /\*\*(.*?)\*\*/g,
+        "<strong>$1</strong>"
+    );
+
+
+    // ========================================================
+    // ITALIC
+    // ========================================================
+
+    text = text.replace(
+        /(?<!\*)\*([^*\n]+)\*(?!\*)/g,
+        "<em>$1</em>"
+    );
+
+
+    // ========================================================
+    // INLINE CODE
+    // ========================================================
+
+    text = text.replace(
+        /`([^`\n]+)`/g,
+        "<code>$1</code>"
+    );
+
+
+    // ========================================================
+    // NUMBERED LIST
+    // ========================================================
+
+    text = parseNumberedLists(text);
+
+
+    // ========================================================
+    // BULLET LIST
+    // ========================================================
+
+    text = parseBulletLists(text);
+
+
+    // ========================================================
+    // HORIZONTAL LINE
+    // ========================================================
+
+    text = text.replace(
+        /^---+$/gm,
+        "<hr>"
+    );
+
+
+    // ========================================================
     // LINE BREAK
-    // ==========================================
+    // ========================================================
 
-    text =
-        text.replace(
-            /\n/g,
-            "<br>"
-        );
+    text = text.replace(
+        /\n/g,
+        "<br>"
+    );
+
+
+    // ========================================================
+    // RESTORE CODE BLOCK
+    // ========================================================
+
+    codeBlocks.forEach(
+        function (code, index) {
+
+            const placeholder =
+                `@@CODEBLOCK_${index}@@`;
+
+            const html = `
+                <pre class="chat-code-block"><code>${code}</code></pre>
+            `;
+
+            text = text.replace(
+                placeholder,
+                html
+            );
+
+        }
+    );
 
 
     return text;
 
 }
 
+
+// ============================================================
+// MARKDOWN TABLE
+// ============================================================
+
+function parseMarkdownTables(text) {
+
+    const lines =
+        text.split("\n");
+
+    const result = [];
+
+    let i = 0;
+
+
+    while (i < lines.length) {
+
+        const current =
+            lines[i].trim();
+
+
+        const next =
+            lines[i + 1]
+                ?.trim();
+
+
+        // ====================================================
+        // CEK APAKAH INI TABLE
+        // ====================================================
+
+        const isTable =
+            current.includes("|") &&
+            next &&
+            /^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)+\|?$/.test(
+                next
+            );
+
+
+        if (!isTable) {
+
+            result.push(lines[i]);
+
+            i++;
+
+            continue;
+
+        }
+
+
+        // ====================================================
+        // HEADER
+        // ====================================================
+
+        const headers =
+            parseTableRow(current);
+
+
+        i += 2;
+
+
+        // ====================================================
+        // DATA ROWS
+        // ====================================================
+
+        const rows = [];
+
+
+        while (i < lines.length) {
+
+            const line =
+                lines[i].trim();
+
+
+            if (
+                !line ||
+                !line.includes("|")
+            ) {
+                break;
+            }
+
+
+            rows.push(
+                parseTableRow(line)
+            );
+
+
+            i++;
+
+        }
+
+
+        // ====================================================
+        // BUILD TABLE
+        // ====================================================
+
+        let tableHTML = `
+            <div class="chat-table-wrapper">
+                <table class="chat-table">
+                    <thead>
+                        <tr>
+        `;
+
+
+        headers.forEach(
+            function (header) {
+
+                tableHTML += `
+                    <th>${header}</th>
+                `;
+
+            }
+        );
+
+
+        tableHTML += `
+                        </tr>
+                    </thead>
+
+                    <tbody>
+        `;
+
+
+        rows.forEach(
+            function (row) {
+
+                tableHTML += "<tr>";
+
+
+                headers.forEach(
+                    function (_, index) {
+
+                        tableHTML += `
+                            <td>
+                                ${row[index] || ""}
+                            </td>
+                        `;
+
+                    }
+                );
+
+
+                tableHTML += "</tr>";
+
+            }
+        );
+
+
+        tableHTML += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+
+
+        result.push(
+            tableHTML
+        );
+
+    }
+
+
+    return result.join("\n");
+
+}
+
+
+// ============================================================
+// PARSE TABLE ROW
+// ============================================================
+
+function parseTableRow(row) {
+
+    let value =
+        row.trim();
+
+
+    // Hilangkan | di awal
+    if (value.startsWith("|")) {
+        value = value.substring(1);
+    }
+
+
+    // Hilangkan | di akhir
+    if (value.endsWith("|")) {
+        value = value.substring(
+            0,
+            value.length - 1
+        );
+    }
+
+
+    return value
+        .split("|")
+        .map(
+            cell => cell.trim()
+        );
+
+}
+
+
+// ============================================================
+// NUMBERED LIST
+// ============================================================
+
+function parseNumberedLists(text) {
+
+    const lines =
+        text.split("\n");
+
+    const result = [];
+
+    let inList = false;
+
+
+    lines.forEach(
+        function (line) {
+
+            const match =
+                line.match(
+                    /^\s*\d+\.\s+(.+)$/
+                );
+
+
+            if (match) {
+
+                if (!inList) {
+
+                    result.push(
+                        '<ol class="chat-list">'
+                    );
+
+                    inList = true;
+
+                }
+
+
+                result.push(
+                    `<li>${match[1]}</li>`
+                );
+
+
+            } else {
+
+                if (inList) {
+
+                    result.push("</ol>");
+
+                    inList = false;
+
+                }
+
+
+                result.push(line);
+
+            }
+
+        }
+    );
+
+
+    if (inList) {
+
+        result.push("</ol>");
+
+    }
+
+
+    return result.join("\n");
+
+}
+
+
+// ============================================================
+// BULLET LIST
+// ============================================================
+
+function parseBulletLists(text) {
+
+    const lines =
+        text.split("\n");
+
+    const result = [];
+
+    let inList = false;
+
+
+    lines.forEach(
+        function (line) {
+
+            const match =
+                line.match(
+                    /^\s*(?:[-*]|•)\s+(.+)$/
+                );
+
+
+            if (match) {
+
+                if (!inList) {
+
+                    result.push(
+                        '<ul class="chat-list">'
+                    );
+
+                    inList = true;
+
+                }
+
+
+                result.push(
+                    `<li>${match[1]}</li>`
+                );
+
+
+            } else {
+
+                if (inList) {
+
+                    result.push("</ul>");
+
+                    inList = false;
+
+                }
+
+
+                result.push(line);
+
+            }
+
+        }
+    );
+
+
+    if (inList) {
+
+        result.push("</ul>");
+
+    }
+
+
+    return result.join("\n");
+
+}
 
 // ============================================================
 // ESCAPE HTML
