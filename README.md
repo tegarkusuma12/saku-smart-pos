@@ -1,6 +1,6 @@
 # 🧾 SAKU — Sistem Akuntansi Kasir Usaha
 
-> Asisten keuangan berbasis AI untuk pelaku UMKM Indonesia. Catat pengeluaran, hutang, dan tanya kondisi bisnis pakai bahasa sehari-hari.
+> Asisten keuangan berbasis AI untuk pelaku UMKM. Catat pengeluaran, hutang, dan tanya kondisi bisnis pakai bahasa sehari-hari.
 
 ---
 
@@ -15,10 +15,12 @@ Fitur unggulan SAKU adalah **chatbot berbahasa Indonesia** yang memungkinkan pen
 - _"bulan ini aku untung berapa?"_
 
 ### Modul Utama
+
 | Modul | Deskripsi |
 |---|---|
 | 🛒 Kasir | Transaksi penjualan harian |
 | 📒 Akuntansi | Pencatatan pengeluaran, pemasukan, dan hutang |
+| 📦 Inventaris | Manajemen stok barang dan pemantauan ketersediaan produk |
 | 🤖 AI Assistant | Chatbot LLM untuk input & query keuangan via bahasa natural |
 
 ---
@@ -28,8 +30,6 @@ Fitur unggulan SAKU adalah **chatbot berbahasa Indonesia** yang memungkinkan pen
 **Asisten Kasir UMKM** — chatbot yang membantu pemilik warung/usaha kecil mencatat keuangan dan menjawab pertanyaan bisnis tanpa perlu memahami istilah akuntansi.
 
 Chatbot ini menggunakan **LangChain Agent** dengan tools yang terhubung langsung ke database, sehingga setiap percakapan bisa langsung memengaruhi data nyata di aplikasi.
-
----
 
 ---
 
@@ -61,73 +61,19 @@ SAKU: 📊 Ringkasan Keuangan (bulan ini):
       📈 Laba Bersih        : Rp1.000.000
 ```
 
----
-
-## 🗂️ Struktur Kode
-
-```
-saku-smart-pos/
-├── app/
-│   ├── main.py                  # Entry point Streamlit
-│   └── pages/
-│       ├── 1_kasir.py           # Halaman kasir/POS
-│       ├── 2_chatbot.py         # Halaman AI Assistant (Streamlit UI)
-│       └── 3_dashboard.py       # Halaman dashboard & laporan
-├── database/
-│   ├── connection.py            # Koneksi SQLAlchemy ke SQLite
-│   └── models.py                # Model tabel (Transaction, Expense, dll.)
-├── src/
-│   ├── ai/
-│   │   ├── agent.py             # LangChain agent & konfigurasi LLM
-│   │   ├── prompts.py           # System prompt SAKU Assistant
-│   │   └── tools.py             # Tools yang dipakai agent (catat/query DB)
-│   └── akuntansi/
-│       ├── pengeluaran.py       # Logic pencatatan pengeluaran
-│       ├── pemasukan.py         # Logic pencatatan pemasukan
-│       ├── hutang.py            # Logic pencatatan hutang
-│       ├── stok.py              # Logic manajemen stok
-│       └── transaksi.py         # Logic transaksi kasir
-├── data/
-│   └── dummy/
-│       └── generate_data.py     # Script generate data dummy
-├── notebooks/
-│   └── demo_chatbot.ipynb       # Demo chatbot interaktif
-├── .env.example                 # Template konfigurasi API key
-├── requirements.txt
-└── README.md
-```
-
-### Alur Kerja AI Chatbot
-```
-User input (bahasa natural)
-        ↓
-  LangChain Agent (agent.py)
-        ↓
-  System Prompt (prompts.py)  +  Chat History
-        ↓
-  LLM: openai/gpt-oss-20b via Groq API
-        ↓
-  Pilih Tool yang sesuai (tools.py)
-        ↓
-  Eksekusi Tool → akses Database (SQLite)
-        ↓
-  Respons balik ke user
-```
-
----
-
 ## 🛠️ Teknologi yang Digunakan
 
 | Teknologi | Kegunaan |
 |---|---|
 | Python 3.11 | Bahasa pemrograman utama |
 | LangChain | Framework agent & tool calling |
-| Groq API (`openai/gpt-oss-20b`) | LLM provider |
+| Groq API | LLM provider |
 | SQLAlchemy | ORM untuk database |
 | SQLite | Database lokal (development) |
-| Streamlit | Tampilan web app |
-
----
+| PostgreSQL / Supabase | Database production |
+| Streamlit | UI/UX & deployment |
+| FastAPI | Server backend |
+| HTML, CSS, JS | Komponen UI tambahan |
 
 ## 🤝 Catatan Penggunaan AI
 
@@ -135,7 +81,7 @@ Proyek ini dikembangkan dengan bantuan **Claude (Anthropic)** sebagai AI assista
 
 | Bagian | Dikerjakan |
 |---|---|
-| Arsitektur & desain sistem | Mandiri |
+| Konsep, arsitektur & desain sistem | Mandiri |
 | `database/models.py` | Mandiri + review AI |
 | `src/akuntansi/*.py` | Mandiri + review AI |
 | `src/ai/agent.py` | Mandiri + bantuan AI |
@@ -143,7 +89,14 @@ Proyek ini dikembangkan dengan bantuan **Claude (Anthropic)** sebagai AI assista
 | `src/ai/tools.py` | Mandiri + review AI |
 | `app/pages/2_chatbot.py` | Bantuan AI |
 | `notebooks/demo_chatbot.ipynb` | Mandiri + review AI |
-| Debugging & error fixing | Kolaborasi |
+| Debugging & error fixing | Bantuan AI |
+
+---
+
+## 📄 Lisensi
+
+Proyek ini dibuat untuk keperluan **portofolio akademik dan pengembangan diri**.
+Bebas digunakan sebagai referensi dengan mencantumkan kredit.
 
 ---
 
