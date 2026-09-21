@@ -6,10 +6,13 @@ python-dotenv
 streamlit
 pandas
 
+# FastAPI
+fastapi
+uvicorn[standard]
+
 # LangChain
 langchain==0.2.16
 langchain-core==0.2.38
 langchain-community==0.2.16
-langchain-groq     
-langchain-community
+langchain-groq
 pydantic
