@@ -156,11 +156,11 @@ def tool_cek_hutang() -> str:
 @tool
 def tool_produk_terlaris(limit: int = 5) -> str:
     """
-    Gunakan tool ini untuk mengetahui produk yang paling banyak terjual.
-    Contoh: 'produk apa yang paling laris?', 'barang apa yang paling sering dibeli?'
+    Gunakan tool ini untuk mengecek produk yang stoknya hampir habis.
+    Contoh: 'stok apa yang mau habis?', 'produk apa yang perlu direstok?'
     
     Args:
-        limit: Jumlah produk yang ditampilkan
+        threshold: Batas minimum stok yang dianggap kritis (mendukung desimal, misal 2.5 kg)
     """
     db = SessionLocal()
     try:
@@ -189,7 +189,7 @@ def tool_produk_terlaris(limit: int = 5) -> str:
         db.close()
 
 @tool
-def tool_cek_stok_kritis(threshold: int = 5) -> str:
+def tool_cek_stok_kritis(threshold: float = 5.0) -> str:
     """
     Gunakan tool ini untuk mengecek produk yang stoknya hampir habis.
     Contoh: 'stok apa yang mau habis?', 'produk apa yang perlu direstok?'
