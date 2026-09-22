@@ -90,6 +90,7 @@ def product_to_dict(product: Product):
     return {
         "id": product.id,
         "name": product.name,
+        "item_type": product.item_type,
         "category_id": product.category_id,
         "category": product.category.name if product.category else None,
         "cost_price": product.cost_price,
@@ -161,6 +162,31 @@ def chat(request: ChatRequest):
     return {
         "status": "success",
         "response": response
+    }
+
+# ============================================================
+# KASIR
+# ============================================================
+
+@app.get("/api/kasir")
+def get_kasir_products(
+    db: Session = Depends(get_db)
+):
+
+    products = db.query(Product).filter(
+        Product.is_active == True,
+        Product.item_type == "produk_dijual"
+    ).order_by(
+        Product.name.asc()
+    ).all()
+
+    return {
+        "status": "success",
+        "total": len(products),
+        "data": [
+            product_to_dict(product)
+            for product in products
+        ]
     }
 
 # ============================================================
