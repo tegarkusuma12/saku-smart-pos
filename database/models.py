@@ -1,7 +1,16 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Boolean, func
+# database/models.py
+import enum
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, Boolean, Enum as SAEnum
 from sqlalchemy.orm import relationship
-from datetime import datetime
+from sqlalchemy.sql import func
 from database.connection import Base
+
+class ItemType(str, enum.Enum):
+    PRODUK_DIJUAL = "produk_dijual"
+    BAHAN_BAKU    = "bahan_baku"
+    KEMASAN       = "kemasan"
+    PERLENGKAPAN  = "perlengkapan"
+    LAINNYA       = "lainnya"
 
 class Category(Base):
     __tablename__ = "categories"
@@ -14,13 +23,20 @@ class Product(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True, nullable=False)
     category_id = Column(Integer, ForeignKey("categories.id"))
-    cost_price = Column(Float, nullable=False, default=0.0) 
-    price = Column(Float, nullable=False) 
-    stock = Column(Integer, default=0)
-    unit = Column(String, default="pcs")
-    description = Column(String, nullable=True)
-    is_active = Column(Boolean, default=True)  
-    category = relationship("Category", back_populates="products")
+    item_type   = Column(
+        SAEnum(ItemType),
+        default=ItemType.PRODUK_DIJUAL,
+        nullable=False
+    )
+    cost_price  = Column(Float, default=0.0)
+    price       = Column(Float, nullable=True) 
+    stock       = Column(Float, default=0.0)
+    unit        = Column(String(30), default="pcs")
+    description = Column(String(255), nullable=True)
+    is_active   = Column(Boolean, default=True)
+    created_at  = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at  = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())  
+    category            = relationship("Category", back_populates="products")
     transaction_details = relationship("TransactionDetail", back_populates="product")
 
 class Transaction(Base):

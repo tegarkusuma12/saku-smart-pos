@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 
 from database.connection import get_db
-from database.models import Product
+from database.models import Product, Category
 from src.ai.agent import run_agent
 
 
@@ -41,6 +41,29 @@ class RestockRequest(BaseModel):
         gt=0,
         description="Jumlah stok yang ditambahkan"
     )
+
+class ProductCreateRequest(BaseModel):
+    name: str = Field(..., min_length=1)
+    category_id: int | None = None
+    cost_price: float = Field(..., ge=0)
+    price: float = Field(..., ge=0)
+    stock: int = Field(0, ge=0)
+    unit: str = Field("pcs", min_length=1)
+    description: str | None = None
+
+
+class ProductUpdateRequest(BaseModel):
+    name: str = Field(..., min_length=1)
+    category_id: int | None = None
+    cost_price: float = Field(..., ge=0)
+    price: float = Field(..., ge=0)
+    unit: str = Field("pcs", min_length=1)
+    description: str | None = None
+
+
+class StockAdjustmentRequest(BaseModel):
+    quantity: int
+    reason: str = Field(..., min_length=1)
 
 class ChatRequest(BaseModel):
     message: str
