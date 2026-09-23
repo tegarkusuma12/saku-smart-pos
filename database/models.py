@@ -31,6 +31,7 @@ class Product(Base):
     cost_price  = Column(Float, default=0.0)
     price       = Column(Float, nullable=True) 
     stock       = Column(Float, default=0.0)
+    min_stock   = Column(Float, default=5.0)
     unit        = Column(String(30), default="pcs")
     description = Column(String(255), nullable=True)
     is_active   = Column(Boolean, default=True)
