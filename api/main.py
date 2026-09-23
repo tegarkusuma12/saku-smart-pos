@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field
 from database.connection import get_db
 from database.models import Product, Category
 from src.ai.agent import run_agent
+from src.akuntansi.pengeluaran import catat_pengeluaran
 
 
 app = FastAPI(
@@ -36,11 +37,17 @@ app.add_middleware(
 # ============================================================
 
 class RestockRequest(BaseModel):
-    quantity: int = Field(
+    quantity: float = Field(
         ...,
         gt=0,
         description="Jumlah stok yang ditambahkan"
     )
+    total_harga: float = Field(
+        ...,
+        ge=0,
+        description="Total harga pembelian"
+    )
+    catatan: str | None = None
 
 class ProductCreateRequest(BaseModel):
     name: str = Field(..., min_length=1)
@@ -300,11 +307,16 @@ def restock_product(
 
     product.stock += request.quantity
 
+    deskripsi = f"Beli {product.name} {request.quantity} {product.unit}"
+    if request.catatan:
+        deskripsi += f" — {request.catatan}"
+    catat_pengeluaran(db, deskripsi, request.total_harga, "bahan_baku")
+
     db.commit()
     db.refresh(product)
 
     return {
         "status": "success",
-        "message": "Stok berhasil ditambahkan.",
+        "message": "Stok berhasil ditambahkan dan pengeluaran tercatat.",
         "data": product_to_dict(product)
     }
