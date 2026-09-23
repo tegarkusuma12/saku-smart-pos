@@ -73,14 +73,11 @@ class ChatRequest(BaseModel):
 # HELPER
 # ============================================================
 
-def get_stock_status(stock: int) -> str:
-
+def get_stock_status(stock: float, min_stock: float) -> str:
     if stock <= 0:
         return "Habis"
-
-    elif stock <= 10:
+    elif stock <= min_stock:  
         return "Menipis"
-
     else:
         return "Aman"
 
@@ -99,7 +96,7 @@ def product_to_dict(product: Product):
         "unit": product.unit,
         "description": product.description,
         "is_active": product.is_active,
-        "status": get_stock_status(product.stock),
+        "status": get_stock_status(product.stock, product.min_stock),,
     }
 
 
