@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 
 from database.connection import get_db
-from database.models import Product, Category
+from database.models import Product, Category, Transaction, TransactionDetail, Debt
 from src.ai.agent import run_agent
 from src.akuntansi.pengeluaran import catat_pengeluaran
 
@@ -72,6 +72,15 @@ class StockAdjustmentRequest(BaseModel):
     quantity: int
     reason: str = Field(..., min_length=1)
 
+class TransactionItemRequest(BaseModel):
+    product_id: int
+    quantity: int = Field(..., gt=0)
+
+class TransactionRequest(BaseModel):
+    items: list[TransactionItemRequest]
+    payment_method: str = Field(..., pattern="^(Cash|QRIS|Kasbon)$")
+    customer_name: str | None = None   # wajib 
+    notes: str | None = None
 class ChatRequest(BaseModel):
     message: str
     chat_history: list[dict] = Field(default_factory=list)
@@ -191,6 +200,103 @@ def get_kasir_products(
             product_to_dict(product)
             for product in products
         ]
+    }
+
+@app.post("/api/kasir/transaksi")
+def catat_transaksi(
+    request: TransactionRequest,
+    db: Session = Depends(get_db)
+):
+    # Validasi kasbon harus ada nama
+    if request.payment_method == "Kasbon" and not request.customer_name:
+        raise HTTPException(
+            status_code=400,
+            detail="Nama pelanggan wajib diisi untuk pembayaran Kasbon."
+        )
+
+    total_amount = 0.0
+    details_data = []
+
+    # ── Validasi semua item sebelum commit apapun ──
+    for item in request.items:
+        product = db.query(Product).filter(
+            Product.id == item.product_id,
+            Product.is_active == True,
+            Product.item_type == "produk_dijual"
+        ).first()
+
+        if not product:
+            raise HTTPException(
+                status_code=404,
+                detail=f"Produk id {item.product_id} tidak ditemukan."
+            )
+
+        if product.price is None:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Produk '{product.name}' belum memiliki harga jual."
+            )
+
+        if product.stock < item.quantity:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Stok '{product.name}' tidak cukup. Sisa: {product.stock} {product.unit}."
+            )
+
+        subtotal = item.quantity * product.price
+        total_amount += subtotal
+
+        details_data.append({
+            "product":       product,
+            "quantity":      item.quantity,
+            "cost_price":    product.cost_price,   # snapshot harga modal saat jual
+            "selling_price": product.price,         # snapshot harga jual saat jual
+            "subtotal":      subtotal,
+        })
+
+    # ── Semua valid — mulai commit ──
+
+    # 1. Buat transaksi
+    transaksi = Transaction(
+        total_amount=total_amount,
+        payment_method=request.payment_method,
+        notes=request.notes,
+    )
+    db.add(transaksi)
+    db.flush()   # dapat transaksi.id tanpa commit dulu
+
+    # 2. Buat detail + kurangi stok
+    for d in details_data:
+        detail = TransactionDetail(
+            transaction_id=transaksi.id,
+            product_id=d["product"].id,
+            quantity=d["quantity"],
+            cost_price=d["cost_price"],
+            selling_price=d["selling_price"],
+            subtotal=d["subtotal"],
+        )
+        db.add(detail)
+        d["product"].stock -= d["quantity"]   # kurangi stok
+
+    # 3. Kalau Kasbon → otomatis catat hutang
+    if request.payment_method == "Kasbon":
+        hutang = Debt(
+            customer_name=request.customer_name,
+            amount=total_amount,
+            debt_type="customer",
+            notes=f"Kasbon dari transaksi #{transaksi.id}",
+        )
+        db.add(hutang)
+
+    db.commit()
+
+    return {
+        "status":          "success",
+        "message":         "Transaksi berhasil dicatat.",
+        "transaction_id":  transaksi.id,
+        "total_amount":    total_amount,
+        "payment_method":  request.payment_method,
+        "items_count":     len(details_data),
     }
 
 # ============================================================
