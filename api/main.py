@@ -112,7 +112,7 @@ def product_to_dict(product: Product):
         "unit": product.unit,
         "description": product.description,
         "is_active": product.is_active,
-        "status": get_stock_status(product.stock, product.min_stock),,
+        "status": get_stock_status(product.stock, product.min_stock),
     }
 
 
@@ -378,7 +378,7 @@ def get_inventory_stats(
         "status": "success",
         "data": {
             "total_produk": total_produk,
-            "total_stok": stok_per_tipe,
+            "jumlah_per_tipe": stok_per_tipe,
             "stok_habis": stok_habis,
             "stok_menipis": stok_menipis,
             "stok_aman": stok_aman,
