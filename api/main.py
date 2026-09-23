@@ -226,10 +226,10 @@ def get_inventory_stats(
 
     total_produk = len(products)
 
-    total_stok = sum(
-        product.stock or 0
-        for product in products
-    )
+    stok_per_tipe = {}
+    for p in products:
+        tipe = p.item_type or "lainnya"
+        stok_per_tipe[tipe] = stok_per_tipe.get(tipe, 0) + 1 
 
     stok_habis = sum(
         1
@@ -265,7 +265,7 @@ def get_inventory_stats(
         "status": "success",
         "data": {
             "total_produk": total_produk,
-            "total_stok": total_stok,
+            "total_stok": stok_per_tipe,
             "stok_habis": stok_habis,
             "stok_menipis": stok_menipis,
             "stok_aman": stok_aman,
