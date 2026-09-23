@@ -351,15 +351,13 @@ def get_inventory_stats(
     )
 
     stok_menipis = sum(
-        1
-        for product in products
-        if 0 < product.stock <= 10
+        1 for product in products
+        if 0 < product.stock <= product.min_stock
     )
-
+    
     stok_aman = sum(
-        1
-        for product in products
-        if product.stock > 10
+        1 for product in products
+        if product.stock > product.min_stock
     )
 
     total_nilai_modal = sum(
