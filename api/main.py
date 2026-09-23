@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 
 from database.connection import get_db
-from database.models import Product, Category, Transaction, TransactionDetail, Debt
+from database.models import Product, Transaction, TransactionDetail, Debt
 from src.ai.agent import run_agent
 from src.akuntansi.pengeluaran import catat_pengeluaran
 
@@ -354,7 +354,7 @@ def get_inventory_stats(
         1 for product in products
         if 0 < product.stock <= product.min_stock
     )
-    
+
     stok_aman = sum(
         1 for product in products
         if product.stock > product.min_stock
