@@ -60,6 +60,20 @@ SAKU: 📊 Ringkasan Keuangan (bulan ini):
       💸 Total Pengeluaran  : Rp450.000
       📈 Laba Bersih        : Rp1.000.000
 ```
+### 🛒 Halaman Kasir
+![Halaman Kasir](docs/screenshots/kasir.png)
+
+### 📊 Halaman Dashboard
+![Halaman Dashboard](docs/screenshots/dashboard.png)
+
+### 📦 Halaman Inventaris
+![Halaman Inventaris](docs/screenshots/inventaris.png)
+
+### 📒 Halaman Akuntansi
+![Halaman Akuntansi](docs/screenshots/akuntansi.png)
+ 
+### 🤖 AI Chatbot
+![AI Chatbot](docs/screenshots/chatbot.png)
 
 ## 🛠️ Teknologi yang Digunakan
 
