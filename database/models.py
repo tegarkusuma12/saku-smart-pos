@@ -39,6 +39,7 @@ class Product(Base):
     updated_at  = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())  
     category            = relationship("Category", back_populates="products")
     transaction_details = relationship("TransactionDetail", back_populates="product")
+    movements           = relationship("InventoryMovement", back_populates="product")
 
 class Transaction(Base):
     __tablename__ = "transactions"
@@ -60,6 +61,26 @@ class TransactionDetail(Base):
     subtotal = Column(Float, nullable=False)
     transaction = relationship("Transaction", back_populates="details")
     product = relationship("Product", back_populates="transaction_details")
+
+class InventoryMovement(Base):
+    __tablename__ = "inventory_movements"
+
+    id         = Column(Integer, primary_key=True, index=True)
+    product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
+    timestamp  = Column(DateTime(timezone=True), server_default=func.now(), index=True)
+    quantity_change = Column(Float, nullable=False)  
+    stock_after     = Column(Float, nullable=False) 
+
+    reason       = Column(String(50), nullable=False)
+    # nilai: "purchase" | "sale" | "adjustment" | "waste" | "opening_stock"
+
+    reference_id = Column(Integer, nullable=True)
+    # isi transaction.id kalau reason=sale
+    # isi expense.id kalau reason=purchase
+    # null kalau manual
+
+    notes   = Column(String(255), nullable=True)
+    product = relationship("Product", back_populates="movements")
 
 class Expense(Base):
     """Pengeluaran operasional warung/UMKM"""
