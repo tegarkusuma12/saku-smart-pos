@@ -55,12 +55,10 @@ ENV/
 Thumbs.db
 
 # ========================
-# Data (opsional, uncommit kalau mau share data)
+# Data
 # ========================
 data/raw/*
-data/processed/*
 !data/raw/.gitkeep
-!data/processed/.gitkeep
 
 # ========================
 # Logs
