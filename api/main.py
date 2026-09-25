@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 
 from database.connection import get_db
-from database.models import Product, Transaction, TransactionDetail, Debt
+from database.models import Product, Transaction, TransactionDetail, InventoryMovement, Debt
 from src.ai.agent import run_agent
 from src.akuntansi.pengeluaran import catat_pengeluaran
 
@@ -115,6 +115,23 @@ def product_to_dict(product: Product):
         "status": get_stock_status(product.stock, product.min_stock),
     }
 
+def catat_movement(
+    db: Session,
+    product: Product,
+    quantity_change: float,
+    reason: str,
+    reference_id: int | None = None,
+    notes: str | None = None,
+):
+    movement = InventoryMovement(
+        product_id      = product.id,
+        quantity_change = quantity_change,
+        stock_after     = product.stock,   # dipanggil setelah stock diupdate
+        reason          = reason,
+        reference_id    = reference_id,
+        notes           = notes,
+    )
+    db.add(movement)
 
 # ============================================================
 # BASIC
@@ -278,6 +295,14 @@ def catat_transaksi(
         db.add(detail)
         d["product"].stock -= d["quantity"]   # kurangi stok
 
+        catat_movement(                   
+            db,
+            d["product"],
+            quantity_change = -d["quantity"],
+            reason          = "sale",
+            reference_id    = transaksi.id,
+        )
+
     # 3. Kalau Kasbon → otomatis catat hutang
     if request.payment_method == "Kasbon":
         hutang = Debt(
@@ -415,6 +440,15 @@ def restock_product(
     if request.catatan:
         deskripsi += f" — {request.catatan}"
     catat_pengeluaran(db, deskripsi, request.total_harga, "bahan_baku")
+
+    catat_movement(                       
+        db,
+        product,
+        quantity_change = +request.quantity,
+        reason          = "purchase",
+        reference_id    = expense.id,
+        notes           = request.catatan,
+    )
 
     db.commit()
     db.refresh(product)
