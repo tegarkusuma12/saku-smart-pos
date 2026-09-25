@@ -12,7 +12,7 @@ def catat_pengeluaran(db: Session, deskripsi: str, nominal: float, kategori: str
         category=kategori  # "bahan_baku", "listrik", "gaji", dll
     )
     db.add(pengeluaran_baru)
-    db.commit()
+    db.flush()
     db.refresh(pengeluaran_baru)
     return pengeluaran_baru
 
