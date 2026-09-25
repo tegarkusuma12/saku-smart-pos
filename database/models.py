@@ -67,7 +67,12 @@ class InventoryMovement(Base):
 
     id         = Column(Integer, primary_key=True, index=True)
     product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
-    timestamp  = Column(DateTime(timezone=True), server_default=func.now(), index=True)
+    timestamp = Column(
+        DateTime(timezone=True),
+        default=func.now(),
+        server_default=func.now(),
+        index=True
+        )
     quantity_change = Column(Float, nullable=False)  
     stock_after     = Column(Float, nullable=False) 
 
