@@ -103,6 +103,7 @@ def generate_dummy_data():
 
     # ── 5. OPENING STOCK MOVEMENTS ───────────────────────────────────────────
     # Catat stok awal semua produk sebagai titik awal time series
+    opening_time = datetime.now() - timedelta(days=31)
     all_products = db.query(Product).all()
     for p in all_products:
         if p.stock > 0:
@@ -111,6 +112,7 @@ def generate_dummy_data():
                 quantity_change = +p.stock,
                 stock_after     = p.stock,
                 reason          = "opening_stock",
+                timestamp       = opening_time,
                 notes           = "Stok awal saat sistem pertama digunakan",
             ))
     db.commit()
@@ -147,6 +149,7 @@ def generate_dummy_data():
                 stock_after     = prod.stock,
                 reason          = "sale",
                 reference_id    = trx.id,
+                timestamp       = trx_time,
             ))
 
             db.add(TransactionDetail(
