@@ -66,6 +66,7 @@ def tool_catat_hutang(nama: str, nominal: float, tipe: str = "customer") -> str:
     try:
         data = catat_hutang(db, nama, nominal, tipe)
         label = "pelanggan kasbon" if tipe == "customer" else "hutang ke supplier"
+        db.commit()
         return f"✅ Hutang berhasil dicatat!\n👤 {data.customer_name}\n💳 Rp{data.amount:,.0f}\n📌 Tipe: {label}"
     except ValueError as e:
         return f"❌ Gagal mencatat: {str(e)}"
