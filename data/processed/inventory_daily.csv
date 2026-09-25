@@ -1,20 +1,140 @@
 date,product_id,name,unit,net_change,stock_akhir
-2026-09-25,1,Beras 5kg,pack,0.0,10.0
-2026-09-25,2,Telur 1kg,kg,0.0,26.0
-2026-09-25,3,Indomie Goreng,pcs,142.0,161.0
-2026-09-25,4,Kopi Kapal Api,bungkus,51.0,58.0
-2026-09-25,5,Aqua 600ml,botol,14.0,14.0
-2026-09-25,6,Taro Snack,pcs,0.0,5.0
-2026-09-25,7,Chitato,pcs,0.0,3.0
-2026-09-25,8,Rokok Sampoerna,bungkus,4.0,4.0
-2026-09-25,9,Rokok Gudang Garam,bungkus,0.0,5.0
-2026-09-25,10,Sabun Lifebuoy,pcs,0.0,4.0
-2026-09-25,11,Shampo Pantene,pcs,0.0,14.0
-2026-09-25,12,Tepung Terigu,kg,5.0,5.0
-2026-09-25,13,Gula Pasir,kg,3.0,3.0
-2026-09-25,14,Minyak Goreng,liter,2.0,2.0
-2026-09-25,15,Gas LPG 3kg,tabung,2.0,2.0
-2026-09-25,16,Saus Sambal,botol,3.0,3.0
-2026-09-25,17,Plastik Kresek,pack,10.0,10.0
-2026-09-25,18,Cup Plastik,pack,5.0,5.0
-2026-09-25,19,Kantong Kertas,pack,3.0,3.0
+2026-08-25,1,Beras 5kg,pack,50.0,50.0
+2026-08-27,1,Beras 5kg,pack,-6.0,16.0
+2026-08-28,1,Beras 5kg,pack,-5.0,43.0
+2026-08-29,1,Beras 5kg,pack,-2.0,7.0
+2026-08-31,1,Beras 5kg,pack,-3.0,36.0
+2026-09-03,1,Beras 5kg,pack,-3.0,29.0
+2026-09-05,1,Beras 5kg,pack,-1.0,6.0
+2026-09-07,1,Beras 5kg,pack,-4.0,2.0
+2026-09-08,1,Beras 5kg,pack,-4.0,21.0
+2026-09-09,1,Beras 5kg,pack,-3.0,9.0
+2026-09-10,1,Beras 5kg,pack,-3.0,39.0
+2026-09-16,1,Beras 5kg,pack,-2.0,48.0
+2026-09-18,1,Beras 5kg,pack,-7.0,31.0
+2026-09-21,1,Beras 5kg,pack,-3.0,25.0
+2026-09-23,1,Beras 5kg,pack,-4.0,13.0
+2026-08-25,2,Telur 1kg,kg,40.0,40.0
+2026-08-26,2,Telur 1kg,kg,-5.0,4.0
+2026-08-27,2,Telur 1kg,kg,-5.0,11.0
+2026-08-28,2,Telur 1kg,kg,-2.0,33.0
+2026-08-29,2,Telur 1kg,kg,-4.0,27.0
+2026-09-04,2,Telur 1kg,kg,-3.0,29.0
+2026-09-05,2,Telur 1kg,kg,-3.0,26.0
+2026-09-08,2,Telur 1kg,kg,-3.0,23.0
+2026-09-09,2,Telur 1kg,kg,-4.0,7.0
+2026-09-10,2,Telur 1kg,kg,-1.0,32.0
+2026-09-17,2,Telur 1kg,kg,-5.0,18.0
+2026-09-21,2,Telur 1kg,kg,-4.0,36.0
+2026-09-24,2,Telur 1kg,kg,-1.0,35.0
+2026-08-25,3,Indomie Goreng,pcs,200.0,200.0
+2026-08-27,3,Indomie Goreng,pcs,-7.0,164.0
+2026-08-29,3,Indomie Goreng,pcs,-12.0,143.0
+2026-08-31,3,Indomie Goreng,pcs,-3.0,188.0
+2026-09-02,3,Indomie Goreng,pcs,-5.0,168.0
+2026-09-05,3,Indomie Goreng,pcs,-5.0,156.0
+2026-09-07,3,Indomie Goreng,pcs,-5.0,151.0
+2026-09-16,3,Indomie Goreng,pcs,-1.0,199.0
+2026-09-18,3,Indomie Goreng,pcs,-8.0,161.0
+2026-09-19,3,Indomie Goreng,pcs,-2.0,150.0
+2026-09-21,3,Indomie Goreng,pcs,-13.0,198.0
+2026-09-24,3,Indomie Goreng,pcs,-2.0,141.0
+2026-08-25,4,Kopi Kapal Api,bungkus,100.0,100.0
+2026-08-26,4,Kopi Kapal Api,bungkus,-2.0,56.0
+2026-08-27,4,Kopi Kapal Api,bungkus,-3.0,63.0
+2026-08-31,4,Kopi Kapal Api,bungkus,-11.0,92.0
+2026-09-04,4,Kopi Kapal Api,bungkus,-1.0,77.0
+2026-09-09,4,Kopi Kapal Api,bungkus,-5.0,58.0
+2026-09-14,4,Kopi Kapal Api,bungkus,-4.0,50.0
+2026-09-18,4,Kopi Kapal Api,bungkus,-3.0,84.0
+2026-09-19,4,Kopi Kapal Api,bungkus,-6.0,78.0
+2026-09-20,4,Kopi Kapal Api,bungkus,-3.0,71.0
+2026-09-21,4,Kopi Kapal Api,bungkus,-10.0,87.0
+2026-09-24,4,Kopi Kapal Api,bungkus,-2.0,54.0
+2026-08-25,5,Aqua 600ml,botol,80.0,80.0
+2026-08-27,5,Aqua 600ml,botol,-3.0,32.0
+2026-08-29,5,Aqua 600ml,botol,-5.0,36.0
+2026-08-31,5,Aqua 600ml,botol,-5.0,70.0
+2026-09-04,5,Aqua 600ml,botol,-14.0,53.0
+2026-09-08,5,Aqua 600ml,botol,-3.0,33.0
+2026-09-09,5,Aqua 600ml,botol,-10.0,30.0
+2026-09-10,5,Aqua 600ml,botol,-8.0,55.0
+2026-09-15,5,Aqua 600ml,botol,-3.0,20.0
+2026-09-17,5,Aqua 600ml,botol,-5.0,13.0
+2026-09-19,5,Aqua 600ml,botol,-7.0,25.0
+2026-09-21,5,Aqua 600ml,botol,-4.0,11.0
+2026-09-24,5,Aqua 600ml,botol,-2.0,18.0
+2026-08-25,6,Taro Snack,pcs,60.0,60.0
+2026-08-26,6,Taro Snack,pcs,-5.0,34.0
+2026-08-27,6,Taro Snack,pcs,-3.0,33.0
+2026-08-28,6,Taro Snack,pcs,-5.0,55.0
+2026-08-29,6,Taro Snack,pcs,-4.0,40.0
+2026-08-30,6,Taro Snack,pcs,-1.0,49.0
+2026-09-02,6,Taro Snack,pcs,-4.0,29.0
+2026-09-04,6,Taro Snack,pcs,-1.0,16.0
+2026-09-10,6,Taro Snack,pcs,-1.0,48.0
+2026-09-15,6,Taro Snack,pcs,-1.0,39.0
+2026-09-18,6,Taro Snack,pcs,-4.0,51.0
+2026-09-19,6,Taro Snack,pcs,-1.0,50.0
+2026-09-21,6,Taro Snack,pcs,-10.0,19.0
+2026-09-22,6,Taro Snack,pcs,-4.0,44.0
+2026-08-25,7,Chitato,pcs,40.0,40.0
+2026-08-28,7,Chitato,pcs,-6.0,30.0
+2026-08-30,7,Chitato,pcs,-6.0,12.0
+2026-09-04,7,Chitato,pcs,-7.0,5.0
+2026-09-08,7,Chitato,pcs,-7.0,23.0
+2026-09-17,7,Chitato,pcs,-3.0,37.0
+2026-09-18,7,Chitato,pcs,-5.0,18.0
+2026-09-21,7,Chitato,pcs,-4.0,25.0
+2026-09-25,7,Chitato,pcs,-2.0,35.0
+2026-08-25,8,Rokok Sampoerna,bungkus,30.0,30.0
+2026-08-26,8,Rokok Sampoerna,bungkus,-4.0,9.0
+2026-09-04,8,Rokok Sampoerna,bungkus,-1.0,0.0
+2026-09-09,8,Rokok Sampoerna,bungkus,-4.0,1.0
+2026-09-10,8,Rokok Sampoerna,bungkus,-4.0,26.0
+2026-09-15,8,Rokok Sampoerna,bungkus,-4.0,5.0
+2026-09-16,8,Rokok Sampoerna,bungkus,-3.0,21.0
+2026-09-17,8,Rokok Sampoerna,bungkus,-2.0,24.0
+2026-09-18,8,Rokok Sampoerna,bungkus,-5.0,16.0
+2026-09-21,8,Rokok Sampoerna,bungkus,-3.0,13.0
+2026-08-25,9,Rokok Gudang Garam,bungkus,30.0,30.0
+2026-08-26,9,Rokok Gudang Garam,bungkus,-2.0,13.0
+2026-08-27,9,Rokok Gudang Garam,bungkus,-2.0,1.0
+2026-08-30,9,Rokok Gudang Garam,bungkus,-5.0,8.0
+2026-09-01,9,Rokok Gudang Garam,bungkus,-5.0,19.0
+2026-09-05,9,Rokok Gudang Garam,bungkus,-1.0,3.0
+2026-09-08,9,Rokok Gudang Garam,bungkus,-4.0,4.0
+2026-09-10,9,Rokok Gudang Garam,bungkus,-3.0,27.0
+2026-09-15,9,Rokok Gudang Garam,bungkus,-5.0,14.0
+2026-09-16,9,Rokok Gudang Garam,bungkus,-2.0,25.0
+2026-09-23,9,Rokok Gudang Garam,bungkus,-1.0,0.0
+2026-08-25,10,Sabun Lifebuoy,pcs,50.0,50.0
+2026-08-26,10,Sabun Lifebuoy,pcs,-5.0,40.0
+2026-08-27,10,Sabun Lifebuoy,pcs,-2.0,29.0
+2026-08-29,10,Sabun Lifebuoy,pcs,-6.0,23.0
+2026-09-02,10,Sabun Lifebuoy,pcs,-5.0,14.0
+2026-09-04,10,Sabun Lifebuoy,pcs,-2.0,38.0
+2026-09-05,10,Sabun Lifebuoy,pcs,-4.0,31.0
+2026-09-08,10,Sabun Lifebuoy,pcs,-3.0,35.0
+2026-09-09,10,Sabun Lifebuoy,pcs,-1.0,22.0
+2026-09-10,10,Sabun Lifebuoy,pcs,-3.0,11.0
+2026-09-15,10,Sabun Lifebuoy,pcs,-2.0,45.0
+2026-09-22,10,Sabun Lifebuoy,pcs,-2.0,27.0
+2026-09-23,10,Sabun Lifebuoy,pcs,-2.0,25.0
+2026-09-24,10,Sabun Lifebuoy,pcs,-8.0,2.0
+2026-09-25,10,Sabun Lifebuoy,pcs,-3.0,47.0
+2026-08-25,11,Shampo Pantene,pcs,25.0,25.0
+2026-08-27,11,Shampo Pantene,pcs,-2.0,0.0
+2026-09-04,11,Shampo Pantene,pcs,-9.0,8.0
+2026-09-08,11,Shampo Pantene,pcs,-7.0,14.0
+2026-09-09,11,Shampo Pantene,pcs,-1.0,19.0
+2026-09-18,11,Shampo Pantene,pcs,-5.0,20.0
+2026-09-22,11,Shampo Pantene,pcs,-1.0,4.0
+2026-08-25,12,Tepung Terigu,kg,5.0,5.0
+2026-08-25,13,Gula Pasir,kg,3.0,3.0
+2026-08-25,14,Minyak Goreng,liter,2.0,2.0
+2026-08-25,15,Gas LPG 3kg,tabung,2.0,2.0
+2026-08-25,16,Saus Sambal,botol,3.0,3.0
+2026-08-25,17,Plastik Kresek,pack,10.0,10.0
+2026-08-25,18,Cup Plastik,pack,5.0,5.0
+2026-08-25,19,Kantong Kertas,pack,3.0,3.0
