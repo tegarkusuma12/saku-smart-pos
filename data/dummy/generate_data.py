@@ -6,7 +6,7 @@ import random
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from database.connection import engine, Base, SessionLocal
-from database.models import Category, Product, ItemType, Transaction, TransactionDetail, Expense, Debt, Income
+from database.models import Category, Product, ItemType, Transaction, TransactionDetail, Expense, Debt, Income, InventoryMovement
 
 
 def generate_dummy_data():
@@ -101,7 +101,21 @@ def generate_dummy_data():
 
     db.commit()
 
-    # ── 5. TRANSAKSI (30 hari terakhir, 90 transaksi) ────────────────────────
+    # ── 5. OPENING STOCK MOVEMENTS ───────────────────────────────────────────
+    # Catat stok awal semua produk sebagai titik awal time series
+    all_products = db.query(Product).all()
+    for p in all_products:
+        if p.stock > 0:
+            db.add(InventoryMovement(
+                product_id      = p.id,
+                quantity_change = +p.stock,
+                stock_after     = p.stock,
+                reason          = "opening_stock",
+                notes           = "Stok awal saat sistem pertama digunakan",
+            ))
+    db.commit()
+
+    # ── 6. TRANSAKSI (30 hari terakhir, 90 transaksi) ────────────────────────
     # Hanya pakai prod_objs (produk_dijual) — bahan baku tidak masuk kasir
     methods = ["Cash", "QRIS"]
     for i in range(90):
@@ -127,6 +141,14 @@ def generate_dummy_data():
             total_amount += sub
             prod.stock -= qty
 
+            db.add(InventoryMovement(    
+                product_id      = prod.id,
+                quantity_change = -qty,
+                stock_after     = prod.stock,
+                reason          = "sale",
+                reference_id    = trx.id,
+            ))
+
             db.add(TransactionDetail(
                 transaction_id=trx.id,
                 product_id=prod.id,
@@ -139,7 +161,7 @@ def generate_dummy_data():
         trx.total_amount = total_amount
         db.commit()
 
-    # ── 6. PENGELUARAN ───────────────────────────────────────────────────────
+    # ── 7. PENGELUARAN ───────────────────────────────────────────────────────
     expenses = [
         ("Bayar Listrik",         150000, "listrik"),
         ("Beli Plastik Kresek",    15000, "operasional"),
@@ -157,7 +179,7 @@ def generate_dummy_data():
             timestamp=datetime.now() - timedelta(days=random.randint(0, 30))
         ))
 
-    # ── 7. HUTANG ────────────────────────────────────────────────────────────
+    # ── 8. HUTANG ────────────────────────────────────────────────────────────
     debts = [
         ("Pak Budi",     25000, "customer", False),
         ("Bu Sari",      50000, "customer", False),
@@ -173,7 +195,7 @@ def generate_dummy_data():
             paid_at=datetime.now() if is_paid else None
         ))
 
-    # ── 8. PEMASUKAN NON-KASIR ───────────────────────────────────────────────
+    # ── 9. PEMASUKAN NON-KASIR ───────────────────────────────────────────────
     incomes = [
         ("Pesanan Katering Arisan", 500000, "katering"),
         ("Transfer Bu Dewi",        150000, "transfer"),
