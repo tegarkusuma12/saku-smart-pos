@@ -1,140 +1,1006 @@
 date,product_id,name,unit,net_change,stock_akhir
-2026-08-25,1,Beras 5kg,pack,50.0,50.0
-2026-08-27,1,Beras 5kg,pack,-6.0,44.0
-2026-08-28,1,Beras 5kg,pack,-5.0,39.0
-2026-08-29,1,Beras 5kg,pack,-2.0,37.0
-2026-08-31,1,Beras 5kg,pack,-3.0,34.0
-2026-09-03,1,Beras 5kg,pack,-3.0,31.0
-2026-09-05,1,Beras 5kg,pack,-1.0,30.0
-2026-09-07,1,Beras 5kg,pack,-4.0,26.0
-2026-09-08,1,Beras 5kg,pack,-4.0,22.0
-2026-09-09,1,Beras 5kg,pack,-3.0,19.0
-2026-09-10,1,Beras 5kg,pack,-3.0,16.0
-2026-09-16,1,Beras 5kg,pack,-2.0,14.0
-2026-09-18,1,Beras 5kg,pack,-7.0,7.0
-2026-09-21,1,Beras 5kg,pack,-3.0,4.0
-2026-09-23,1,Beras 5kg,pack,-4.0,0.0
-2026-08-25,2,Telur 1kg,kg,40.0,40.0
-2026-08-26,2,Telur 1kg,kg,-5.0,35.0
-2026-08-27,2,Telur 1kg,kg,-5.0,30.0
-2026-08-28,2,Telur 1kg,kg,-2.0,28.0
-2026-08-29,2,Telur 1kg,kg,-4.0,24.0
-2026-09-04,2,Telur 1kg,kg,-3.0,21.0
-2026-09-05,2,Telur 1kg,kg,-3.0,18.0
-2026-09-08,2,Telur 1kg,kg,-3.0,15.0
-2026-09-09,2,Telur 1kg,kg,-4.0,11.0
-2026-09-10,2,Telur 1kg,kg,-1.0,10.0
-2026-09-17,2,Telur 1kg,kg,-5.0,5.0
-2026-09-21,2,Telur 1kg,kg,-4.0,1.0
-2026-09-24,2,Telur 1kg,kg,-1.0,0.0
-2026-08-25,3,Indomie Goreng,pcs,200.0,200.0
-2026-08-27,3,Indomie Goreng,pcs,-7.0,193.0
-2026-08-29,3,Indomie Goreng,pcs,-12.0,181.0
-2026-08-31,3,Indomie Goreng,pcs,-3.0,178.0
-2026-09-02,3,Indomie Goreng,pcs,-5.0,173.0
-2026-09-05,3,Indomie Goreng,pcs,-5.0,168.0
-2026-09-07,3,Indomie Goreng,pcs,-5.0,163.0
-2026-09-16,3,Indomie Goreng,pcs,-1.0,162.0
-2026-09-18,3,Indomie Goreng,pcs,-8.0,154.0
-2026-09-19,3,Indomie Goreng,pcs,-2.0,152.0
-2026-09-21,3,Indomie Goreng,pcs,-13.0,139.0
-2026-09-24,3,Indomie Goreng,pcs,-2.0,137.0
-2026-08-25,4,Kopi Kapal Api,bungkus,100.0,100.0
-2026-08-26,4,Kopi Kapal Api,bungkus,-2.0,98.0
-2026-08-27,4,Kopi Kapal Api,bungkus,-3.0,95.0
-2026-08-31,4,Kopi Kapal Api,bungkus,-11.0,84.0
-2026-09-04,4,Kopi Kapal Api,bungkus,-1.0,83.0
-2026-09-09,4,Kopi Kapal Api,bungkus,-5.0,78.0
-2026-09-14,4,Kopi Kapal Api,bungkus,-4.0,74.0
-2026-09-18,4,Kopi Kapal Api,bungkus,-3.0,71.0
-2026-09-19,4,Kopi Kapal Api,bungkus,-6.0,65.0
-2026-09-20,4,Kopi Kapal Api,bungkus,-3.0,62.0
-2026-09-21,4,Kopi Kapal Api,bungkus,-10.0,52.0
-2026-09-24,4,Kopi Kapal Api,bungkus,-2.0,50.0
-2026-08-25,5,Aqua 600ml,botol,80.0,80.0
-2026-08-27,5,Aqua 600ml,botol,-3.0,77.0
-2026-08-29,5,Aqua 600ml,botol,-5.0,72.0
-2026-08-31,5,Aqua 600ml,botol,-5.0,67.0
-2026-09-04,5,Aqua 600ml,botol,-14.0,53.0
-2026-09-08,5,Aqua 600ml,botol,-3.0,50.0
-2026-09-09,5,Aqua 600ml,botol,-10.0,40.0
-2026-09-10,5,Aqua 600ml,botol,-8.0,32.0
-2026-09-15,5,Aqua 600ml,botol,-3.0,29.0
-2026-09-17,5,Aqua 600ml,botol,-5.0,24.0
-2026-09-19,5,Aqua 600ml,botol,-7.0,17.0
-2026-09-21,5,Aqua 600ml,botol,-4.0,13.0
-2026-09-24,5,Aqua 600ml,botol,-2.0,11.0
-2026-08-25,6,Taro Snack,pcs,60.0,60.0
-2026-08-26,6,Taro Snack,pcs,-5.0,55.0
-2026-08-27,6,Taro Snack,pcs,-3.0,52.0
-2026-08-28,6,Taro Snack,pcs,-5.0,47.0
-2026-08-29,6,Taro Snack,pcs,-4.0,43.0
-2026-08-30,6,Taro Snack,pcs,-1.0,42.0
-2026-09-02,6,Taro Snack,pcs,-4.0,38.0
-2026-09-04,6,Taro Snack,pcs,-1.0,37.0
-2026-09-10,6,Taro Snack,pcs,-1.0,36.0
-2026-09-15,6,Taro Snack,pcs,-1.0,35.0
-2026-09-18,6,Taro Snack,pcs,-4.0,31.0
-2026-09-19,6,Taro Snack,pcs,-1.0,30.0
-2026-09-21,6,Taro Snack,pcs,-10.0,20.0
-2026-09-22,6,Taro Snack,pcs,-4.0,16.0
-2026-08-25,7,Chitato,pcs,40.0,40.0
-2026-08-28,7,Chitato,pcs,-6.0,34.0
-2026-08-30,7,Chitato,pcs,-6.0,28.0
-2026-09-04,7,Chitato,pcs,-7.0,21.0
-2026-09-08,7,Chitato,pcs,-7.0,14.0
-2026-09-17,7,Chitato,pcs,-3.0,11.0
-2026-09-18,7,Chitato,pcs,-5.0,6.0
-2026-09-21,7,Chitato,pcs,-4.0,2.0
-2026-09-25,7,Chitato,pcs,-2.0,0.0
-2026-08-25,8,Rokok Sampoerna,bungkus,30.0,30.0
-2026-08-26,8,Rokok Sampoerna,bungkus,-4.0,26.0
-2026-09-04,8,Rokok Sampoerna,bungkus,-1.0,25.0
-2026-09-09,8,Rokok Sampoerna,bungkus,-4.0,21.0
-2026-09-10,8,Rokok Sampoerna,bungkus,-4.0,17.0
-2026-09-15,8,Rokok Sampoerna,bungkus,-4.0,13.0
-2026-09-16,8,Rokok Sampoerna,bungkus,-3.0,10.0
-2026-09-17,8,Rokok Sampoerna,bungkus,-2.0,8.0
-2026-09-18,8,Rokok Sampoerna,bungkus,-5.0,3.0
-2026-09-21,8,Rokok Sampoerna,bungkus,-3.0,0.0
-2026-08-25,9,Rokok Gudang Garam,bungkus,30.0,30.0
-2026-08-26,9,Rokok Gudang Garam,bungkus,-2.0,28.0
-2026-08-27,9,Rokok Gudang Garam,bungkus,-2.0,26.0
-2026-08-30,9,Rokok Gudang Garam,bungkus,-5.0,21.0
-2026-09-01,9,Rokok Gudang Garam,bungkus,-5.0,16.0
-2026-09-05,9,Rokok Gudang Garam,bungkus,-1.0,15.0
-2026-09-08,9,Rokok Gudang Garam,bungkus,-4.0,11.0
-2026-09-10,9,Rokok Gudang Garam,bungkus,-3.0,8.0
-2026-09-15,9,Rokok Gudang Garam,bungkus,-5.0,3.0
-2026-09-16,9,Rokok Gudang Garam,bungkus,-2.0,1.0
-2026-09-23,9,Rokok Gudang Garam,bungkus,-1.0,0.0
-2026-08-25,10,Sabun Lifebuoy,pcs,50.0,50.0
-2026-08-26,10,Sabun Lifebuoy,pcs,-5.0,45.0
-2026-08-27,10,Sabun Lifebuoy,pcs,-2.0,43.0
-2026-08-29,10,Sabun Lifebuoy,pcs,-6.0,37.0
-2026-09-02,10,Sabun Lifebuoy,pcs,-5.0,32.0
-2026-09-04,10,Sabun Lifebuoy,pcs,-2.0,30.0
-2026-09-05,10,Sabun Lifebuoy,pcs,-4.0,26.0
-2026-09-08,10,Sabun Lifebuoy,pcs,-3.0,23.0
-2026-09-09,10,Sabun Lifebuoy,pcs,-1.0,22.0
-2026-09-10,10,Sabun Lifebuoy,pcs,-3.0,19.0
-2026-09-15,10,Sabun Lifebuoy,pcs,-2.0,17.0
-2026-09-22,10,Sabun Lifebuoy,pcs,-2.0,15.0
-2026-09-23,10,Sabun Lifebuoy,pcs,-2.0,13.0
-2026-09-24,10,Sabun Lifebuoy,pcs,-8.0,5.0
-2026-09-25,10,Sabun Lifebuoy,pcs,-3.0,2.0
-2026-08-25,11,Shampo Pantene,pcs,25.0,25.0
-2026-08-27,11,Shampo Pantene,pcs,-2.0,23.0
-2026-09-04,11,Shampo Pantene,pcs,-9.0,14.0
-2026-09-08,11,Shampo Pantene,pcs,-7.0,7.0
-2026-09-09,11,Shampo Pantene,pcs,-1.0,6.0
-2026-09-18,11,Shampo Pantene,pcs,-5.0,1.0
-2026-09-22,11,Shampo Pantene,pcs,-1.0,0.0
-2026-08-25,12,Tepung Terigu,kg,5.0,5.0
-2026-08-25,13,Gula Pasir,kg,3.0,3.0
-2026-08-25,14,Minyak Goreng,liter,2.0,2.0
-2026-08-25,15,Gas LPG 3kg,tabung,2.0,2.0
-2026-08-25,16,Saus Sambal,botol,3.0,3.0
-2026-08-25,17,Plastik Kresek,pack,10.0,10.0
-2026-08-25,18,Cup Plastik,pack,5.0,5.0
-2026-08-25,19,Kantong Kertas,pack,3.0,3.0
+2026-05-29,1,Beras 5kg,pack,38.0,38.0
+2026-05-31,1,Beras 5kg,pack,-2.0,36.0
+2026-06-01,1,Beras 5kg,pack,-4.0,32.0
+2026-06-02,1,Beras 5kg,pack,-4.0,28.0
+2026-06-04,1,Beras 5kg,pack,-7.0,21.0
+2026-06-05,1,Beras 5kg,pack,29.0,50.0
+2026-06-06,1,Beras 5kg,pack,-12.0,38.0
+2026-06-09,1,Beras 5kg,pack,-2.0,36.0
+2026-06-11,1,Beras 5kg,pack,-5.0,31.0
+2026-06-12,1,Beras 5kg,pack,-6.0,25.0
+2026-06-13,1,Beras 5kg,pack,-3.0,22.0
+2026-06-14,1,Beras 5kg,pack,28.0,50.0
+2026-06-15,1,Beras 5kg,pack,-7.0,43.0
+2026-06-16,1,Beras 5kg,pack,-5.0,38.0
+2026-06-17,1,Beras 5kg,pack,-8.0,30.0
+2026-06-18,1,Beras 5kg,pack,-8.0,22.0
+2026-06-19,1,Beras 5kg,pack,-4.0,18.0
+2026-06-20,1,Beras 5kg,pack,32.0,50.0
+2026-06-21,1,Beras 5kg,pack,-1.0,49.0
+2026-06-22,1,Beras 5kg,pack,-8.0,41.0
+2026-06-23,1,Beras 5kg,pack,-10.0,31.0
+2026-06-24,1,Beras 5kg,pack,-5.0,26.0
+2026-06-25,1,Beras 5kg,pack,-8.0,18.0
+2026-06-26,1,Beras 5kg,pack,-5.0,13.0
+2026-06-27,1,Beras 5kg,pack,37.0,50.0
+2026-06-28,1,Beras 5kg,pack,-3.0,47.0
+2026-06-29,1,Beras 5kg,pack,-5.0,42.0
+2026-07-01,1,Beras 5kg,pack,-8.0,34.0
+2026-07-02,1,Beras 5kg,pack,-11.0,23.0
+2026-07-03,1,Beras 5kg,pack,-8.0,15.0
+2026-07-04,1,Beras 5kg,pack,35.0,50.0
+2026-07-05,1,Beras 5kg,pack,-8.0,42.0
+2026-07-06,1,Beras 5kg,pack,-6.0,36.0
+2026-07-08,1,Beras 5kg,pack,-5.0,31.0
+2026-07-09,1,Beras 5kg,pack,-2.0,29.0
+2026-07-11,1,Beras 5kg,pack,-4.0,25.0
+2026-07-12,1,Beras 5kg,pack,-7.0,18.0
+2026-07-13,1,Beras 5kg,pack,-4.0,14.0
+2026-07-14,1,Beras 5kg,pack,-1.0,13.0
+2026-07-15,1,Beras 5kg,pack,37.0,50.0
+2026-07-16,1,Beras 5kg,pack,-9.0,41.0
+2026-07-17,1,Beras 5kg,pack,-3.0,38.0
+2026-07-18,1,Beras 5kg,pack,-4.0,34.0
+2026-07-19,1,Beras 5kg,pack,-4.0,30.0
+2026-07-21,1,Beras 5kg,pack,-6.0,24.0
+2026-07-24,1,Beras 5kg,pack,-1.0,23.0
+2026-07-25,1,Beras 5kg,pack,-1.0,22.0
+2026-07-26,1,Beras 5kg,pack,-4.0,18.0
+2026-07-27,1,Beras 5kg,pack,32.0,50.0
+2026-07-28,1,Beras 5kg,pack,-3.0,47.0
+2026-07-30,1,Beras 5kg,pack,-2.0,45.0
+2026-07-31,1,Beras 5kg,pack,-9.0,36.0
+2026-08-01,1,Beras 5kg,pack,-1.0,35.0
+2026-08-02,1,Beras 5kg,pack,-1.0,34.0
+2026-08-03,1,Beras 5kg,pack,16.0,50.0
+2026-08-04,1,Beras 5kg,pack,-9.0,41.0
+2026-08-05,1,Beras 5kg,pack,-4.0,37.0
+2026-08-06,1,Beras 5kg,pack,-3.0,34.0
+2026-08-07,1,Beras 5kg,pack,-3.0,31.0
+2026-08-09,1,Beras 5kg,pack,-5.0,26.0
+2026-08-10,1,Beras 5kg,pack,-6.0,20.0
+2026-08-11,1,Beras 5kg,pack,-2.0,18.0
+2026-08-12,1,Beras 5kg,pack,-3.0,15.0
+2026-08-13,1,Beras 5kg,pack,35.0,50.0
+2026-08-14,1,Beras 5kg,pack,-6.0,44.0
+2026-08-15,1,Beras 5kg,pack,-2.0,42.0
+2026-08-16,1,Beras 5kg,pack,-1.0,41.0
+2026-08-17,1,Beras 5kg,pack,-4.0,37.0
+2026-08-18,1,Beras 5kg,pack,-3.0,34.0
+2026-08-20,1,Beras 5kg,pack,-9.0,25.0
+2026-08-21,1,Beras 5kg,pack,-7.0,18.0
+2026-08-22,1,Beras 5kg,pack,32.0,50.0
+2026-08-23,1,Beras 5kg,pack,-3.0,47.0
+2026-08-24,1,Beras 5kg,pack,-6.0,41.0
+2026-08-25,1,Beras 5kg,pack,-8.0,33.0
+2026-08-26,1,Beras 5kg,pack,-5.0,28.0
+2026-08-27,1,Beras 5kg,pack,22.0,50.0
+2026-08-28,1,Beras 5kg,pack,-5.0,45.0
+2026-08-29,1,Beras 5kg,pack,-8.0,37.0
+2026-08-30,1,Beras 5kg,pack,-6.0,31.0
+2026-09-06,1,Beras 5kg,pack,-9.0,22.0
+2026-09-07,1,Beras 5kg,pack,-8.0,14.0
+2026-09-08,1,Beras 5kg,pack,36.0,50.0
+2026-09-09,1,Beras 5kg,pack,-4.0,46.0
+2026-09-10,1,Beras 5kg,pack,-8.0,38.0
+2026-09-11,1,Beras 5kg,pack,-10.0,28.0
+2026-09-12,1,Beras 5kg,pack,-2.0,26.0
+2026-09-13,1,Beras 5kg,pack,-11.0,15.0
+2026-09-14,1,Beras 5kg,pack,35.0,50.0
+2026-09-15,1,Beras 5kg,pack,-6.0,44.0
+2026-09-17,1,Beras 5kg,pack,-5.0,39.0
+2026-09-18,1,Beras 5kg,pack,-13.0,26.0
+2026-09-19,1,Beras 5kg,pack,-3.0,23.0
+2026-09-20,1,Beras 5kg,pack,-3.0,20.0
+2026-09-21,1,Beras 5kg,pack,-5.0,15.0
+2026-09-22,1,Beras 5kg,pack,35.0,50.0
+2026-09-23,1,Beras 5kg,pack,-1.0,49.0
+2026-09-24,1,Beras 5kg,pack,-6.0,43.0
+2026-09-25,1,Beras 5kg,pack,-4.0,39.0
+2026-05-29,2,Telur 1kg,kg,40.0,40.0
+2026-05-30,2,Telur 1kg,kg,-1.0,39.0
+2026-05-31,2,Telur 1kg,kg,-3.0,36.0
+2026-06-01,2,Telur 1kg,kg,-11.0,25.0
+2026-06-02,2,Telur 1kg,kg,-4.0,21.0
+2026-06-03,2,Telur 1kg,kg,19.0,40.0
+2026-06-05,2,Telur 1kg,kg,-2.0,38.0
+2026-06-07,2,Telur 1kg,kg,-4.0,34.0
+2026-06-08,2,Telur 1kg,kg,-7.0,27.0
+2026-06-09,2,Telur 1kg,kg,-1.0,26.0
+2026-06-10,2,Telur 1kg,kg,-4.0,22.0
+2026-06-11,2,Telur 1kg,kg,-2.0,20.0
+2026-06-12,2,Telur 1kg,kg,-7.0,13.0
+2026-06-13,2,Telur 1kg,kg,27.0,40.0
+2026-06-14,2,Telur 1kg,kg,-5.0,35.0
+2026-06-18,2,Telur 1kg,kg,-10.0,25.0
+2026-06-20,2,Telur 1kg,kg,-4.0,21.0
+2026-06-21,2,Telur 1kg,kg,-7.0,14.0
+2026-06-22,2,Telur 1kg,kg,-3.0,11.0
+2026-06-23,2,Telur 1kg,kg,29.0,40.0
+2026-06-24,2,Telur 1kg,kg,-4.0,36.0
+2026-06-25,2,Telur 1kg,kg,-3.0,33.0
+2026-06-26,2,Telur 1kg,kg,-10.0,23.0
+2026-06-27,2,Telur 1kg,kg,-3.0,20.0
+2026-06-29,2,Telur 1kg,kg,-3.0,17.0
+2026-06-30,2,Telur 1kg,kg,23.0,40.0
+2026-07-02,2,Telur 1kg,kg,-2.0,38.0
+2026-07-03,2,Telur 1kg,kg,-5.0,33.0
+2026-07-05,2,Telur 1kg,kg,-4.0,29.0
+2026-07-07,2,Telur 1kg,kg,-3.0,26.0
+2026-07-08,2,Telur 1kg,kg,-3.0,23.0
+2026-07-09,2,Telur 1kg,kg,-7.0,16.0
+2026-07-10,2,Telur 1kg,kg,24.0,40.0
+2026-07-13,2,Telur 1kg,kg,-4.0,36.0
+2026-07-14,2,Telur 1kg,kg,-4.0,32.0
+2026-07-15,2,Telur 1kg,kg,-15.0,17.0
+2026-07-16,2,Telur 1kg,kg,-3.0,14.0
+2026-07-17,2,Telur 1kg,kg,26.0,40.0
+2026-07-18,2,Telur 1kg,kg,-9.0,31.0
+2026-07-19,2,Telur 1kg,kg,-2.0,29.0
+2026-07-20,2,Telur 1kg,kg,-4.0,25.0
+2026-07-22,2,Telur 1kg,kg,-4.0,21.0
+2026-07-23,2,Telur 1kg,kg,-9.0,12.0
+2026-07-24,2,Telur 1kg,kg,28.0,40.0
+2026-07-25,2,Telur 1kg,kg,-6.0,34.0
+2026-07-27,2,Telur 1kg,kg,-8.0,26.0
+2026-07-28,2,Telur 1kg,kg,-10.0,16.0
+2026-07-29,2,Telur 1kg,kg,24.0,40.0
+2026-07-30,2,Telur 1kg,kg,-7.0,33.0
+2026-07-31,2,Telur 1kg,kg,-3.0,30.0
+2026-08-02,2,Telur 1kg,kg,-4.0,26.0
+2026-08-03,2,Telur 1kg,kg,14.0,40.0
+2026-08-04,2,Telur 1kg,kg,-5.0,35.0
+2026-08-05,2,Telur 1kg,kg,-8.0,27.0
+2026-08-06,2,Telur 1kg,kg,-3.0,24.0
+2026-08-07,2,Telur 1kg,kg,-3.0,21.0
+2026-08-08,2,Telur 1kg,kg,-3.0,18.0
+2026-08-10,2,Telur 1kg,kg,-2.0,16.0
+2026-08-11,2,Telur 1kg,kg,-2.0,14.0
+2026-08-12,2,Telur 1kg,kg,26.0,40.0
+2026-08-14,2,Telur 1kg,kg,-3.0,37.0
+2026-08-15,2,Telur 1kg,kg,-5.0,32.0
+2026-08-16,2,Telur 1kg,kg,-2.0,30.0
+2026-08-17,2,Telur 1kg,kg,-11.0,19.0
+2026-08-18,2,Telur 1kg,kg,-5.0,14.0
+2026-08-19,2,Telur 1kg,kg,-3.0,11.0
+2026-08-20,2,Telur 1kg,kg,29.0,40.0
+2026-08-21,2,Telur 1kg,kg,-2.0,38.0
+2026-08-22,2,Telur 1kg,kg,-5.0,33.0
+2026-08-23,2,Telur 1kg,kg,-12.0,21.0
+2026-08-24,2,Telur 1kg,kg,-9.0,12.0
+2026-08-25,2,Telur 1kg,kg,28.0,40.0
+2026-08-27,2,Telur 1kg,kg,-13.0,27.0
+2026-08-28,2,Telur 1kg,kg,-2.0,25.0
+2026-08-29,2,Telur 1kg,kg,15.0,40.0
+2026-08-30,2,Telur 1kg,kg,-3.0,37.0
+2026-08-31,2,Telur 1kg,kg,-7.0,30.0
+2026-09-01,2,Telur 1kg,kg,-3.0,27.0
+2026-09-03,2,Telur 1kg,kg,-6.0,21.0
+2026-09-04,2,Telur 1kg,kg,19.0,40.0
+2026-09-05,2,Telur 1kg,kg,-3.0,37.0
+2026-09-07,2,Telur 1kg,kg,-14.0,23.0
+2026-09-08,2,Telur 1kg,kg,-1.0,22.0
+2026-09-09,2,Telur 1kg,kg,-3.0,19.0
+2026-09-11,2,Telur 1kg,kg,-2.0,17.0
+2026-09-13,2,Telur 1kg,kg,23.0,40.0
+2026-09-15,2,Telur 1kg,kg,-14.0,26.0
+2026-09-16,2,Telur 1kg,kg,-10.0,16.0
+2026-09-17,2,Telur 1kg,kg,-6.0,10.0
+2026-09-18,2,Telur 1kg,kg,30.0,40.0
+2026-09-19,2,Telur 1kg,kg,-1.0,39.0
+2026-09-20,2,Telur 1kg,kg,-1.0,38.0
+2026-09-21,2,Telur 1kg,kg,-7.0,31.0
+2026-09-22,2,Telur 1kg,kg,-9.0,22.0
+2026-09-23,2,Telur 1kg,kg,-2.0,20.0
+2026-09-24,2,Telur 1kg,kg,-8.0,12.0
+2026-09-25,2,Telur 1kg,kg,28.0,40.0
+2026-05-29,3,Indomie Goreng,pcs,190.0,190.0
+2026-05-30,3,Indomie Goreng,pcs,-4.0,186.0
+2026-05-31,3,Indomie Goreng,pcs,-3.0,183.0
+2026-06-02,3,Indomie Goreng,pcs,-1.0,182.0
+2026-06-03,3,Indomie Goreng,pcs,-2.0,180.0
+2026-06-04,3,Indomie Goreng,pcs,-4.0,176.0
+2026-06-05,3,Indomie Goreng,pcs,-5.0,171.0
+2026-06-06,3,Indomie Goreng,pcs,-8.0,163.0
+2026-06-08,3,Indomie Goreng,pcs,-5.0,158.0
+2026-06-09,3,Indomie Goreng,pcs,-5.0,153.0
+2026-06-10,3,Indomie Goreng,pcs,-6.0,147.0
+2026-06-12,3,Indomie Goreng,pcs,-8.0,139.0
+2026-06-13,3,Indomie Goreng,pcs,-4.0,135.0
+2026-06-14,3,Indomie Goreng,pcs,-10.0,125.0
+2026-06-15,3,Indomie Goreng,pcs,-9.0,116.0
+2026-06-18,3,Indomie Goreng,pcs,-1.0,115.0
+2026-06-19,3,Indomie Goreng,pcs,-20.0,95.0
+2026-06-21,3,Indomie Goreng,pcs,-8.0,87.0
+2026-06-23,3,Indomie Goreng,pcs,-10.0,77.0
+2026-06-25,3,Indomie Goreng,pcs,-7.0,70.0
+2026-06-26,3,Indomie Goreng,pcs,-10.0,60.0
+2026-06-27,3,Indomie Goreng,pcs,-3.0,57.0
+2026-06-28,3,Indomie Goreng,pcs,-1.0,56.0
+2026-06-29,3,Indomie Goreng,pcs,144.0,200.0
+2026-06-30,3,Indomie Goreng,pcs,-4.0,196.0
+2026-07-01,3,Indomie Goreng,pcs,-2.0,194.0
+2026-07-02,3,Indomie Goreng,pcs,-2.0,192.0
+2026-07-04,3,Indomie Goreng,pcs,-7.0,185.0
+2026-07-05,3,Indomie Goreng,pcs,-10.0,175.0
+2026-07-06,3,Indomie Goreng,pcs,-15.0,160.0
+2026-07-07,3,Indomie Goreng,pcs,-2.0,158.0
+2026-07-09,3,Indomie Goreng,pcs,-4.0,154.0
+2026-07-10,3,Indomie Goreng,pcs,-2.0,152.0
+2026-07-13,3,Indomie Goreng,pcs,-7.0,145.0
+2026-07-14,3,Indomie Goreng,pcs,-8.0,137.0
+2026-07-15,3,Indomie Goreng,pcs,-4.0,133.0
+2026-07-16,3,Indomie Goreng,pcs,-9.0,124.0
+2026-07-17,3,Indomie Goreng,pcs,-9.0,115.0
+2026-07-18,3,Indomie Goreng,pcs,-3.0,112.0
+2026-07-19,3,Indomie Goreng,pcs,-12.0,100.0
+2026-07-20,3,Indomie Goreng,pcs,-4.0,96.0
+2026-07-21,3,Indomie Goreng,pcs,-13.0,83.0
+2026-07-22,3,Indomie Goreng,pcs,-2.0,81.0
+2026-07-23,3,Indomie Goreng,pcs,-6.0,75.0
+2026-07-24,3,Indomie Goreng,pcs,-18.0,57.0
+2026-07-26,3,Indomie Goreng,pcs,-4.0,53.0
+2026-07-27,3,Indomie Goreng,pcs,147.0,200.0
+2026-07-28,3,Indomie Goreng,pcs,-10.0,190.0
+2026-07-30,3,Indomie Goreng,pcs,-5.0,185.0
+2026-07-31,3,Indomie Goreng,pcs,-5.0,180.0
+2026-08-01,3,Indomie Goreng,pcs,-5.0,175.0
+2026-08-03,3,Indomie Goreng,pcs,-4.0,171.0
+2026-08-04,3,Indomie Goreng,pcs,-5.0,166.0
+2026-08-05,3,Indomie Goreng,pcs,-12.0,154.0
+2026-08-06,3,Indomie Goreng,pcs,-1.0,153.0
+2026-08-09,3,Indomie Goreng,pcs,-2.0,151.0
+2026-08-10,3,Indomie Goreng,pcs,-14.0,137.0
+2026-08-11,3,Indomie Goreng,pcs,-10.0,127.0
+2026-08-12,3,Indomie Goreng,pcs,-17.0,110.0
+2026-08-13,3,Indomie Goreng,pcs,-4.0,106.0
+2026-08-14,3,Indomie Goreng,pcs,-4.0,102.0
+2026-08-15,3,Indomie Goreng,pcs,-10.0,92.0
+2026-08-16,3,Indomie Goreng,pcs,-6.0,86.0
+2026-08-18,3,Indomie Goreng,pcs,-27.0,59.0
+2026-08-19,3,Indomie Goreng,pcs,-4.0,55.0
+2026-08-20,3,Indomie Goreng,pcs,145.0,200.0
+2026-08-21,3,Indomie Goreng,pcs,-11.0,189.0
+2026-08-22,3,Indomie Goreng,pcs,-8.0,181.0
+2026-08-23,3,Indomie Goreng,pcs,-3.0,178.0
+2026-08-24,3,Indomie Goreng,pcs,-5.0,173.0
+2026-08-25,3,Indomie Goreng,pcs,-4.0,169.0
+2026-08-26,3,Indomie Goreng,pcs,-3.0,166.0
+2026-08-27,3,Indomie Goreng,pcs,-2.0,164.0
+2026-08-28,3,Indomie Goreng,pcs,-5.0,159.0
+2026-08-29,3,Indomie Goreng,pcs,-3.0,156.0
+2026-08-30,3,Indomie Goreng,pcs,-2.0,154.0
+2026-08-31,3,Indomie Goreng,pcs,-10.0,144.0
+2026-09-02,3,Indomie Goreng,pcs,-14.0,130.0
+2026-09-03,3,Indomie Goreng,pcs,-3.0,127.0
+2026-09-05,3,Indomie Goreng,pcs,-5.0,122.0
+2026-09-06,3,Indomie Goreng,pcs,-10.0,112.0
+2026-09-07,3,Indomie Goreng,pcs,-10.0,102.0
+2026-09-08,3,Indomie Goreng,pcs,-1.0,101.0
+2026-09-09,3,Indomie Goreng,pcs,-2.0,99.0
+2026-09-11,3,Indomie Goreng,pcs,-5.0,94.0
+2026-09-13,3,Indomie Goreng,pcs,-10.0,84.0
+2026-09-14,3,Indomie Goreng,pcs,-3.0,81.0
+2026-09-16,3,Indomie Goreng,pcs,-8.0,73.0
+2026-09-18,3,Indomie Goreng,pcs,-12.0,61.0
+2026-09-19,3,Indomie Goreng,pcs,-5.0,56.0
+2026-09-20,3,Indomie Goreng,pcs,-4.0,52.0
+2026-09-21,3,Indomie Goreng,pcs,148.0,200.0
+2026-09-22,3,Indomie Goreng,pcs,-17.0,183.0
+2026-09-23,3,Indomie Goreng,pcs,-18.0,165.0
+2026-09-24,3,Indomie Goreng,pcs,-14.0,151.0
+2026-09-25,3,Indomie Goreng,pcs,-4.0,147.0
+2026-05-29,4,Kopi Kapal Api,bungkus,99.0,99.0
+2026-05-30,4,Kopi Kapal Api,bungkus,-5.0,94.0
+2026-05-31,4,Kopi Kapal Api,bungkus,-8.0,86.0
+2026-06-01,4,Kopi Kapal Api,bungkus,-2.0,84.0
+2026-06-04,4,Kopi Kapal Api,bungkus,-5.0,79.0
+2026-06-05,4,Kopi Kapal Api,bungkus,-3.0,76.0
+2026-06-07,4,Kopi Kapal Api,bungkus,-10.0,66.0
+2026-06-08,4,Kopi Kapal Api,bungkus,-4.0,62.0
+2026-06-09,4,Kopi Kapal Api,bungkus,-6.0,56.0
+2026-06-11,4,Kopi Kapal Api,bungkus,-2.0,54.0
+2026-06-13,4,Kopi Kapal Api,bungkus,-5.0,49.0
+2026-06-14,4,Kopi Kapal Api,bungkus,-9.0,40.0
+2026-06-15,4,Kopi Kapal Api,bungkus,-5.0,35.0
+2026-06-17,4,Kopi Kapal Api,bungkus,-1.0,34.0
+2026-06-18,4,Kopi Kapal Api,bungkus,-4.0,30.0
+2026-06-20,4,Kopi Kapal Api,bungkus,70.0,100.0
+2026-06-21,4,Kopi Kapal Api,bungkus,-9.0,91.0
+2026-06-26,4,Kopi Kapal Api,bungkus,-5.0,86.0
+2026-06-27,4,Kopi Kapal Api,bungkus,-4.0,82.0
+2026-06-28,4,Kopi Kapal Api,bungkus,-14.0,68.0
+2026-06-29,4,Kopi Kapal Api,bungkus,-4.0,64.0
+2026-07-01,4,Kopi Kapal Api,bungkus,-7.0,57.0
+2026-07-02,4,Kopi Kapal Api,bungkus,-4.0,53.0
+2026-07-03,4,Kopi Kapal Api,bungkus,-1.0,52.0
+2026-07-04,4,Kopi Kapal Api,bungkus,-6.0,46.0
+2026-07-05,4,Kopi Kapal Api,bungkus,-8.0,38.0
+2026-07-06,4,Kopi Kapal Api,bungkus,-1.0,37.0
+2026-07-07,4,Kopi Kapal Api,bungkus,-4.0,33.0
+2026-07-08,4,Kopi Kapal Api,bungkus,-3.0,30.0
+2026-07-09,4,Kopi Kapal Api,bungkus,-2.0,28.0
+2026-07-11,4,Kopi Kapal Api,bungkus,72.0,100.0
+2026-07-12,4,Kopi Kapal Api,bungkus,-4.0,96.0
+2026-07-13,4,Kopi Kapal Api,bungkus,-4.0,92.0
+2026-07-14,4,Kopi Kapal Api,bungkus,-3.0,89.0
+2026-07-16,4,Kopi Kapal Api,bungkus,-3.0,86.0
+2026-07-17,4,Kopi Kapal Api,bungkus,-3.0,83.0
+2026-07-18,4,Kopi Kapal Api,bungkus,-13.0,70.0
+2026-07-19,4,Kopi Kapal Api,bungkus,-6.0,64.0
+2026-07-20,4,Kopi Kapal Api,bungkus,-6.0,58.0
+2026-07-21,4,Kopi Kapal Api,bungkus,-4.0,54.0
+2026-07-22,4,Kopi Kapal Api,bungkus,-7.0,47.0
+2026-07-23,4,Kopi Kapal Api,bungkus,-2.0,45.0
+2026-07-24,4,Kopi Kapal Api,bungkus,-3.0,42.0
+2026-07-25,4,Kopi Kapal Api,bungkus,58.0,100.0
+2026-07-26,4,Kopi Kapal Api,bungkus,-14.0,86.0
+2026-07-27,4,Kopi Kapal Api,bungkus,-8.0,78.0
+2026-07-28,4,Kopi Kapal Api,bungkus,-7.0,71.0
+2026-07-29,4,Kopi Kapal Api,bungkus,-4.0,67.0
+2026-07-31,4,Kopi Kapal Api,bungkus,-3.0,64.0
+2026-08-01,4,Kopi Kapal Api,bungkus,-21.0,43.0
+2026-08-02,4,Kopi Kapal Api,bungkus,-8.0,35.0
+2026-08-07,4,Kopi Kapal Api,bungkus,-4.0,31.0
+2026-08-08,4,Kopi Kapal Api,bungkus,69.0,100.0
+2026-08-09,4,Kopi Kapal Api,bungkus,-14.0,86.0
+2026-08-10,4,Kopi Kapal Api,bungkus,-2.0,84.0
+2026-08-11,4,Kopi Kapal Api,bungkus,-14.0,70.0
+2026-08-12,4,Kopi Kapal Api,bungkus,-4.0,66.0
+2026-08-13,4,Kopi Kapal Api,bungkus,-3.0,63.0
+2026-08-15,4,Kopi Kapal Api,bungkus,-23.0,40.0
+2026-08-16,4,Kopi Kapal Api,bungkus,-4.0,36.0
+2026-08-17,4,Kopi Kapal Api,bungkus,64.0,100.0
+2026-08-18,4,Kopi Kapal Api,bungkus,-1.0,99.0
+2026-08-20,4,Kopi Kapal Api,bungkus,-5.0,94.0
+2026-08-21,4,Kopi Kapal Api,bungkus,-4.0,90.0
+2026-08-22,4,Kopi Kapal Api,bungkus,-5.0,85.0
+2026-08-23,4,Kopi Kapal Api,bungkus,-15.0,70.0
+2026-08-24,4,Kopi Kapal Api,bungkus,-3.0,67.0
+2026-08-25,4,Kopi Kapal Api,bungkus,-5.0,62.0
+2026-08-27,4,Kopi Kapal Api,bungkus,-6.0,56.0
+2026-08-29,4,Kopi Kapal Api,bungkus,-10.0,46.0
+2026-08-30,4,Kopi Kapal Api,bungkus,-15.0,31.0
+2026-09-01,4,Kopi Kapal Api,bungkus,-3.0,28.0
+2026-09-02,4,Kopi Kapal Api,bungkus,-3.0,25.0
+2026-09-03,4,Kopi Kapal Api,bungkus,75.0,100.0
+2026-09-05,4,Kopi Kapal Api,bungkus,-14.0,86.0
+2026-09-06,4,Kopi Kapal Api,bungkus,-17.0,69.0
+2026-09-07,4,Kopi Kapal Api,bungkus,-5.0,64.0
+2026-09-08,4,Kopi Kapal Api,bungkus,-8.0,56.0
+2026-09-09,4,Kopi Kapal Api,bungkus,-4.0,52.0
+2026-09-10,4,Kopi Kapal Api,bungkus,-1.0,51.0
+2026-09-11,4,Kopi Kapal Api,bungkus,-11.0,40.0
+2026-09-12,4,Kopi Kapal Api,bungkus,-13.0,27.0
+2026-09-13,4,Kopi Kapal Api,bungkus,73.0,100.0
+2026-09-14,4,Kopi Kapal Api,bungkus,-10.0,90.0
+2026-09-15,4,Kopi Kapal Api,bungkus,-10.0,80.0
+2026-09-16,4,Kopi Kapal Api,bungkus,-10.0,70.0
+2026-09-17,4,Kopi Kapal Api,bungkus,-7.0,63.0
+2026-09-19,4,Kopi Kapal Api,bungkus,-15.0,48.0
+2026-09-20,4,Kopi Kapal Api,bungkus,-13.0,35.0
+2026-09-23,4,Kopi Kapal Api,bungkus,-1.0,34.0
+2026-09-25,4,Kopi Kapal Api,bungkus,-8.0,26.0
+2026-05-29,5,Aqua 600ml,botol,74.0,74.0
+2026-05-30,5,Aqua 600ml,botol,-5.0,69.0
+2026-05-31,5,Aqua 600ml,botol,-5.0,64.0
+2026-06-02,5,Aqua 600ml,botol,-1.0,63.0
+2026-06-03,5,Aqua 600ml,botol,-9.0,54.0
+2026-06-04,5,Aqua 600ml,botol,-7.0,47.0
+2026-06-05,5,Aqua 600ml,botol,-7.0,40.0
+2026-06-06,5,Aqua 600ml,botol,-2.0,38.0
+2026-06-07,5,Aqua 600ml,botol,-5.0,33.0
+2026-06-08,5,Aqua 600ml,botol,-7.0,26.0
+2026-06-09,5,Aqua 600ml,botol,-4.0,22.0
+2026-06-12,5,Aqua 600ml,botol,-2.0,20.0
+2026-06-13,5,Aqua 600ml,botol,60.0,80.0
+2026-06-15,5,Aqua 600ml,botol,-4.0,76.0
+2026-06-16,5,Aqua 600ml,botol,-4.0,72.0
+2026-06-17,5,Aqua 600ml,botol,-1.0,71.0
+2026-06-20,5,Aqua 600ml,botol,-3.0,68.0
+2026-06-21,5,Aqua 600ml,botol,-4.0,64.0
+2026-06-25,5,Aqua 600ml,botol,-6.0,58.0
+2026-06-26,5,Aqua 600ml,botol,-12.0,46.0
+2026-06-27,5,Aqua 600ml,botol,-1.0,45.0
+2026-06-28,5,Aqua 600ml,botol,-5.0,40.0
+2026-07-02,5,Aqua 600ml,botol,-2.0,38.0
+2026-07-03,5,Aqua 600ml,botol,-5.0,33.0
+2026-07-04,5,Aqua 600ml,botol,-10.0,23.0
+2026-07-05,5,Aqua 600ml,botol,57.0,80.0
+2026-07-06,5,Aqua 600ml,botol,-3.0,77.0
+2026-07-07,5,Aqua 600ml,botol,-5.0,72.0
+2026-07-08,5,Aqua 600ml,botol,-19.0,53.0
+2026-07-09,5,Aqua 600ml,botol,-3.0,50.0
+2026-07-10,5,Aqua 600ml,botol,-8.0,42.0
+2026-07-11,5,Aqua 600ml,botol,-15.0,27.0
+2026-07-12,5,Aqua 600ml,botol,53.0,80.0
+2026-07-14,5,Aqua 600ml,botol,-5.0,75.0
+2026-07-16,5,Aqua 600ml,botol,-8.0,67.0
+2026-07-17,5,Aqua 600ml,botol,-3.0,64.0
+2026-07-18,5,Aqua 600ml,botol,-18.0,46.0
+2026-07-19,5,Aqua 600ml,botol,-3.0,43.0
+2026-07-21,5,Aqua 600ml,botol,-4.0,39.0
+2026-07-22,5,Aqua 600ml,botol,-4.0,35.0
+2026-07-23,5,Aqua 600ml,botol,-1.0,34.0
+2026-07-24,5,Aqua 600ml,botol,-5.0,29.0
+2026-07-25,5,Aqua 600ml,botol,51.0,80.0
+2026-07-26,5,Aqua 600ml,botol,-40.0,40.0
+2026-07-27,5,Aqua 600ml,botol,-1.0,39.0
+2026-07-28,5,Aqua 600ml,botol,-5.0,34.0
+2026-07-30,5,Aqua 600ml,botol,-3.0,31.0
+2026-08-01,5,Aqua 600ml,botol,-11.0,20.0
+2026-08-02,5,Aqua 600ml,botol,60.0,80.0
+2026-08-03,5,Aqua 600ml,botol,-5.0,75.0
+2026-08-04,5,Aqua 600ml,botol,-9.0,66.0
+2026-08-05,5,Aqua 600ml,botol,-5.0,61.0
+2026-08-08,5,Aqua 600ml,botol,-4.0,57.0
+2026-08-09,5,Aqua 600ml,botol,-12.0,45.0
+2026-08-11,5,Aqua 600ml,botol,-9.0,36.0
+2026-08-12,5,Aqua 600ml,botol,-4.0,32.0
+2026-08-13,5,Aqua 600ml,botol,-4.0,28.0
+2026-08-14,5,Aqua 600ml,botol,-4.0,24.0
+2026-08-15,5,Aqua 600ml,botol,-1.0,23.0
+2026-08-16,5,Aqua 600ml,botol,57.0,80.0
+2026-08-17,5,Aqua 600ml,botol,-2.0,78.0
+2026-08-18,5,Aqua 600ml,botol,-1.0,77.0
+2026-08-19,5,Aqua 600ml,botol,-10.0,67.0
+2026-08-20,5,Aqua 600ml,botol,-9.0,58.0
+2026-08-22,5,Aqua 600ml,botol,-9.0,49.0
+2026-08-23,5,Aqua 600ml,botol,-7.0,42.0
+2026-08-24,5,Aqua 600ml,botol,-3.0,39.0
+2026-08-25,5,Aqua 600ml,botol,-3.0,36.0
+2026-08-26,5,Aqua 600ml,botol,-4.0,32.0
+2026-08-28,5,Aqua 600ml,botol,-6.0,26.0
+2026-08-29,5,Aqua 600ml,botol,54.0,80.0
+2026-08-30,5,Aqua 600ml,botol,-12.0,68.0
+2026-08-31,5,Aqua 600ml,botol,-12.0,56.0
+2026-09-02,5,Aqua 600ml,botol,-8.0,48.0
+2026-09-03,5,Aqua 600ml,botol,-5.0,43.0
+2026-09-05,5,Aqua 600ml,botol,-11.0,32.0
+2026-09-06,5,Aqua 600ml,botol,-8.0,24.0
+2026-09-07,5,Aqua 600ml,botol,-1.0,23.0
+2026-09-08,5,Aqua 600ml,botol,-3.0,20.0
+2026-09-09,5,Aqua 600ml,botol,60.0,80.0
+2026-09-10,5,Aqua 600ml,botol,-2.0,78.0
+2026-09-11,5,Aqua 600ml,botol,-3.0,75.0
+2026-09-12,5,Aqua 600ml,botol,-21.0,54.0
+2026-09-13,5,Aqua 600ml,botol,-8.0,46.0
+2026-09-14,5,Aqua 600ml,botol,-5.0,41.0
+2026-09-16,5,Aqua 600ml,botol,-3.0,38.0
+2026-09-17,5,Aqua 600ml,botol,-6.0,32.0
+2026-09-19,5,Aqua 600ml,botol,-12.0,20.0
+2026-09-20,5,Aqua 600ml,botol,60.0,80.0
+2026-09-21,5,Aqua 600ml,botol,-3.0,77.0
+2026-09-23,5,Aqua 600ml,botol,-4.0,73.0
+2026-09-24,5,Aqua 600ml,botol,-2.0,71.0
+2026-09-25,5,Aqua 600ml,botol,-2.0,69.0
+2026-05-29,6,Taro Snack,pcs,60.0,60.0
+2026-05-30,6,Taro Snack,pcs,-2.0,58.0
+2026-05-31,6,Taro Snack,pcs,-6.0,52.0
+2026-06-03,6,Taro Snack,pcs,-4.0,48.0
+2026-06-04,6,Taro Snack,pcs,-6.0,42.0
+2026-06-05,6,Taro Snack,pcs,-2.0,40.0
+2026-06-06,6,Taro Snack,pcs,-4.0,36.0
+2026-06-07,6,Taro Snack,pcs,-10.0,26.0
+2026-06-08,6,Taro Snack,pcs,-10.0,16.0
+2026-06-09,6,Taro Snack,pcs,44.0,60.0
+2026-06-12,6,Taro Snack,pcs,-4.0,56.0
+2026-06-13,6,Taro Snack,pcs,-11.0,45.0
+2026-06-14,6,Taro Snack,pcs,-2.0,43.0
+2026-06-15,6,Taro Snack,pcs,-8.0,35.0
+2026-06-16,6,Taro Snack,pcs,-2.0,33.0
+2026-06-18,6,Taro Snack,pcs,-2.0,31.0
+2026-06-20,6,Taro Snack,pcs,-10.0,21.0
+2026-06-21,6,Taro Snack,pcs,-3.0,18.0
+2026-06-22,6,Taro Snack,pcs,-2.0,16.0
+2026-06-23,6,Taro Snack,pcs,44.0,60.0
+2026-06-24,6,Taro Snack,pcs,-5.0,55.0
+2026-06-26,6,Taro Snack,pcs,-6.0,49.0
+2026-06-27,6,Taro Snack,pcs,-15.0,34.0
+2026-06-28,6,Taro Snack,pcs,-6.0,28.0
+2026-06-29,6,Taro Snack,pcs,-5.0,23.0
+2026-06-30,6,Taro Snack,pcs,-2.0,21.0
+2026-07-01,6,Taro Snack,pcs,-3.0,18.0
+2026-07-02,6,Taro Snack,pcs,42.0,60.0
+2026-07-05,6,Taro Snack,pcs,-5.0,55.0
+2026-07-07,6,Taro Snack,pcs,-7.0,48.0
+2026-07-09,6,Taro Snack,pcs,-13.0,35.0
+2026-07-10,6,Taro Snack,pcs,-4.0,31.0
+2026-07-11,6,Taro Snack,pcs,-5.0,26.0
+2026-07-12,6,Taro Snack,pcs,-6.0,20.0
+2026-07-14,6,Taro Snack,pcs,-1.0,19.0
+2026-07-15,6,Taro Snack,pcs,41.0,60.0
+2026-07-16,6,Taro Snack,pcs,-2.0,58.0
+2026-07-17,6,Taro Snack,pcs,-5.0,53.0
+2026-07-18,6,Taro Snack,pcs,-10.0,43.0
+2026-07-19,6,Taro Snack,pcs,-10.0,33.0
+2026-07-21,6,Taro Snack,pcs,-2.0,31.0
+2026-07-22,6,Taro Snack,pcs,-8.0,23.0
+2026-07-23,6,Taro Snack,pcs,37.0,60.0
+2026-07-24,6,Taro Snack,pcs,-11.0,49.0
+2026-07-25,6,Taro Snack,pcs,-12.0,37.0
+2026-07-26,6,Taro Snack,pcs,-11.0,26.0
+2026-07-27,6,Taro Snack,pcs,34.0,60.0
+2026-07-28,6,Taro Snack,pcs,-4.0,56.0
+2026-07-29,6,Taro Snack,pcs,-13.0,43.0
+2026-08-01,6,Taro Snack,pcs,-10.0,33.0
+2026-08-02,6,Taro Snack,pcs,-2.0,31.0
+2026-08-04,6,Taro Snack,pcs,-4.0,27.0
+2026-08-05,6,Taro Snack,pcs,-7.0,20.0
+2026-08-06,6,Taro Snack,pcs,40.0,60.0
+2026-08-08,6,Taro Snack,pcs,-12.0,48.0
+2026-08-09,6,Taro Snack,pcs,-5.0,43.0
+2026-08-10,6,Taro Snack,pcs,-4.0,39.0
+2026-08-11,6,Taro Snack,pcs,-3.0,36.0
+2026-08-13,6,Taro Snack,pcs,-4.0,32.0
+2026-08-14,6,Taro Snack,pcs,-8.0,24.0
+2026-08-15,6,Taro Snack,pcs,-5.0,19.0
+2026-08-16,6,Taro Snack,pcs,41.0,60.0
+2026-08-17,6,Taro Snack,pcs,-6.0,54.0
+2026-08-19,6,Taro Snack,pcs,-9.0,45.0
+2026-08-21,6,Taro Snack,pcs,-5.0,40.0
+2026-08-22,6,Taro Snack,pcs,-19.0,21.0
+2026-08-23,6,Taro Snack,pcs,39.0,60.0
+2026-08-25,6,Taro Snack,pcs,-4.0,56.0
+2026-08-26,6,Taro Snack,pcs,-2.0,54.0
+2026-08-27,6,Taro Snack,pcs,-12.0,42.0
+2026-08-28,6,Taro Snack,pcs,-13.0,29.0
+2026-08-29,6,Taro Snack,pcs,31.0,60.0
+2026-08-30,6,Taro Snack,pcs,-14.0,46.0
+2026-08-31,6,Taro Snack,pcs,-4.0,42.0
+2026-09-01,6,Taro Snack,pcs,-5.0,37.0
+2026-09-03,6,Taro Snack,pcs,-8.0,29.0
+2026-09-04,6,Taro Snack,pcs,-9.0,20.0
+2026-09-05,6,Taro Snack,pcs,40.0,60.0
+2026-09-06,6,Taro Snack,pcs,-13.0,47.0
+2026-09-07,6,Taro Snack,pcs,-4.0,43.0
+2026-09-09,6,Taro Snack,pcs,-2.0,41.0
+2026-09-10,6,Taro Snack,pcs,-3.0,38.0
+2026-09-11,6,Taro Snack,pcs,-4.0,34.0
+2026-09-12,6,Taro Snack,pcs,26.0,60.0
+2026-09-13,6,Taro Snack,pcs,-5.0,55.0
+2026-09-14,6,Taro Snack,pcs,-3.0,52.0
+2026-09-15,6,Taro Snack,pcs,-4.0,48.0
+2026-09-16,6,Taro Snack,pcs,-9.0,39.0
+2026-09-18,6,Taro Snack,pcs,-1.0,38.0
+2026-09-19,6,Taro Snack,pcs,-6.0,32.0
+2026-09-20,6,Taro Snack,pcs,-12.0,20.0
+2026-09-21,6,Taro Snack,pcs,-1.0,19.0
+2026-09-24,6,Taro Snack,pcs,41.0,60.0
+2026-09-25,6,Taro Snack,pcs,-2.0,58.0
+2026-05-29,7,Chitato,pcs,40.0,40.0
+2026-05-30,7,Chitato,pcs,-8.0,32.0
+2026-05-31,7,Chitato,pcs,-3.0,29.0
+2026-06-01,7,Chitato,pcs,-4.0,25.0
+2026-06-02,7,Chitato,pcs,-1.0,24.0
+2026-06-03,7,Chitato,pcs,-5.0,19.0
+2026-06-04,7,Chitato,pcs,-2.0,17.0
+2026-06-05,7,Chitato,pcs,23.0,40.0
+2026-06-06,7,Chitato,pcs,-9.0,31.0
+2026-06-07,7,Chitato,pcs,-8.0,23.0
+2026-06-08,7,Chitato,pcs,-6.0,17.0
+2026-06-09,7,Chitato,pcs,-3.0,14.0
+2026-06-10,7,Chitato,pcs,-3.0,11.0
+2026-06-12,7,Chitato,pcs,29.0,40.0
+2026-06-13,7,Chitato,pcs,-22.0,18.0
+2026-06-14,7,Chitato,pcs,22.0,40.0
+2026-06-15,7,Chitato,pcs,-1.0,39.0
+2026-06-16,7,Chitato,pcs,-4.0,35.0
+2026-06-20,7,Chitato,pcs,-7.0,28.0
+2026-06-21,7,Chitato,pcs,-7.0,21.0
+2026-06-23,7,Chitato,pcs,-2.0,19.0
+2026-06-25,7,Chitato,pcs,-4.0,15.0
+2026-06-26,7,Chitato,pcs,25.0,40.0
+2026-06-27,7,Chitato,pcs,-12.0,28.0
+2026-06-28,7,Chitato,pcs,-12.0,16.0
+2026-07-01,7,Chitato,pcs,-6.0,10.0
+2026-07-02,7,Chitato,pcs,30.0,40.0
+2026-07-03,7,Chitato,pcs,-6.0,34.0
+2026-07-04,7,Chitato,pcs,-16.0,18.0
+2026-07-05,7,Chitato,pcs,-8.0,10.0
+2026-07-06,7,Chitato,pcs,30.0,40.0
+2026-07-07,7,Chitato,pcs,-4.0,36.0
+2026-07-08,7,Chitato,pcs,-6.0,30.0
+2026-07-10,7,Chitato,pcs,-2.0,28.0
+2026-07-11,7,Chitato,pcs,-5.0,23.0
+2026-07-12,7,Chitato,pcs,17.0,40.0
+2026-07-13,7,Chitato,pcs,-3.0,37.0
+2026-07-15,7,Chitato,pcs,-5.0,32.0
+2026-07-16,7,Chitato,pcs,-3.0,29.0
+2026-07-17,7,Chitato,pcs,-3.0,26.0
+2026-07-18,7,Chitato,pcs,-12.0,14.0
+2026-07-19,7,Chitato,pcs,-3.0,11.0
+2026-07-20,7,Chitato,pcs,29.0,40.0
+2026-07-24,7,Chitato,pcs,-7.0,33.0
+2026-07-25,7,Chitato,pcs,-21.0,12.0
+2026-07-26,7,Chitato,pcs,28.0,40.0
+2026-07-27,7,Chitato,pcs,-5.0,35.0
+2026-07-28,7,Chitato,pcs,-5.0,30.0
+2026-07-29,7,Chitato,pcs,-5.0,25.0
+2026-07-30,7,Chitato,pcs,-2.0,23.0
+2026-08-01,7,Chitato,pcs,17.0,40.0
+2026-08-02,7,Chitato,pcs,-7.0,33.0
+2026-08-03,7,Chitato,pcs,-5.0,28.0
+2026-08-04,7,Chitato,pcs,-9.0,19.0
+2026-08-06,7,Chitato,pcs,-1.0,18.0
+2026-08-07,7,Chitato,pcs,22.0,40.0
+2026-08-08,7,Chitato,pcs,-14.0,26.0
+2026-08-09,7,Chitato,pcs,-11.0,15.0
+2026-08-10,7,Chitato,pcs,-1.0,14.0
+2026-08-11,7,Chitato,pcs,26.0,40.0
+2026-08-12,7,Chitato,pcs,-6.0,34.0
+2026-08-13,7,Chitato,pcs,-8.0,26.0
+2026-08-14,7,Chitato,pcs,-10.0,16.0
+2026-08-15,7,Chitato,pcs,24.0,40.0
+2026-08-16,7,Chitato,pcs,-11.0,29.0
+2026-08-17,7,Chitato,pcs,-10.0,19.0
+2026-08-19,7,Chitato,pcs,-1.0,18.0
+2026-08-20,7,Chitato,pcs,22.0,40.0
+2026-08-22,7,Chitato,pcs,-2.0,38.0
+2026-08-23,7,Chitato,pcs,2.0,40.0
+2026-08-26,7,Chitato,pcs,-8.0,32.0
+2026-08-27,7,Chitato,pcs,-4.0,28.0
+2026-08-28,7,Chitato,pcs,-3.0,25.0
+2026-08-29,7,Chitato,pcs,-14.0,11.0
+2026-08-30,7,Chitato,pcs,29.0,40.0
+2026-08-31,7,Chitato,pcs,-2.0,38.0
+2026-09-01,7,Chitato,pcs,-2.0,36.0
+2026-09-02,7,Chitato,pcs,-2.0,34.0
+2026-09-03,7,Chitato,pcs,-13.0,21.0
+2026-09-04,7,Chitato,pcs,-5.0,16.0
+2026-09-05,7,Chitato,pcs,24.0,40.0
+2026-09-06,7,Chitato,pcs,-12.0,28.0
+2026-09-07,7,Chitato,pcs,-7.0,21.0
+2026-09-08,7,Chitato,pcs,-3.0,18.0
+2026-09-09,7,Chitato,pcs,-4.0,14.0
+2026-09-10,7,Chitato,pcs,26.0,40.0
+2026-09-12,7,Chitato,pcs,-21.0,19.0
+2026-09-13,7,Chitato,pcs,21.0,40.0
+2026-09-16,7,Chitato,pcs,-4.0,36.0
+2026-09-17,7,Chitato,pcs,-10.0,26.0
+2026-09-18,7,Chitato,pcs,-7.0,19.0
+2026-09-19,7,Chitato,pcs,21.0,40.0
+2026-09-20,7,Chitato,pcs,-4.0,36.0
+2026-09-21,7,Chitato,pcs,-12.0,24.0
+2026-09-22,7,Chitato,pcs,-6.0,18.0
+2026-09-23,7,Chitato,pcs,-2.0,16.0
+2026-09-24,7,Chitato,pcs,-1.0,15.0
+2026-05-29,8,Rokok Sampoerna,bungkus,25.0,25.0
+2026-05-30,8,Rokok Sampoerna,bungkus,-3.0,22.0
+2026-05-31,8,Rokok Sampoerna,bungkus,-11.0,11.0
+2026-06-01,8,Rokok Sampoerna,bungkus,19.0,30.0
+2026-06-03,8,Rokok Sampoerna,bungkus,-11.0,19.0
+2026-06-06,8,Rokok Sampoerna,bungkus,-5.0,14.0
+2026-06-07,8,Rokok Sampoerna,bungkus,-5.0,9.0
+2026-06-11,8,Rokok Sampoerna,bungkus,21.0,30.0
+2026-06-12,8,Rokok Sampoerna,bungkus,-3.0,27.0
+2026-06-13,8,Rokok Sampoerna,bungkus,-9.0,18.0
+2026-06-14,8,Rokok Sampoerna,bungkus,-10.0,8.0
+2026-06-15,8,Rokok Sampoerna,bungkus,22.0,30.0
+2026-06-16,8,Rokok Sampoerna,bungkus,-8.0,22.0
+2026-06-17,8,Rokok Sampoerna,bungkus,-1.0,21.0
+2026-06-18,8,Rokok Sampoerna,bungkus,-1.0,20.0
+2026-06-20,8,Rokok Sampoerna,bungkus,-6.0,14.0
+2026-06-21,8,Rokok Sampoerna,bungkus,-6.0,8.0
+2026-06-22,8,Rokok Sampoerna,bungkus,22.0,30.0
+2026-06-23,8,Rokok Sampoerna,bungkus,-1.0,29.0
+2026-06-24,8,Rokok Sampoerna,bungkus,-2.0,27.0
+2026-06-25,8,Rokok Sampoerna,bungkus,-9.0,18.0
+2026-06-26,8,Rokok Sampoerna,bungkus,-2.0,16.0
+2026-06-28,8,Rokok Sampoerna,bungkus,-3.0,13.0
+2026-06-29,8,Rokok Sampoerna,bungkus,-5.0,8.0
+2026-07-01,8,Rokok Sampoerna,bungkus,22.0,30.0
+2026-07-02,8,Rokok Sampoerna,bungkus,-3.0,27.0
+2026-07-04,8,Rokok Sampoerna,bungkus,-11.0,16.0
+2026-07-05,8,Rokok Sampoerna,bungkus,14.0,30.0
+2026-07-06,8,Rokok Sampoerna,bungkus,-9.0,21.0
+2026-07-07,8,Rokok Sampoerna,bungkus,-2.0,19.0
+2026-07-08,8,Rokok Sampoerna,bungkus,-3.0,16.0
+2026-07-10,8,Rokok Sampoerna,bungkus,-5.0,11.0
+2026-07-11,8,Rokok Sampoerna,bungkus,-3.0,8.0
+2026-07-12,8,Rokok Sampoerna,bungkus,22.0,30.0
+2026-07-17,8,Rokok Sampoerna,bungkus,-5.0,25.0
+2026-07-18,8,Rokok Sampoerna,bungkus,-5.0,20.0
+2026-07-19,8,Rokok Sampoerna,bungkus,-2.0,18.0
+2026-07-20,8,Rokok Sampoerna,bungkus,-1.0,17.0
+2026-07-21,8,Rokok Sampoerna,bungkus,-6.0,11.0
+2026-07-22,8,Rokok Sampoerna,bungkus,19.0,30.0
+2026-07-24,8,Rokok Sampoerna,bungkus,-2.0,28.0
+2026-07-25,8,Rokok Sampoerna,bungkus,-7.0,21.0
+2026-07-27,8,Rokok Sampoerna,bungkus,-1.0,20.0
+2026-07-28,8,Rokok Sampoerna,bungkus,-3.0,17.0
+2026-07-29,8,Rokok Sampoerna,bungkus,-3.0,14.0
+2026-08-01,8,Rokok Sampoerna,bungkus,-1.0,13.0
+2026-08-02,8,Rokok Sampoerna,bungkus,17.0,30.0
+2026-08-03,8,Rokok Sampoerna,bungkus,-7.0,23.0
+2026-08-04,8,Rokok Sampoerna,bungkus,-11.0,12.0
+2026-08-06,8,Rokok Sampoerna,bungkus,-2.0,10.0
+2026-08-09,8,Rokok Sampoerna,bungkus,20.0,30.0
+2026-08-10,8,Rokok Sampoerna,bungkus,-9.0,21.0
+2026-08-11,8,Rokok Sampoerna,bungkus,-2.0,19.0
+2026-08-13,8,Rokok Sampoerna,bungkus,-5.0,14.0
+2026-08-14,8,Rokok Sampoerna,bungkus,-6.0,8.0
+2026-08-15,8,Rokok Sampoerna,bungkus,22.0,30.0
+2026-08-16,8,Rokok Sampoerna,bungkus,-3.0,27.0
+2026-08-19,8,Rokok Sampoerna,bungkus,-5.0,22.0
+2026-08-23,8,Rokok Sampoerna,bungkus,-6.0,16.0
+2026-08-24,8,Rokok Sampoerna,bungkus,-5.0,11.0
+2026-08-29,8,Rokok Sampoerna,bungkus,19.0,30.0
+2026-08-30,8,Rokok Sampoerna,bungkus,-6.0,24.0
+2026-08-31,8,Rokok Sampoerna,bungkus,-3.0,21.0
+2026-09-01,8,Rokok Sampoerna,bungkus,-1.0,20.0
+2026-09-03,8,Rokok Sampoerna,bungkus,-7.0,13.0
+2026-09-04,8,Rokok Sampoerna,bungkus,17.0,30.0
+2026-09-05,8,Rokok Sampoerna,bungkus,-5.0,25.0
+2026-09-06,8,Rokok Sampoerna,bungkus,-4.0,21.0
+2026-09-07,8,Rokok Sampoerna,bungkus,-8.0,13.0
+2026-09-09,8,Rokok Sampoerna,bungkus,17.0,30.0
+2026-09-11,8,Rokok Sampoerna,bungkus,-6.0,24.0
+2026-09-12,8,Rokok Sampoerna,bungkus,-6.0,18.0
+2026-09-13,8,Rokok Sampoerna,bungkus,-8.0,10.0
+2026-09-15,8,Rokok Sampoerna,bungkus,-2.0,8.0
+2026-09-17,8,Rokok Sampoerna,bungkus,22.0,30.0
+2026-09-18,8,Rokok Sampoerna,bungkus,-5.0,25.0
+2026-09-19,8,Rokok Sampoerna,bungkus,-1.0,24.0
+2026-09-20,8,Rokok Sampoerna,bungkus,-11.0,13.0
+2026-09-24,8,Rokok Sampoerna,bungkus,17.0,30.0
+2026-09-25,8,Rokok Sampoerna,bungkus,-5.0,25.0
+2026-05-29,9,Rokok Gudang Garam,bungkus,29.0,29.0
+2026-05-31,9,Rokok Gudang Garam,bungkus,-11.0,18.0
+2026-06-01,9,Rokok Gudang Garam,bungkus,-3.0,15.0
+2026-06-03,9,Rokok Gudang Garam,bungkus,-2.0,13.0
+2026-06-05,9,Rokok Gudang Garam,bungkus,-3.0,10.0
+2026-06-06,9,Rokok Gudang Garam,bungkus,20.0,30.0
+2026-06-07,9,Rokok Gudang Garam,bungkus,-4.0,26.0
+2026-06-12,9,Rokok Gudang Garam,bungkus,-11.0,15.0
+2026-06-13,9,Rokok Gudang Garam,bungkus,-2.0,13.0
+2026-06-14,9,Rokok Gudang Garam,bungkus,17.0,30.0
+2026-06-18,9,Rokok Gudang Garam,bungkus,-7.0,23.0
+2026-06-19,9,Rokok Gudang Garam,bungkus,-3.0,20.0
+2026-06-20,9,Rokok Gudang Garam,bungkus,-3.0,17.0
+2026-06-21,9,Rokok Gudang Garam,bungkus,-4.0,13.0
+2026-06-22,9,Rokok Gudang Garam,bungkus,-3.0,10.0
+2026-06-24,9,Rokok Gudang Garam,bungkus,20.0,30.0
+2026-06-25,9,Rokok Gudang Garam,bungkus,-7.0,23.0
+2026-06-28,9,Rokok Gudang Garam,bungkus,-10.0,13.0
+2026-06-29,9,Rokok Gudang Garam,bungkus,-3.0,10.0
+2026-06-30,9,Rokok Gudang Garam,bungkus,-1.0,9.0
+2026-07-01,9,Rokok Gudang Garam,bungkus,21.0,30.0
+2026-07-02,9,Rokok Gudang Garam,bungkus,-8.0,22.0
+2026-07-03,9,Rokok Gudang Garam,bungkus,-1.0,21.0
+2026-07-05,9,Rokok Gudang Garam,bungkus,-2.0,19.0
+2026-07-06,9,Rokok Gudang Garam,bungkus,-5.0,14.0
+2026-07-07,9,Rokok Gudang Garam,bungkus,16.0,30.0
+2026-07-08,9,Rokok Gudang Garam,bungkus,-8.0,22.0
+2026-07-11,9,Rokok Gudang Garam,bungkus,-2.0,20.0
+2026-07-12,9,Rokok Gudang Garam,bungkus,-6.0,14.0
+2026-07-14,9,Rokok Gudang Garam,bungkus,-3.0,11.0
+2026-07-15,9,Rokok Gudang Garam,bungkus,19.0,30.0
+2026-07-16,9,Rokok Gudang Garam,bungkus,-7.0,23.0
+2026-07-18,9,Rokok Gudang Garam,bungkus,-5.0,18.0
+2026-07-19,9,Rokok Gudang Garam,bungkus,-9.0,9.0
+2026-07-22,9,Rokok Gudang Garam,bungkus,21.0,30.0
+2026-07-23,9,Rokok Gudang Garam,bungkus,-7.0,23.0
+2026-07-24,9,Rokok Gudang Garam,bungkus,-13.0,10.0
+2026-07-25,9,Rokok Gudang Garam,bungkus,20.0,30.0
+2026-07-26,9,Rokok Gudang Garam,bungkus,-5.0,25.0
+2026-07-27,9,Rokok Gudang Garam,bungkus,-2.0,23.0
+2026-07-28,9,Rokok Gudang Garam,bungkus,-4.0,19.0
+2026-07-29,9,Rokok Gudang Garam,bungkus,-3.0,16.0
+2026-07-30,9,Rokok Gudang Garam,bungkus,-7.0,9.0
+2026-07-31,9,Rokok Gudang Garam,bungkus,21.0,30.0
+2026-08-01,9,Rokok Gudang Garam,bungkus,-1.0,29.0
+2026-08-02,9,Rokok Gudang Garam,bungkus,-10.0,19.0
+2026-08-05,9,Rokok Gudang Garam,bungkus,-3.0,16.0
+2026-08-06,9,Rokok Gudang Garam,bungkus,-1.0,15.0
+2026-08-07,9,Rokok Gudang Garam,bungkus,-2.0,13.0
+2026-08-08,9,Rokok Gudang Garam,bungkus,17.0,30.0
+2026-08-11,9,Rokok Gudang Garam,bungkus,-14.0,16.0
+2026-08-12,9,Rokok Gudang Garam,bungkus,-7.0,9.0
+2026-08-13,9,Rokok Gudang Garam,bungkus,21.0,30.0
+2026-08-14,9,Rokok Gudang Garam,bungkus,-5.0,25.0
+2026-08-16,9,Rokok Gudang Garam,bungkus,-7.0,18.0
+2026-08-17,9,Rokok Gudang Garam,bungkus,-7.0,11.0
+2026-08-18,9,Rokok Gudang Garam,bungkus,19.0,30.0
+2026-08-19,9,Rokok Gudang Garam,bungkus,-9.0,21.0
+2026-08-20,9,Rokok Gudang Garam,bungkus,-5.0,16.0
+2026-08-21,9,Rokok Gudang Garam,bungkus,-2.0,14.0
+2026-08-22,9,Rokok Gudang Garam,bungkus,16.0,30.0
+2026-08-23,9,Rokok Gudang Garam,bungkus,-9.0,21.0
+2026-08-24,9,Rokok Gudang Garam,bungkus,-9.0,12.0
+2026-08-25,9,Rokok Gudang Garam,bungkus,18.0,30.0
+2026-08-28,9,Rokok Gudang Garam,bungkus,-3.0,27.0
+2026-08-29,9,Rokok Gudang Garam,bungkus,-8.0,19.0
+2026-08-30,9,Rokok Gudang Garam,bungkus,11.0,30.0
+2026-08-31,9,Rokok Gudang Garam,bungkus,-5.0,25.0
+2026-09-01,9,Rokok Gudang Garam,bungkus,-2.0,23.0
+2026-09-02,9,Rokok Gudang Garam,bungkus,-4.0,19.0
+2026-09-04,9,Rokok Gudang Garam,bungkus,-5.0,14.0
+2026-09-07,9,Rokok Gudang Garam,bungkus,-3.0,11.0
+2026-09-09,9,Rokok Gudang Garam,bungkus,-3.0,8.0
+2026-09-12,9,Rokok Gudang Garam,bungkus,22.0,30.0
+2026-09-13,9,Rokok Gudang Garam,bungkus,-9.0,21.0
+2026-09-14,9,Rokok Gudang Garam,bungkus,-3.0,18.0
+2026-09-15,9,Rokok Gudang Garam,bungkus,-10.0,8.0
+2026-09-16,9,Rokok Gudang Garam,bungkus,22.0,30.0
+2026-09-20,9,Rokok Gudang Garam,bungkus,-2.0,28.0
+2026-09-21,9,Rokok Gudang Garam,bungkus,-5.0,23.0
+2026-09-22,9,Rokok Gudang Garam,bungkus,-3.0,20.0
+2026-09-23,9,Rokok Gudang Garam,bungkus,-2.0,18.0
+2026-09-24,9,Rokok Gudang Garam,bungkus,-7.0,11.0
+2026-09-25,9,Rokok Gudang Garam,bungkus,19.0,30.0
+2026-05-29,10,Sabun Lifebuoy,pcs,50.0,50.0
+2026-05-30,10,Sabun Lifebuoy,pcs,-10.0,40.0
+2026-06-01,10,Sabun Lifebuoy,pcs,-8.0,32.0
+2026-06-04,10,Sabun Lifebuoy,pcs,-7.0,25.0
+2026-06-05,10,Sabun Lifebuoy,pcs,25.0,50.0
+2026-06-06,10,Sabun Lifebuoy,pcs,-4.0,46.0
+2026-06-07,10,Sabun Lifebuoy,pcs,-4.0,42.0
+2026-06-08,10,Sabun Lifebuoy,pcs,-2.0,40.0
+2026-06-09,10,Sabun Lifebuoy,pcs,-5.0,35.0
+2026-06-11,10,Sabun Lifebuoy,pcs,-4.0,31.0
+2026-06-12,10,Sabun Lifebuoy,pcs,-3.0,28.0
+2026-06-13,10,Sabun Lifebuoy,pcs,-5.0,23.0
+2026-06-14,10,Sabun Lifebuoy,pcs,-7.0,16.0
+2026-06-18,10,Sabun Lifebuoy,pcs,34.0,50.0
+2026-06-19,10,Sabun Lifebuoy,pcs,-9.0,41.0
+2026-06-20,10,Sabun Lifebuoy,pcs,-2.0,39.0
+2026-06-21,10,Sabun Lifebuoy,pcs,-9.0,30.0
+2026-06-23,10,Sabun Lifebuoy,pcs,-5.0,25.0
+2026-06-24,10,Sabun Lifebuoy,pcs,-12.0,13.0
+2026-06-25,10,Sabun Lifebuoy,pcs,37.0,50.0
+2026-06-27,10,Sabun Lifebuoy,pcs,-7.0,43.0
+2026-06-28,10,Sabun Lifebuoy,pcs,-7.0,36.0
+2026-06-29,10,Sabun Lifebuoy,pcs,-14.0,22.0
+2026-07-02,10,Sabun Lifebuoy,pcs,-7.0,15.0
+2026-07-03,10,Sabun Lifebuoy,pcs,-1.0,14.0
+2026-07-04,10,Sabun Lifebuoy,pcs,36.0,50.0
+2026-07-05,10,Sabun Lifebuoy,pcs,-6.0,44.0
+2026-07-06,10,Sabun Lifebuoy,pcs,-8.0,36.0
+2026-07-08,10,Sabun Lifebuoy,pcs,-4.0,32.0
+2026-07-10,10,Sabun Lifebuoy,pcs,-5.0,27.0
+2026-07-11,10,Sabun Lifebuoy,pcs,-5.0,22.0
+2026-07-12,10,Sabun Lifebuoy,pcs,-9.0,13.0
+2026-07-15,10,Sabun Lifebuoy,pcs,37.0,50.0
+2026-07-16,10,Sabun Lifebuoy,pcs,-6.0,44.0
+2026-07-18,10,Sabun Lifebuoy,pcs,-3.0,41.0
+2026-07-19,10,Sabun Lifebuoy,pcs,-5.0,36.0
+2026-07-20,10,Sabun Lifebuoy,pcs,-3.0,33.0
+2026-07-21,10,Sabun Lifebuoy,pcs,-9.0,24.0
+2026-07-22,10,Sabun Lifebuoy,pcs,-8.0,16.0
+2026-07-23,10,Sabun Lifebuoy,pcs,-3.0,13.0
+2026-07-24,10,Sabun Lifebuoy,pcs,37.0,50.0
+2026-07-26,10,Sabun Lifebuoy,pcs,-5.0,45.0
+2026-07-28,10,Sabun Lifebuoy,pcs,-1.0,44.0
+2026-07-29,10,Sabun Lifebuoy,pcs,-6.0,38.0
+2026-07-30,10,Sabun Lifebuoy,pcs,-3.0,35.0
+2026-08-01,10,Sabun Lifebuoy,pcs,-4.0,31.0
+2026-08-03,10,Sabun Lifebuoy,pcs,-2.0,29.0
+2026-08-04,10,Sabun Lifebuoy,pcs,-3.0,26.0
+2026-08-10,10,Sabun Lifebuoy,pcs,-3.0,23.0
+2026-08-11,10,Sabun Lifebuoy,pcs,-6.0,17.0
+2026-08-12,10,Sabun Lifebuoy,pcs,-1.0,16.0
+2026-08-13,10,Sabun Lifebuoy,pcs,-1.0,15.0
+2026-08-14,10,Sabun Lifebuoy,pcs,-1.0,14.0
+2026-08-18,10,Sabun Lifebuoy,pcs,36.0,50.0
+2026-08-19,10,Sabun Lifebuoy,pcs,-3.0,47.0
+2026-08-20,10,Sabun Lifebuoy,pcs,-5.0,42.0
+2026-08-21,10,Sabun Lifebuoy,pcs,-10.0,32.0
+2026-08-25,10,Sabun Lifebuoy,pcs,-7.0,25.0
+2026-08-26,10,Sabun Lifebuoy,pcs,-1.0,24.0
+2026-08-27,10,Sabun Lifebuoy,pcs,-6.0,18.0
+2026-08-28,10,Sabun Lifebuoy,pcs,-4.0,14.0
+2026-08-29,10,Sabun Lifebuoy,pcs,36.0,50.0
+2026-08-30,10,Sabun Lifebuoy,pcs,-7.0,43.0
+2026-08-31,10,Sabun Lifebuoy,pcs,-11.0,32.0
+2026-09-01,10,Sabun Lifebuoy,pcs,-1.0,31.0
+2026-09-02,10,Sabun Lifebuoy,pcs,-1.0,30.0
+2026-09-04,10,Sabun Lifebuoy,pcs,-5.0,25.0
+2026-09-06,10,Sabun Lifebuoy,pcs,-6.0,19.0
+2026-09-07,10,Sabun Lifebuoy,pcs,-1.0,18.0
+2026-09-09,10,Sabun Lifebuoy,pcs,-2.0,16.0
+2026-09-10,10,Sabun Lifebuoy,pcs,34.0,50.0
+2026-09-11,10,Sabun Lifebuoy,pcs,-10.0,40.0
+2026-09-12,10,Sabun Lifebuoy,pcs,-4.0,36.0
+2026-09-13,10,Sabun Lifebuoy,pcs,-4.0,32.0
+2026-09-14,10,Sabun Lifebuoy,pcs,-2.0,30.0
+2026-09-15,10,Sabun Lifebuoy,pcs,-8.0,22.0
+2026-09-16,10,Sabun Lifebuoy,pcs,-5.0,17.0
+2026-09-17,10,Sabun Lifebuoy,pcs,-4.0,13.0
+2026-09-19,10,Sabun Lifebuoy,pcs,37.0,50.0
+2026-09-20,10,Sabun Lifebuoy,pcs,-12.0,38.0
+2026-09-21,10,Sabun Lifebuoy,pcs,-9.0,29.0
+2026-09-22,10,Sabun Lifebuoy,pcs,-5.0,24.0
+2026-09-23,10,Sabun Lifebuoy,pcs,-5.0,19.0
+2026-09-24,10,Sabun Lifebuoy,pcs,-2.0,17.0
+2026-09-25,10,Sabun Lifebuoy,pcs,-1.0,16.0
+2026-05-29,11,Shampo Pantene,pcs,25.0,25.0
+2026-05-30,11,Shampo Pantene,pcs,-1.0,24.0
+2026-05-31,11,Shampo Pantene,pcs,-1.0,23.0
+2026-06-02,11,Shampo Pantene,pcs,-4.0,19.0
+2026-06-03,11,Shampo Pantene,pcs,-5.0,14.0
+2026-06-05,11,Shampo Pantene,pcs,-2.0,12.0
+2026-06-06,11,Shampo Pantene,pcs,13.0,25.0
+2026-06-07,11,Shampo Pantene,pcs,-9.0,16.0
+2026-06-08,11,Shampo Pantene,pcs,-5.0,11.0
+2026-06-10,11,Shampo Pantene,pcs,14.0,25.0
+2026-06-11,11,Shampo Pantene,pcs,-3.0,22.0
+2026-06-13,11,Shampo Pantene,pcs,-5.0,17.0
+2026-06-14,11,Shampo Pantene,pcs,-3.0,14.0
+2026-06-17,11,Shampo Pantene,pcs,-2.0,12.0
+2026-06-19,11,Shampo Pantene,pcs,-4.0,8.0
+2026-06-20,11,Shampo Pantene,pcs,17.0,25.0
+2026-06-21,11,Shampo Pantene,pcs,-4.0,21.0
+2026-06-23,11,Shampo Pantene,pcs,-4.0,17.0
+2026-06-27,11,Shampo Pantene,pcs,-5.0,12.0
+2026-06-28,11,Shampo Pantene,pcs,-2.0,10.0
+2026-06-29,11,Shampo Pantene,pcs,15.0,25.0
+2026-06-30,11,Shampo Pantene,pcs,-2.0,23.0
+2026-07-01,11,Shampo Pantene,pcs,-2.0,21.0
+2026-07-02,11,Shampo Pantene,pcs,-1.0,20.0
+2026-07-05,11,Shampo Pantene,pcs,-11.0,9.0
+2026-07-08,11,Shampo Pantene,pcs,16.0,25.0
+2026-07-09,11,Shampo Pantene,pcs,-3.0,22.0
+2026-07-12,11,Shampo Pantene,pcs,-1.0,21.0
+2026-07-13,11,Shampo Pantene,pcs,-7.0,14.0
+2026-07-14,11,Shampo Pantene,pcs,-3.0,11.0
+2026-07-15,11,Shampo Pantene,pcs,-3.0,8.0
+2026-07-16,11,Shampo Pantene,pcs,17.0,25.0
+2026-07-17,11,Shampo Pantene,pcs,-5.0,20.0
+2026-07-18,11,Shampo Pantene,pcs,-5.0,15.0
+2026-07-21,11,Shampo Pantene,pcs,-3.0,12.0
+2026-07-22,11,Shampo Pantene,pcs,13.0,25.0
+2026-07-23,11,Shampo Pantene,pcs,-5.0,20.0
+2026-07-24,11,Shampo Pantene,pcs,-5.0,15.0
+2026-07-25,11,Shampo Pantene,pcs,-8.0,7.0
+2026-07-26,11,Shampo Pantene,pcs,18.0,25.0
+2026-07-28,11,Shampo Pantene,pcs,-3.0,22.0
+2026-07-29,11,Shampo Pantene,pcs,-10.0,12.0
+2026-07-31,11,Shampo Pantene,pcs,13.0,25.0
+2026-08-01,11,Shampo Pantene,pcs,-3.0,22.0
+2026-08-02,11,Shampo Pantene,pcs,-7.0,15.0
+2026-08-06,11,Shampo Pantene,pcs,-2.0,13.0
+2026-08-07,11,Shampo Pantene,pcs,-3.0,10.0
+2026-08-08,11,Shampo Pantene,pcs,-3.0,7.0
+2026-08-10,11,Shampo Pantene,pcs,18.0,25.0
+2026-08-11,11,Shampo Pantene,pcs,-2.0,23.0
+2026-08-12,11,Shampo Pantene,pcs,-5.0,18.0
+2026-08-13,11,Shampo Pantene,pcs,-3.0,15.0
+2026-08-15,11,Shampo Pantene,pcs,-7.0,8.0
+2026-08-16,11,Shampo Pantene,pcs,17.0,25.0
+2026-08-17,11,Shampo Pantene,pcs,-4.0,21.0
+2026-08-20,11,Shampo Pantene,pcs,-2.0,19.0
+2026-08-22,11,Shampo Pantene,pcs,-5.0,14.0
+2026-08-24,11,Shampo Pantene,pcs,-2.0,12.0
+2026-08-25,11,Shampo Pantene,pcs,-3.0,9.0
+2026-08-27,11,Shampo Pantene,pcs,-2.0,7.0
+2026-08-29,11,Shampo Pantene,pcs,18.0,25.0
+2026-08-30,11,Shampo Pantene,pcs,-3.0,22.0
+2026-08-31,11,Shampo Pantene,pcs,-3.0,19.0
+2026-09-01,11,Shampo Pantene,pcs,-5.0,14.0
+2026-09-03,11,Shampo Pantene,pcs,-3.0,11.0
+2026-09-04,11,Shampo Pantene,pcs,14.0,25.0
+2026-09-05,11,Shampo Pantene,pcs,-12.0,13.0
+2026-09-06,11,Shampo Pantene,pcs,-4.0,9.0
+2026-09-07,11,Shampo Pantene,pcs,16.0,25.0
+2026-09-10,11,Shampo Pantene,pcs,-8.0,17.0
+2026-09-11,11,Shampo Pantene,pcs,-4.0,13.0
+2026-09-12,11,Shampo Pantene,pcs,12.0,25.0
+2026-09-13,11,Shampo Pantene,pcs,-13.0,12.0
+2026-09-15,11,Shampo Pantene,pcs,13.0,25.0
+2026-09-16,11,Shampo Pantene,pcs,-11.0,14.0
+2026-09-17,11,Shampo Pantene,pcs,-2.0,12.0
+2026-09-18,11,Shampo Pantene,pcs,13.0,25.0
+2026-09-19,11,Shampo Pantene,pcs,-11.0,14.0
+2026-09-20,11,Shampo Pantene,pcs,-6.0,8.0
+2026-09-21,11,Shampo Pantene,pcs,17.0,25.0
+2026-09-23,11,Shampo Pantene,pcs,-1.0,24.0
+2026-05-29,12,Tepung Terigu,kg,5.0,5.0
+2026-05-29,13,Gula Pasir,kg,3.0,3.0
+2026-05-29,14,Minyak Goreng,liter,2.0,2.0
+2026-05-29,15,Gas LPG 3kg,tabung,2.0,2.0
+2026-05-29,16,Saus Sambal,botol,3.0,3.0
+2026-05-29,17,Plastik Kresek,pack,10.0,10.0
+2026-05-29,18,Cup Plastik,pack,5.0,5.0
+2026-05-29,19,Kantong Kertas,pack,3.0,3.0
