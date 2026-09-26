@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 
 from database.connection import get_db
-from database.models import Product, Transaction, TransactionDetail, InventoryMovement, Debt
+from database.models import Product, ItemType, Transaction, TransactionDetail, InventoryMovement, Debt
 from src.ai.agent import run_agent
 from src.akuntansi.pengeluaran import catat_pengeluaran
 
@@ -322,6 +322,132 @@ def catat_transaksi(
         "total_amount":    total_amount,
         "payment_method":  request.payment_method,
         "items_count":     len(details_data),
+    }
+
+# ============================================================
+# PRODUK 
+# ============================================================
+
+@app.post("/api/produk")
+def tambah_produk(
+    request: ProductCreateRequest,
+    db: Session = Depends(get_db)
+):
+    # Cek duplikat nama
+    existing = db.query(Product).filter(
+        Product.name == request.name,
+        Product.is_active == True
+    ).first()
+
+    if existing:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Produk '{request.name}' sudah ada."
+        )
+
+    produk = Product(
+        name        = request.name,
+        category_id = request.category_id,
+        cost_price  = request.cost_price,
+        price       = request.price,
+        stock       = request.stock,
+        unit        = request.unit,
+        description = request.description,
+        item_type   = ItemType.PRODUK_DIJUAL,
+    )
+    db.add(produk)
+    db.flush()
+
+    # Catat opening stock sebagai movement
+    if request.stock > 0:
+        db.add(InventoryMovement(
+            product_id      = produk.id,
+            quantity_change = +request.stock,
+            stock_after     = request.stock,
+            reason          = "opening_stock",
+            notes           = "Stok awal saat produk ditambahkan",
+        ))
+
+    db.commit()
+    db.refresh(produk)
+
+    return {
+        "status":  "success",
+        "message": "Produk berhasil ditambahkan.",
+        "data":    product_to_dict(produk)
+    }
+
+
+@app.put("/api/produk/{product_id}")
+def edit_produk(
+    product_id: int,
+    request: ProductUpdateRequest,
+    db: Session = Depends(get_db)
+):
+    produk = db.query(Product).filter(
+        Product.id == product_id,
+        Product.is_active == True
+    ).first()
+
+    if not produk:
+        raise HTTPException(
+            status_code=404,
+            detail="Produk tidak ditemukan."
+        )
+
+    # Cek duplikat nama (kecuali produk itu sendiri)
+    existing = db.query(Product).filter(
+        Product.name == request.name,
+        Product.id != product_id,
+        Product.is_active == True
+    ).first()
+
+    if existing:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Nama '{request.name}' sudah dipakai produk lain."
+        )
+
+    produk.name        = request.name
+    produk.category_id = request.category_id
+    produk.cost_price  = request.cost_price
+    produk.price       = request.price
+    produk.unit        = request.unit
+    produk.description = request.description
+
+    db.commit()
+    db.refresh(produk)
+
+    return {
+        "status":  "success",
+        "message": "Produk berhasil diupdate.",
+        "data":    product_to_dict(produk)
+    }
+
+
+@app.delete("/api/produk/{product_id}")
+def hapus_produk(
+    product_id: int,
+    db: Session = Depends(get_db)
+):
+    produk = db.query(Product).filter(
+        Product.id == product_id,
+        Product.is_active == True
+    ).first()
+
+    if not produk:
+        raise HTTPException(
+            status_code=404,
+            detail="Produk tidak ditemukan."
+        )
+
+    # Soft delete — data historis tetap aman
+    produk.is_active = False
+    db.commit()
+
+    return {
+        "status":  "success",
+        "message": f"Produk '{produk.name}' berhasil dinonaktifkan.",
     }
 
 # ============================================================
