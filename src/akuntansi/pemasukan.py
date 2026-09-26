@@ -13,7 +13,7 @@ def catat_pemasukan(db: Session, deskripsi: str, nominal: float, sumber: str | N
         source=sumber
     )
     db.add(pemasukan_baru)
-    db.commit()
+    db.flush()
     db.refresh(pemasukan_baru)
     return pemasukan_baru
 
