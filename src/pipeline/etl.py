@@ -103,19 +103,26 @@ def transform(dfs: dict):
     product_sales.to_csv(os.path.join(PROCESSED_DIR, "product_sales.csv"), index=False)
     print(f"  [transform] product_sales: {len(product_sales)} rows")
 
-    # ── 3. inventory_daily.csv ────────────────────────────────────────────────
-    # Posisi stok per produk per hari — untuk inventory analysis
+        # ── 3. inventory_daily.csv ────────────────────────────────────────────────
     movements_named = movements.merge(
         products[["id", "name", "unit"]], 
         left_on="product_id", right_on="id"
     )
+
+    # Sort kronologis per produk dulu
+    movements_named = movements_named.sort_values(["product_id", "timestamp"])
+
+    # Reconstruct stock_akhir dari cumsum 
+    movements_named["stock_akhir"] = (
+        movements_named.groupby("product_id")["quantity_change"].cumsum()
+    )
+
     inventory_daily = (
         movements_named
-        .sort_values("timestamp")
         .groupby(["date", "product_id", "name", "unit"])
         .agg(
             net_change  = ("quantity_change", "sum"),
-            stock_akhir = ("stock_after", "last"),
+            stock_akhir = ("stock_akhir", "last"),
         )
         .reset_index()
         .sort_values(["product_id", "date"])
