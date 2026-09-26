@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
-import datetime as datetime
+from datetime import datetime, timedelta
 
 from database.connection import get_db
 from database.models import Product, ItemType, Transaction, TransactionDetail, InventoryMovement, Debt
@@ -628,14 +628,14 @@ def restock_product(
     deskripsi = f"Beli {product.name} {request.quantity} {product.unit}"
     if request.catatan:
         deskripsi += f" — {request.catatan}"
-    catat_pengeluaran(db, deskripsi, request.total_harga, "bahan_baku")
+    expense = catat_pengeluaran(db, deskripsi, request.total_harga, "bahan_baku")
 
     catat_movement(                       
         db,
         product,
         quantity_change = +request.quantity,
         reason          = "purchase",
-        reference_id    = expense.id,
+        reference_id = expense.id,
         notes           = request.catatan,
     )
 
