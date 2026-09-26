@@ -44,6 +44,7 @@ def tool_catat_pemasukan(deskripsi: str, nominal: float, sumber: str | None = No
     db = SessionLocal()
     try:
         data = catat_pemasukan(db, deskripsi, nominal, sumber)
+        db.commit()
         return f"✅ Pemasukan berhasil dicatat!\n📝 {data.description}\n💰 Rp{data.amount:,.0f}\n📌 Sumber: {data.source or 'lainnya'}"
     except ValueError as e:
         return f"❌ Gagal mencatat: {str(e)}"
