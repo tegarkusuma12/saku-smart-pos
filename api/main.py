@@ -2,11 +2,13 @@ from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
+import datetime as datetime
 
 from database.connection import get_db
 from database.models import Product, ItemType, Transaction, TransactionDetail, InventoryMovement, Debt
 from src.ai.agent import run_agent
 from src.akuntansi.pengeluaran import catat_pengeluaran
+from src.akuntansi.pemasukan import catat_pemasukan
 
 
 app = FastAPI(
@@ -67,7 +69,6 @@ class ProductUpdateRequest(BaseModel):
     unit: str = Field("pcs", min_length=1)
     description: str | None = None
 
-
 class StockAdjustmentRequest(BaseModel):
     quantity: int
     reason: str = Field(..., min_length=1)
@@ -81,6 +82,9 @@ class TransactionRequest(BaseModel):
     payment_method: str = Field(..., pattern="^(Cash|QRIS|Kasbon)$")
     customer_name: str | None = None   # wajib 
     notes: str | None = None
+
+class LunasHutangRequest(BaseModel):
+    catatan: str | None = None
 class ChatRequest(BaseModel):
     message: str
     chat_history: list[dict] = Field(default_factory=list)
@@ -322,6 +326,65 @@ def catat_transaksi(
         "total_amount":    total_amount,
         "payment_method":  request.payment_method,
         "items_count":     len(details_data),
+    }
+
+# ============================================================
+# HUTANG
+# ============================================================
+
+@app.post("/api/hutang/{debt_id}/lunas")
+def lunasi_hutang(
+    debt_id: int,
+    request: LunasHutangRequest,
+    db: Session = Depends(get_db)
+):
+    hutang = db.query(Debt).filter(
+        Debt.id == debt_id,
+        Debt.is_paid == False
+    ).first()
+
+    if not hutang:
+        raise HTTPException(
+            status_code=404,
+            detail="Hutang tidak ditemukan atau sudah lunas."
+        )
+
+    # Tandai lunas
+    hutang.is_paid = True
+    hutang.paid_at = datetime.now()
+    if request.catatan:
+        hutang.notes = request.catatan
+
+    # Catat ke akuntansi sesuai tipe
+    if hutang.debt_type == "customer":
+        # uang masuk
+        catat_pemasukan(
+            db,
+            deskripsi = f"Pembayaran kasbon {hutang.customer_name}",
+            nominal   = hutang.amount,
+            sumber    = "bayar_kasbon",
+        )
+    else:
+        # uang keluar
+        catat_pengeluaran(
+            db,
+            deskripsi = f"Bayar hutang ke {hutang.customer_name}",
+            nominal   = hutang.amount,
+            kategori  = "bayar_hutang",
+        )
+
+    db.commit()
+
+    return {
+        "status":  "success",
+        "message": f"Hutang {hutang.customer_name} berhasil dilunasi.",
+        "data": {
+            "id":            hutang.id,
+            "customer_name": hutang.customer_name,
+            "amount":        hutang.amount,
+            "debt_type":     hutang.debt_type,
+            "paid_at":       hutang.paid_at,
+        }
     }
 
 # ============================================================
