@@ -112,11 +112,13 @@ def tool_ringkasan_keuangan(periode: str = "bulan_ini") -> str:
 
         laba = total_penjualan + total_pemasukan_lain - total_pengeluaran
 
-        return f"""📊 Ringkasan Keuangan ({periode.replace('_', ' ')}):
-                💰 Total Penjualan    : Rp{total_penjualan:,.0f}
-                ➕ Pemasukan Lain     : Rp{total_pemasukan_lain:,.0f}
-                💸 Total Pengeluaran  : Rp{total_pengeluaran:,.0f}
-                📈 Laba Bersih        : Rp{laba:,.0f}"""
+        return (
+                f"📊 Ringkasan Keuangan ({periode.replace('_', ' ')}):\n"
+                f"💰 Total Penjualan    : Rp{total_penjualan:,.0f}\n"
+                f"➕ Pemasukan Lain     : Rp{total_pemasukan_lain:,.0f}\n"
+                f"💸 Total Pengeluaran  : Rp{total_pengeluaran:,.0f}\n"
+                f"📈 Laba Bersih        : Rp{laba:,.0f}"
+            )
     finally:
         db.close()
 
