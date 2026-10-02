@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     try {
         // 1. Ambil Data History (Aktual) dan ML Forecast (Prediksi)
-        const resStats = await fetch("http://127.0.0.1:8000/api/dashboard/stats");
+        const resStats = await fetch(API_BASE_URL + "/api/dashboard/stats");
         const data = await resStats.json();
 
-        const resForecast = await fetch("http://127.0.0.1:8000/api/ml/forecast?days=7");
+        const resForecast = await fetch(API_BASE_URL + "/api/ml/forecast?days=7");
         const forecastJson = await resForecast.json();
 
         // 2. Format Helper
