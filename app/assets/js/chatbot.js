@@ -629,10 +629,16 @@ function formatMessage(message) {
     // LINE BREAK
     // ========================================================
 
-    text = text.replace(
-        /\n/g,
-        "<br>"
-    );
+    // Ubah newline jadi <br>
+    text = text.replace(/\n/g, "<br>");
+
+    // Hapus <br> berlebih di sekitar tag block (seperti ul, ol, li, table, pre)
+    // agar spasi tidak terlalu jauh/merenggang
+    text = text.replace(/(<\/?(?:ul|ol|li|table|thead|tbody|tr|pre|h\d|hr|div)[^>]*>)(?:<br>\s*)+/gi, "$1");
+    text = text.replace(/(?:<br>\s*)+(<\/?(?:ul|ol|li|table|thead|tbody|tr|pre|h\d|hr|div)[^>]*>)/gi, "$1");
+
+    // Batasi maksimal 2 <br> berurutan (mencegah ruang kosong raksasa)
+    text = text.replace(/(?:<br>\s*){3,}/g, "<br><br>");
 
 
     // ========================================================
