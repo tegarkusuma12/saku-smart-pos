@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+.git
+.gitignore
+.env
+*.db
+notebooks/
+docs/
+.vscode/
+*.ipynb_checkpoints
+node_modules/
+README.md
