@@ -9,6 +9,7 @@ from database.models import Product, ItemType, Transaction, TransactionDetail, I
 from src.ai.agent import run_agent
 from src.akuntansi.pengeluaran import catat_pengeluaran
 from src.akuntansi.pemasukan import catat_pemasukan
+from src.ml.forecasting import predict_revenue, get_restock_recommendations
 
 
 app = FastAPI(
@@ -27,6 +28,9 @@ app.add_middleware(
     allow_origins=[
         "http://127.0.0.1:5500",
         "http://localhost:5500",
+        "https://*.vercel.app",
+        "https://*.netlify.app",
+        "https://*.github.io",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -136,6 +140,50 @@ def catat_movement(
         notes           = notes,
     )
     db.add(movement)
+
+# ============================================================
+# ML PREDICTIONS
+# ============================================================
+
+@app.get("/api/ml/forecast")
+def forecast_revenue(days: int = 7):
+    """Prediksi revenue harian untuk N hari ke depan."""
+    if days < 1 or days > 30:
+        raise HTTPException(
+            status_code=400,
+            detail="Parameter 'days' harus antara 1-30."
+        )
+    try:
+        predictions = predict_revenue(days_ahead=days)
+        return {
+            "status": "success",
+            "model": "sales_forecast",
+            "days_ahead": days,
+            "data": predictions.to_dict(orient="records"),
+        }
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
+
+
+@app.get("/api/ml/restock-recommendations")
+def restock_recommendations(safety_factor: float = 1.3):
+    """Rekomendasi restock berdasarkan analisis inventory + demand."""
+    try:
+        recs = get_restock_recommendations(safety_factor=safety_factor)
+        perlu_restock = [r for r in recs if r["restock_qty"] > 0]
+        return {
+            "status": "success",
+            "safety_factor": safety_factor,
+            "total_products": len(recs),
+            "perlu_restock": len(perlu_restock),
+            "data": recs,
+        }
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=503, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
 
 # ============================================================
 # BASIC
