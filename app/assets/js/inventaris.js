@@ -27,8 +27,69 @@ function setupInventoryEvents() {
     const addProductButton = document.getElementById("addProductButton");
     if (addProductButton) {
         addProductButton.addEventListener("click", function () {
-            alert("Fitur tambah produk akan kita buat pada tahap berikutnya.");
+            // Memunculkan Modal Bootstrap
+            const modal = new bootstrap.Modal(document.getElementById('addProductModal'));
+            modal.show();
         });
+    }
+
+    // Event Submit Form Tambah Produk
+    const addProductForm = document.getElementById("addProductForm");
+    if (addProductForm) {
+        addProductForm.addEventListener("submit", async function(e) {
+            e.preventDefault();
+            await submitNewProduct();
+        });
+    }
+}
+
+/* ============================================================
+TAMBAH PRODUK BARU
+================================================================ */
+async function submitNewProduct() {
+    const name = document.getElementById("productName").value;
+    const cost_price = parseFloat(document.getElementById("productCost").value);
+    const price = parseFloat(document.getElementById("productPrice").value);
+    const stock = parseInt(document.getElementById("productStock").value);
+    const unit = document.getElementById("productUnit").value;
+    const description = document.getElementById("productDescription").value;
+
+    const payload = {
+        name: name,
+        cost_price: cost_price,
+        price: price,
+        stock: stock,
+        unit: unit,
+        description: description
+    };
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/produk`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.status === "success") {
+            alert("Produk berhasil ditambahkan!");
+            // Tutup Modal
+            const modalEl = document.getElementById('addProductModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+            
+            // Reset form dan load ulang data
+            document.getElementById("addProductForm").reset();
+            await loadInventory();
+        } else {
+            alert("Gagal menambahkan produk: " + (result.detail || "Kesalahan Server"));
+        }
+    } catch (error) {
+        console.error("Gagal mengirim data:", error);
+        alert("Terjadi kesalahan koneksi saat menambah produk.");
     }
 }
 
