@@ -449,6 +449,69 @@ def catat_transaksi(
     }
 
 # ============================================================
+# AKUNTANSI
+# ============================================================
+
+@app.get("/api/akuntansi/ledger")
+def get_akuntansi_ledger(db: Session = Depends(get_db)):
+    """Mengambil riwayat transaksi jurnal/buku besar."""
+    ledger_entries = []
+    
+    # 1. Transaksi Penjualan
+    transactions = db.query(Transaction).all()
+    for t in transactions:
+        ts = t.timestamp if not isinstance(t.timestamp, str) else datetime.fromisoformat(t.timestamp)
+        akun_debit = "Kas" if t.payment_method != "Kasbon" else "Piutang"
+        
+        # Jurnal Penjualan
+        ledger_entries.append({"ts": ts, "account": akun_debit, "description": f"Penjualan #{t.id}", "debit": t.total_amount, "credit": 0})
+        ledger_entries.append({"ts": ts, "account": "Penjualan", "description": f"Penjualan #{t.id}", "debit": 0, "credit": t.total_amount})
+        
+        # Jurnal HPP (Harga Pokok Penjualan) & Persediaan
+        hpp = sum((d.cost_price or 0) * (d.quantity or 0) for d in t.details)
+        if hpp > 0:
+            ledger_entries.append({"ts": ts, "account": "HPP", "description": f"HPP Penjualan #{t.id}", "debit": hpp, "credit": 0})
+            ledger_entries.append({"ts": ts, "account": "Persediaan", "description": f"HPP Penjualan #{t.id}", "debit": 0, "credit": hpp})
+
+    # 2. Pengeluaran (Expense)
+    expenses = db.query(Expense).all()
+    for e in expenses:
+        ts = e.timestamp if not isinstance(e.timestamp, str) else datetime.fromisoformat(e.timestamp)
+        # Jika belanja bahan baku, maka masuk ke Persediaan. Selain itu masuk ke Beban
+        akun_debit = "Persediaan" if e.category == "bahan_baku" else "Beban " + (e.category or "Lainnya").capitalize()
+        
+        ledger_entries.append({"ts": ts, "account": akun_debit, "description": e.description, "debit": e.amount, "credit": 0})
+        ledger_entries.append({"ts": ts, "account": "Kas", "description": e.description, "debit": 0, "credit": e.amount})
+
+    # 3. Pemasukan Tambahan (Income)
+    incomes = db.query(Income).all()
+    for i in incomes:
+        ts = i.timestamp if not isinstance(i.timestamp, str) else datetime.fromisoformat(i.timestamp)
+        
+        ledger_entries.append({"ts": ts, "account": "Kas", "description": i.description, "debit": i.amount, "credit": 0})
+        ledger_entries.append({"ts": ts, "account": "Pemasukan " + (i.source or "Lainnya").capitalize(), "description": i.description, "debit": 0, "credit": i.amount})
+
+    # Urutkan berdasarkan waktu transaksi (terbaru di atas)
+    ledger_entries.sort(key=lambda x: x["ts"], reverse=True)
+    
+    # Format agar siap ditampilkan di Frontend
+    formatted_ledger = []
+    for entry in ledger_entries:
+        ts_str = entry["ts"].strftime("%d-%m-%Y %H:%M")
+        formatted_ledger.append({
+            "date": ts_str,
+            "account": entry["account"],
+            "description": entry["description"],
+            "debit": entry["debit"],
+            "credit": entry["credit"]
+        })
+
+    return {
+        "status": "success",
+        "data": formatted_ledger
+    }
+
+# ============================================================
 # HUTANG
 # ============================================================
 
