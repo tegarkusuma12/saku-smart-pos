@@ -1,0 +1,10 @@
+# Render.com deployment config
+services:
+  - type: web
+    name: saku-smart-pos
+    runtime: docker
+    plan: free
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+    healthCheckPath: /api/health
