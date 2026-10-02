@@ -109,8 +109,8 @@
                                 Total Penjualan
                             </small>
 
-                            <h4 class="fw-bold mb-1">
-                                Rp12.500.000
+                            <h4 id="valTotalPenjualan" class="fw-bold mb-1">
+                                Memuat...
                             </h4>
 
                             <small class="text-success">
@@ -143,8 +143,8 @@
                                 Total Pengeluaran
                             </small>
 
-                            <h4 class="fw-bold mb-1">
-                                Rp7.350.000
+                            <h4 id="valTotalPengeluaran" class="fw-bold mb-1">
+                                Memuat...
                             </h4>
 
                             <small class="text-danger">
@@ -177,8 +177,8 @@
                                 Total Laba
                             </small>
 
-                            <h4 class="fw-bold mb-1">
-                                Rp5.150.000
+                            <h4 id="valTotalLaba" class="fw-bold mb-1">
+                                Memuat...
                             </h4>
 
                             <small class="text-success">
@@ -211,8 +211,8 @@
                                 Total Transaksi
                             </small>
 
-                            <h4 class="fw-bold mb-1">
-                                184
+                            <h4 id="valTotalTransaksi" class="fw-bold mb-1">
+                                ...
                             </h4>
 
                             <small class="text-success">
@@ -251,7 +251,7 @@
                                 </h5>
 
                                 <p class="page-subtitle small">
-                                    Penjualan 7 hari terakhir
+                                    Aktual (7 hari ke belakang) vs Prediksi ML (7 hari ke depan)
                                 </p>
 
                             </div>
@@ -303,133 +303,8 @@
                     </div>
 
 
-                    <div class="p-3">
-
-
-                        <div class="top-product">
-
-                            <div class="product-rank">
-                                1
-                            </div>
-
-                            <div class="product-info">
-
-                                <strong>
-                                    Indomie Goreng
-                                </strong>
-
-                                <small>
-                                    86 terjual
-                                </small>
-
-                            </div>
-
-                            <strong>
-                                Rp301.000
-                            </strong>
-
-                        </div>
-
-
-                        <div class="top-product">
-
-                            <div class="product-rank">
-                                2
-                            </div>
-
-                            <div class="product-info">
-
-                                <strong>
-                                    Aqua 600ml
-                                </strong>
-
-                                <small>
-                                    64 terjual
-                                </small>
-
-                            </div>
-
-                            <strong>
-                                Rp224.000
-                            </strong>
-
-                        </div>
-
-
-                        <div class="top-product">
-
-                            <div class="product-rank">
-                                3
-                            </div>
-
-                            <div class="product-info">
-
-                                <strong>
-                                    Teh Botol
-                                </strong>
-
-                                <small>
-                                    51 terjual
-                                </small>
-
-                            </div>
-
-                            <strong>
-                                Rp204.000
-                            </strong>
-
-                        </div>
-
-
-                        <div class="top-product">
-
-                            <div class="product-rank">
-                                4
-                            </div>
-
-                            <div class="product-info">
-
-                                <strong>
-                                    Roti Cokelat
-                                </strong>
-
-                                <small>
-                                    37 terjual
-                                </small>
-
-                            </div>
-
-                            <strong>
-                                Rp259.000
-                            </strong>
-
-                        </div>
-
-
-                        <div class="top-product">
-
-                            <div class="product-rank">
-                                5
-                            </div>
-
-                            <div class="product-info">
-
-                                <strong>
-                                    Kopi Sachet
-                                </strong>
-
-                                <small>
-                                    32 terjual
-                                </small>
-
-                            </div>
-
-                            <strong>
-                                Rp80.000
-                            </strong>
-
-                        </div>
-
+                    <div class="p-3" id="topProductsContainer">
+                        <p class="text-center text-muted mt-3">Memuat data...</p>
                     </div>
 
                 </div>
@@ -497,76 +372,8 @@
                     </thead>
 
 
-                    <tbody>
-
-                        <tr>
-
-                            <td>#TRX-0184</td>
-
-                            <td>14:32</td>
-
-                            <td>Admin</td>
-
-                            <td>Tunai</td>
-
-                            <td>
-                                <span class="badge text-bg-success">
-                                    Selesai
-                                </span>
-                            </td>
-
-                            <td class="text-end">
-                                Rp45.500
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>#TRX-0183</td>
-
-                            <td>14:18</td>
-
-                            <td>Admin</td>
-
-                            <td>QRIS</td>
-
-                            <td>
-                                <span class="badge text-bg-success">
-                                    Selesai
-                                </span>
-                            </td>
-
-                            <td class="text-end">
-                                Rp72.000
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <td>#TRX-0182</td>
-
-                            <td>13:56</td>
-
-                            <td>Admin</td>
-
-                            <td>Debit</td>
-
-                            <td>
-                                <span class="badge text-bg-success">
-                                    Selesai
-                                </span>
-                            </td>
-
-                            <td class="text-end">
-                                Rp125.500
-                            </td>
-
-                        </tr>
-
+                    <tbody id="recentTransactionsContainer">
+                        <tr><td colspan="6" class="text-center text-muted">Memuat data...</td></tr>
                     </tbody>
 
                 </table>

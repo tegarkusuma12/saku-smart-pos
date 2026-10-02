@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 from datetime import datetime, timedelta
 
 from database.connection import get_db
-from database.models import Product, ItemType, Transaction, TransactionDetail, InventoryMovement, Debt
+from database.models import Product, ItemType, Transaction, TransactionDetail, InventoryMovement, Debt, Expense, Income
 from src.ai.agent import run_agent
 from src.akuntansi.pengeluaran import catat_pengeluaran
 from src.akuntansi.pemasukan import catat_pemasukan
@@ -221,6 +221,84 @@ def test_database(
         "status": "success",
         "database": "connected",
         "total_products": total_products
+    }
+
+# ============================================================
+# DASHBOARD
+# ============================================================
+
+@app.get("/api/dashboard/stats")
+def get_dashboard_stats(db: Session = Depends(get_db)):
+    from sqlalchemy import func, desc
+    
+    max_ts = db.query(func.max(Transaction.timestamp)).scalar()
+    if not max_ts:
+        return {
+            "total_revenue": 0, "total_expense": 0, "total_profit": 0, "total_transactions": 0,
+            "chart_labels": [], "chart_data": [], "top_products": [], "recent_transactions": []
+        }
+    
+    if isinstance(max_ts, str):
+        max_ts = datetime.fromisoformat(max_ts)
+        
+    start_date = (max_ts - timedelta(days=6)).replace(hour=0, minute=0, second=0)
+    
+    # 1. Stats Utama (7 hari terakhir dari data dummy)
+    trx_7d = db.query(Transaction).filter(Transaction.timestamp >= start_date).all()
+    total_rev_7d = sum(t.total_amount for t in trx_7d)
+    
+    exp_7d = db.query(Expense).filter(Expense.timestamp >= start_date).all()
+    total_exp_7d = sum(e.amount for e in exp_7d)
+    
+    # 2. Chart Data
+    daily_rev = {}
+    for i in range(7):
+        d = start_date + timedelta(days=i)
+        daily_rev[d.strftime('%a, %d %b')] = 0
+        
+    for t in trx_7d:
+        ts = t.timestamp if not isinstance(t.timestamp, str) else datetime.fromisoformat(t.timestamp)
+        day_str = ts.strftime('%a, %d %b')
+        if day_str in daily_rev:
+            daily_rev[day_str] += t.total_amount
+            
+    # 3. Top Products
+    top_items = db.query(
+        Product.name,
+        func.sum(TransactionDetail.quantity).label('total_qty'),
+        func.sum(TransactionDetail.subtotal).label('total_rev')
+    ).join(TransactionDetail, Product.id == TransactionDetail.product_id)\
+     .join(Transaction, TransactionDetail.transaction_id == Transaction.id)\
+     .filter(Transaction.timestamp >= start_date)\
+     .group_by(Product.id, Product.name)\
+     .order_by(desc('total_qty'))\
+     .limit(5).all()
+     
+    # 4. Recent Transactions
+    recent = db.query(Transaction).order_by(desc(Transaction.timestamp)).limit(5).all()
+    recent_transactions = []
+    for r in recent:
+        ts = r.timestamp if not isinstance(r.timestamp, str) else datetime.fromisoformat(r.timestamp)
+        recent_transactions.append({
+            "id": f"TRX-{r.id:04d}",
+            "time": ts.strftime('%H:%M'),
+            "method": r.payment_method.capitalize(),
+            "status": "Selesai",
+            "total": r.total_amount
+        })
+        
+    return {
+        "total_revenue": total_rev_7d,
+        "total_expense": total_exp_7d,
+        "total_profit": total_rev_7d - total_exp_7d,
+        "total_transactions": len(trx_7d),
+        "chart_labels": list(daily_rev.keys()),
+        "chart_data": list(daily_rev.values()),
+        "top_products": [
+            {"rank": i+1, "name": t.name, "sold": t.total_qty, "revenue": t.total_rev} 
+            for i, t in enumerate(top_items)
+        ],
+        "recent_transactions": recent_transactions
     }
 
 # ============================================================
