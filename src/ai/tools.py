@@ -248,13 +248,15 @@ def tool_prediksi_penjualan(hari: int = 7) -> str:
         avg = predictions["predicted_revenue"].mean()
         
         result = f"📈 Prediksi Revenue {hari} Hari ke Depan:\n\n"
+        result += "| Tanggal | Prediksi (Rp) |\n"
+        result += "|---|---|\n"
         for _, row in predictions.iterrows():
             date_str = row['date'].strftime('%a, %d %b')
             rev = row['predicted_revenue']
-            result += f"  📅 {date_str}: Rp{rev:,.0f}\n"
+            result += f"| {date_str} | {rev:,.0f} |\n"
         
-        result += f"\n💰 Total Prediksi : Rp{total:,.0f}"
-        result += f"\n📊 Rata-rata/hari : Rp{avg:,.0f}"
+        result += f"\n**Total Prediksi** : Rp{total:,.0f}\n"
+        result += f"**Rata-rata/hari** : Rp{avg:,.0f}"
         return result
     except FileNotFoundError:
         return "⚠️ Model forecasting belum tersedia. Jalankan notebook 04_sales_forecasting.ipynb terlebih dahulu."
@@ -277,19 +279,16 @@ def tool_rekomendasi_restock() -> str:
             return "✅ Semua stok masih cukup untuk 7 hari ke depan!"
         
         result = f"📦 Rekomendasi Restock ({len(perlu)} produk):\n\n"
+        result += "| Status | Produk | Stok Sisa | Hari Sisa | Beli |\n"
+        result += "|---|---|---|---|---|\n"
         for r in perlu:
             emoji = {"KRITIS": "🔴", "SEGERA": "🟠", "PERLU": "🟡", "AMAN": "🟢"}
             e = emoji.get(r['urgency'], '⚪')
-            result += (
-                f"{e} {r['name']}\n"
-                f"   Stok sekarang: {r['current_stock']}\n"
-                f"   Sisa ~{r['days_remaining']} hari\n"
-                f"   ➜ Restock: {r['restock_qty']} unit\n\n"
-            )
+            result += f"| {e} | {r['name']} | {r['current_stock']} | {r['days_remaining']} | **{r['restock_qty']}** |\n"
         
         kritis = [r for r in perlu if r['urgency'] in ('KRITIS', 'SEGERA')]
         if kritis:
-            result += f"⚠️ {len(kritis)} produk perlu restock SEGERA!"
+            result += f"\n⚠️ **{len(kritis)} produk perlu restock SEGERA!**"
         
         return result
     except FileNotFoundError:
