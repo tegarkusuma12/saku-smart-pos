@@ -1,9 +1,6 @@
 # 🧾 SAKU — AI-Powered POS & Business Analytics for Indonesian UMKM
 
 > Asisten keuangan berbasis AI untuk pelaku UMKM. Catat pengeluaran, hutang, dan tanya kondisi bisnis pakai bahasa sehari-hari.
->
-> 📊 **[Notebook: Sales Forecasting](notebooks/sales_forecasting.ipynb)** · 📦 **[Notebook: Inventory Recommendation](notebooks/inventory_recommendation.ipynb)** · 🤖 **[Notebook: Chatbot Demo](notebooks/demo_chatbot.ipynb)**
-
 ---
 
 ## 📌 Tentang Proyek
@@ -124,8 +121,8 @@ SAKU: 📦 Rekomendasi Restock:
 | `cek_hutang` | Daftar hutang belum lunas |
 | `produk_terlaris` | Ranking produk terlaris |
 | `cek_stok_kritis` | Produk yang stoknya menipis |
-| `prediksi_penjualan` | 🆕 Prediksi revenue N hari ke depan (ML) |
-| `rekomendasi_restock` | 🆕 Rekomendasi restock berdasarkan ML + inventory |
+| `prediksi_penjualan` | Prediksi revenue N hari ke depan (ML) |
+| `rekomendasi_restock` | Rekomendasi restock berdasarkan ML + inventory |
 
 ---
 
