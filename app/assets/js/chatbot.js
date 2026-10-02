@@ -362,8 +362,8 @@ async function sendMessage() {
 
             <br><br>
 
-            Pastikan FastAPI sedang berjalan
-            di <strong>http://127.0.0.1:8000</strong>.
+            Pastikan koneksi internet stabil atau tunggu beberapa detik 
+            karena server mungkin sedang bangun dari mode <i>sleep</i>.
             `;
 
 
