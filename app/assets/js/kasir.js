@@ -1,14 +1,4 @@
-const products = [
-  { id: 1, name: "Indomie Goreng", price: 3500, icon: "fa-bowl-food" },
-  { id: 2, name: "Aqua 600ml", price: 3500, icon: "fa-bottle-water" },
-  { id: 3, name: "Teh Botol", price: 4000, icon: "fa-mug-hot" },
-  { id: 4, name: "Kopi Sachet", price: 2500, icon: "fa-mug-saucer" },
-  { id: 5, name: "Roti Cokelat", price: 7000, icon: "fa-bread-slice" },
-  { id: 6, name: "Telur 1 Butir", price: 3000, icon: "fa-egg" },
-  { id: 7, name: "Sabun Mandi", price: 6500, icon: "fa-pump-soap" },
-  { id: 8, name: "Minyak 1 Liter", price: 18000, icon: "fa-oil-can" }
-];
-
+let products = [];
 let cart = [];
 
 const rupiah = value => new Intl.NumberFormat("id-ID", {
@@ -17,6 +7,20 @@ const rupiah = value => new Intl.NumberFormat("id-ID", {
   maximumFractionDigits: 0
 }).format(value);
 
+// 1. Fetch data dari API Kasir
+async function loadProducts() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/kasir`);
+    const result = await response.json();
+    if (result.status === "success") {
+      products = result.data;
+      renderProducts();
+    }
+  } catch (err) {
+    console.error("Gagal load produk:", err);
+  }
+}
+
 function renderProducts(list = products) {
   const grid = document.getElementById("productGrid");
   if (!grid) return;
@@ -24,7 +28,7 @@ function renderProducts(list = products) {
   grid.innerHTML = list.length ? list.map(product => `
     <div class="col-6 col-sm-4 col-lg-3">
       <button class="product-card w-100 text-start p-3" onclick="addToCart(${product.id})">
-        <div class="product-icon mb-3"><i class="fas ${product.icon}"></i></div>
+        <div class="product-icon mb-3"><i class="fas fa-box"></i></div>
         <div class="fw-bold text-dark">${product.name}</div>
         <div class="text-primary fw-semibold mt-1">${rupiah(product.price)}</div>
       </button>
@@ -48,65 +52,85 @@ function changeQty(id, delta) {
   if (!item) return;
 
   item.qty += delta;
-  if (item.qty <= 0) cart = cart.filter(product => product.id !== id);
+  if (item.qty <= 0) cart = cart.filter(p => p.id !== id);
+
   renderCart();
 }
 
-function getTotals() {
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-  const discountRate = Number(document.getElementById("inputDiscount")?.value || 0);
-  const taxRate = Number(document.getElementById("inputTax")?.value || 0);
-  const discount = subtotal * discountRate / 100;
-  const taxable = subtotal - discount;
-  const tax = taxable * taxRate / 100;
-  return { subtotal, discount, tax, total: taxable + tax };
-}
-
 function renderCart() {
-  const container = document.getElementById("cartItems");
-  if (!container) return;
+  const cartList = document.getElementById("cartList");
+  const cartTotal = document.getElementById("cartTotal");
+  const btnCheckout = document.getElementById("btnCheckout");
+  if (!cartList) return;
 
-  container.innerHTML = cart.length ? cart.map(item => `
-    <div class="cart-item mb-2">
-      <div class="d-flex justify-content-between gap-2">
-        <div>
-          <div class="fw-semibold">${item.name}</div>
-          <small class="text-muted">${rupiah(item.price)} / item</small>
-        </div>
-        <div class="text-end fw-bold">${rupiah(item.price * item.qty)}</div>
+  if (!cart.length) {
+    cartList.innerHTML = '<div class="text-center text-muted py-5">Keranjang kosong.</div>';
+    cartTotal.textContent = "Rp0";
+    if (btnCheckout) btnCheckout.disabled = true;
+    return;
+  }
+
+  cartList.innerHTML = cart.map(item => `
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <div class="fw-bold">${item.name}</div>
+        <div class="text-primary">${rupiah(item.price)}</div>
       </div>
-      <div class="d-flex justify-content-between align-items-center mt-2">
-        <div class="qty-control">
-          <button onclick="changeQty(${item.id}, -1)">−</button>
-          <span>${item.qty}</span>
-          <button onclick="changeQty(${item.id}, 1)">+</button>
-        </div>
-        <button class="btn btn-sm btn-link text-danger p-0" onclick="changeQty(${item.id}, -${item.qty})">
-          Hapus
-        </button>
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary" onclick="changeQty(${item.id}, -1)">-</button>
+        <span class="fw-bold" style="width:20px;text-align:center;">${item.qty}</span>
+        <button class="btn btn-sm btn-outline-secondary" onclick="changeQty(${item.id}, 1)">+</button>
       </div>
     </div>
-  `).join("") : '<div class="text-center text-muted py-5"><i class="fas fa-cart-shopping fa-2x mb-2 d-block"></i>Keranjang masih kosong.</div>';
+  `).join("");
 
-  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-  const countEl = document.getElementById("cartCount");
-  if (countEl) countEl.textContent = `${totalQty} item${totalQty === 1 ? "" : "s"}`;
+  const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+  const discount = parseFloat(document.getElementById("inputDiscount")?.value || 0);
+  const tax = parseFloat(document.getElementById("inputTax")?.value || 0);
+  const total = subtotal - discount + tax;
 
-  const totals = getTotals();
-  document.getElementById("valSubtotal").textContent = rupiah(totals.subtotal);
-  document.getElementById("valDiscount").textContent = "-" + rupiah(totals.discount);
-  document.getElementById("valTax").textContent = rupiah(totals.tax);
-  document.getElementById("valTotal").textContent = rupiah(totals.total);
+  cartTotal.textContent = rupiah(total);
+  if (btnCheckout) btnCheckout.disabled = false;
 }
 
-function checkout() {
+// 2. Checkout via POST API
+async function checkout() {
   if (!cart.length) {
     alert("Keranjang masih kosong.");
     return;
   }
-  document.getElementById("actionCheckout")?.classList.add("d-none");
-  document.getElementById("actionSuccess")?.classList.remove("d-none");
-  document.getElementById("actionSuccess")?.classList.add("d-flex");
+  
+  // Format payload sesuai request schema FastAPI backend
+  const payload = {
+      items: cart.map(item => ({ product_id: item.id, quantity: item.qty })),
+      payment_method: "Cash",
+      customer_name: null,
+      notes: "Transaksi dari Kasir Web"
+  };
+
+  try {
+      const btn = document.getElementById("btnCheckout");
+      if (btn) { btn.disabled = true; btn.textContent = "Memproses..."; }
+      
+      const response = await fetch(`${API_BASE_URL}/api/kasir/transaksi`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+      
+      if (response.ok && result.status === "success") {
+          document.getElementById("actionCheckout")?.classList.add("d-none");
+          document.getElementById("actionSuccess")?.classList.remove("d-none");
+          document.getElementById("actionSuccess")?.classList.add("d-flex");
+      } else {
+          alert("Gagal memproses transaksi: " + (result.detail || "Error Server"));
+          if (btn) { btn.disabled = false; btn.innerHTML = "Proses Bayar"; }
+      }
+  } catch (err) {
+      console.error(err);
+      alert("Terjadi kesalahan jaringan.");
+  }
 }
 
 function newTransaction() {
@@ -114,12 +138,19 @@ function newTransaction() {
   document.getElementById("actionCheckout")?.classList.remove("d-none");
   document.getElementById("actionSuccess")?.classList.add("d-none");
   document.getElementById("actionSuccess")?.classList.remove("d-flex");
+  // Reset UI & refresh produk biar stok up-to-date
+  document.getElementById("searchInput").value = "";
+  if(document.getElementById("inputDiscount")) document.getElementById("inputDiscount").value = "";
+  if(document.getElementById("inputTax")) document.getElementById("inputTax").value = "";
+  const btn = document.getElementById("btnCheckout");
+  if(btn) btn.innerHTML = "Proses Bayar";
+  
+  loadProducts();
   renderCart();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderProducts();
-  renderCart();
+  loadProducts(); // Panggil data dari API saat halaman dimuat
 
   document.getElementById("searchInput")?.addEventListener("input", e => {
     const keyword = e.target.value.toLowerCase();
@@ -129,8 +160,4 @@ document.addEventListener("DOMContentLoaded", () => {
   ["inputDiscount", "inputTax"].forEach(id => {
     document.getElementById(id)?.addEventListener("input", renderCart);
   });
-
-  document.getElementById("btnPay")?.addEventListener("click", checkout);
-  document.getElementById("btnNew")?.addEventListener("click", newTransaction);
-  document.getElementById("btnPrint")?.addEventListener("click", () => window.print());
 });
