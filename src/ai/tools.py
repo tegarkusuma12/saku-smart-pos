@@ -7,6 +7,7 @@ from src.akuntansi.pemasukan import catat_pemasukan
 from src.akuntansi.hutang import catat_hutang, get_hutang_belum_lunas
 from sqlalchemy import func
 from sqlalchemy import desc
+from src.ml.forecasting import predict_revenue, get_restock_recommendations
 
 # ── TOOLS CATAT DATA ──────────────────────────────────
 
@@ -88,7 +89,11 @@ def tool_ringkasan_keuangan(periode: str = "bulan_ini") -> str:
     db = SessionLocal()
     try:
         from datetime import datetime, timedelta
-        now = datetime.now()
+        # Anchor ke timestamp terbaru di data
+        max_ts = db.query(func.max(Transaction.timestamp)).scalar()
+        now = max_ts or datetime.now()
+        if isinstance(now, str):
+            now = datetime.fromisoformat(now)
 
         if periode == "hari_ini":
             start = now.replace(hour=0, minute=0, second=0)
@@ -221,6 +226,78 @@ def tool_cek_stok_kritis(threshold: float = 5.0) -> str:
         db.close()
 
 
+# ── TOOLS ML PREDICTIONS ──────────────────────────────────
+
+@tool
+def tool_prediksi_penjualan(hari: int = 7) -> str:
+    """
+    Gunakan tool ini untuk memprediksi penjualan/revenue beberapa hari ke depan.
+    Contoh: 'prediksi penjualan minggu depan', 'besok kira-kira laku berapa?'
+    
+    Args:
+        hari: Jumlah hari ke depan yang ingin diprediksi (1-30)
+    """
+    try:
+        if hari < 1:
+            hari = 1
+        elif hari > 30:
+            hari = 30
+            
+        predictions = predict_revenue(days_ahead=hari)
+        total = predictions["predicted_revenue"].sum()
+        avg = predictions["predicted_revenue"].mean()
+        
+        result = f"📈 Prediksi Revenue {hari} Hari ke Depan:\n\n"
+        for _, row in predictions.iterrows():
+            date_str = row['date'].strftime('%a, %d %b')
+            rev = row['predicted_revenue']
+            result += f"  📅 {date_str}: Rp{rev:,.0f}\n"
+        
+        result += f"\n💰 Total Prediksi : Rp{total:,.0f}"
+        result += f"\n📊 Rata-rata/hari : Rp{avg:,.0f}"
+        return result
+    except FileNotFoundError:
+        return "⚠️ Model forecasting belum tersedia. Jalankan notebook 04_sales_forecasting.ipynb terlebih dahulu."
+    except Exception as e:
+        return f"❌ Gagal memprediksi: {str(e)}"
+
+
+@tool  
+def tool_rekomendasi_restock() -> str:
+    """
+    Gunakan tool ini untuk mendapatkan rekomendasi produk mana yang perlu di-restock.
+    Contoh: 'produk apa yang perlu restock?', 'besok butuh beli stok apa?',
+    'rekomendasi belanja stok'
+    """
+    try:
+        recs = get_restock_recommendations()
+        perlu = [r for r in recs if r["restock_qty"] > 0]
+        
+        if not perlu:
+            return "✅ Semua stok masih cukup untuk 7 hari ke depan!"
+        
+        result = f"📦 Rekomendasi Restock ({len(perlu)} produk):\n\n"
+        for r in perlu:
+            emoji = {"KRITIS": "🔴", "SEGERA": "🟠", "PERLU": "🟡", "AMAN": "🟢"}
+            e = emoji.get(r['urgency'], '⚪')
+            result += (
+                f"{e} {r['name']}\n"
+                f"   Stok sekarang: {r['current_stock']}\n"
+                f"   Sisa ~{r['days_remaining']} hari\n"
+                f"   ➜ Restock: {r['restock_qty']} unit\n\n"
+            )
+        
+        kritis = [r for r in perlu if r['urgency'] in ('KRITIS', 'SEGERA')]
+        if kritis:
+            result += f"⚠️ {len(kritis)} produk perlu restock SEGERA!"
+        
+        return result
+    except FileNotFoundError:
+        return "⚠️ Data inventory metrics belum tersedia. Jalankan notebook 03_inventory_analysis.ipynb terlebih dahulu."
+    except Exception as e:
+        return f"❌ Gagal mengambil rekomendasi: {str(e)}"
+
+
 # Kumpulkan semua tools untuk dipakai di agent
 def get_all_tools():
     return [
@@ -231,4 +308,6 @@ def get_all_tools():
         tool_cek_hutang,
         tool_produk_terlaris,
         tool_cek_stok_kritis,
+        tool_prediksi_penjualan,
+        tool_rekomendasi_restock,
     ]
