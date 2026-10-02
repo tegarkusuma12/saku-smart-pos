@@ -1,97 +1,188 @@
-# 🧾 SAKU — Sistem Akuntansi Kasir Usaha
+# 🧾 SAKU — AI-Powered POS & Business Analytics for Indonesian UMKM
 
 > Asisten keuangan berbasis AI untuk pelaku UMKM. Catat pengeluaran, hutang, dan tanya kondisi bisnis pakai bahasa sehari-hari.
+>
+> 📊 **[Notebook: Sales Forecasting](notebooks/sales_forecasting.ipynb)** · 📦 **[Notebook: Inventory Recommendation](notebooks/inventory_recommendation.ipynb)** · 🤖 **[Notebook: Chatbot Demo](notebooks/demo_chatbot.ipynb)**
 
 ---
 
 ## 📌 Tentang Proyek
 
-**SAKU (Sistem Akuntansi Kasir Usaha)** adalah aplikasi POS (Point of Sale) dan akuntansi sederhana yang dilengkapi dengan **AI Assistant berbasis LLM**. Dirancang khusus untuk pelaku usaha kecil seperti pemilik warung, pedagang kaki lima, dan UMKM Indonesia yang tidak memiliki latar belakang akuntansi.
+**SAKU (Sistem Akuntansi Kasir Usaha)** adalah platform POS (Point of Sale) dan business analytics yang dilengkapi **AI Assistant berbasis LLM**. Dirancang khusus untuk pelaku usaha kecil seperti pemilik warung, pedagang kaki lima, dan UMKM Indonesia.
 
-Fitur unggulan SAKU adalah **chatbot berbahasa Indonesia** yang memungkinkan pengguna mencatat keuangan hanya dengan mengetik kalimat natural seperti:
+Proyek ini mendemonstrasikan **end-to-end data science pipeline**:
+- 🔧 **Data Engineering** — ETL pipeline, synthetic data generation (120 hari)
+- 📊 **Exploratory Data Analysis** — tren penjualan, analisis produk, pola weekend
+- 🤖 **Machine Learning** — sales forecasting (Random Forest / XGBoost)
+- 💡 **Prescriptive Analytics** — rekomendasi restock otomatis berdasarkan forecast + current stock
+- 🗣️ **NLP / LLM Integration** — chatbot bahasa Indonesia yang memahami "bayar listrik 150rb"
 
-- _"tadi bayar listrik 150rb"_
-- _"si Budi kasbon 25ribu"_
-- _"bulan ini aku untung berapa?"_
+### Fitur Unggulan
+
+**Chatbot berbahasa Indonesia** yang memungkinkan pengguna mencatat keuangan dan bertanya tentang bisnis:
+
+```text
+Kamu: bayar listrik 150rb
+SAKU: ✅ Pengeluaran dicatat! 💸 Rp150.000 🏷️ listrik
+
+Kamu: besok butuh stok apa?
+SAKU: 📦 Rekomendasi Restock:
+      🔴 Chitato — stok 5, restock 17 unit
+      🟠 Telur 1kg — stok 12, sisa ~8 hari
+```
 
 ### Modul Utama
 
 | Modul | Deskripsi |
 |---|---|
-| 🛒 Kasir | Transaksi penjualan harian |
+| 🛒 Kasir | Transaksi penjualan harian, multi payment (Cash/QRIS/Kasbon) |
 | 📒 Akuntansi | Pencatatan pengeluaran, pemasukan, dan hutang |
-| 📦 Inventaris | Manajemen stok barang dan pemantauan ketersediaan produk |
-| 🤖 AI Assistant | Chatbot LLM untuk input & query keuangan via bahasa natural |
+| 📦 Inventaris | Manajemen stok, restock otomatis, inventory movement tracking |
+| 🤖 AI Assistant | Chatbot LLM untuk input & query via bahasa natural |
+| 📊 Analytics | Forecasting penjualan, rekomendasi restock, inventory health |
 
 ---
 
-## 🤖 Tema Chatbot
+## 🏗️ Arsitektur Sistem
 
-**Asisten Kasir UMKM** — chatbot yang membantu pemilik warung/usaha kecil mencatat keuangan dan menjawab pertanyaan bisnis tanpa perlu memahami istilah akuntansi.
-
-Chatbot ini menggunakan **LangChain Agent** dengan tools yang terhubung langsung ke database, sehingga setiap percakapan bisa langsung memengaruhi data nyata di aplikasi.
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│                        Frontend (HTML/CSS/JS)                   │
+│              Kasir · Inventaris · Chat · Dashboard              │
+└─────────────────────────┬───────────────────────────────────────┘
+                          │ REST API
+┌─────────────────────────▼───────────────────────────────────────┐
+│                      FastAPI Backend                            │
+│  ┌──────────┐  ┌──────────────┐  ┌────────────────────────┐     │
+│  │ Kasir API│  │ Inventory API│  │ ML Prediction API      │     │
+│  │          │  │              │  │ /api/ml/forecast       │     │
+│  │          │  │              │  │ /api/ml/restock-rec    │     │
+│  └──────────┘  └──────────────┘  └────────────────────────┘     │
+│  ┌──────────────────────────────────────────────────────────┐   │
+│  │              LangChain Agent (SakuBot)                   │   │
+│  │  Tools: catat_pengeluaran · ringkasan_keuangan           │   │
+│  │         prediksi_penjualan · rekomendasi_restock         │   │
+│  └──────────────────────────────┬───────────────────────────┘   │
+│                                 │                               │
+│  ┌──────────────────┐  ┌────────▼──────────┐                    │
+│  │ SQLAlchemy ORM   │  │ Groq LLM API      │                    │
+│  │ (7 tabel)        │  │ (openai/gpt-oss)  │                    │
+│  └────────┬─────────┘  └───────────────────┘                    │
+│           │                                                     │
+│  ┌────────▼─────────┐  ┌──────────────────┐                     │
+│  │   SQLite DB      │  │ ML Model (pkl)   │                     │
+│  │   (saku.db)      │  │ (RF/XGBoost)     │                     │
+│  └──────────────────┘  └──────────────────┘                     │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 💬 Contoh Percakapan
+## 📊 Data Science Pipeline
 
-```
-SAKU: Halo! Aku SAKU Assistant 👋 Ada yang bisa aku bantu?
+### 1. Data Generation & ETL
+- **Synthetic data**: 120 hari data transaksi realistis (weekend/trend patterns) dengan 19 produk warung Indonesia
+- **ETL Pipeline** (`src/pipeline/etl.py`): Extract dari SQLite → Transform → Load ke CSV
+- **Output**: `daily_sales.csv`, `product_sales.csv`, `inventory_daily.csv`, `financial_summary.csv`
 
-Kamu: bayar listrik 150rb
+### 2. Exploratory Data Analysis ([notebook](notebooks/01_data_exploration.ipynb))
+- Distribusi revenue harian
+- Pola penjualan per hari (weekday vs weekend)
+- Korelasi antar metrik keuangan
 
-SAKU: ✅ Pengeluaran berhasil dicatat!
-      📝 bayar listrik
-      💸 Rp150.000
-      🏷️ Kategori: listrik
+### 3. Sales Analysis ([notebook](notebooks/sales_analysis.ipynb))
+- Hari penjualan tertinggi
+- Produk yang sering dibeli bersamaan
+- Tren revenue & margin analysis
 
-Kamu: si Budi kasbon 25ribu
+### 4. Inventory Analysis ([notebook](notebooks/inventory_analysis.ipynb))
+- Inventory turnover per produk
+- Days of stock remaining
+- Restock interval patterns
 
-SAKU: ✅ Hutang berhasil dicatat!
-      👤 Budi
-      💳 Rp25.000
-      📌 Tipe: pelanggan kasbon
+### 5. Sales Forecasting ([notebook](notebooks/sales_forecasting.ipynb))
+- **Features**: `day_of_week`, `is_weekend`, `lag_1`, `lag_7`, `rolling_mean_7`, `rolling_mean_14`
+- **Models**: Naive baseline → Moving Average → Random Forest → XGBoost
+- **Evaluation**: MAE, RMSE, MAPE dengan TimeSeriesSplit
+- **Output**: Trained model di `models/sales_forecast.pkl`
 
-Kamu: bulan ini aku untung berapa?
+### 6. Inventory Recommendation ([notebook](notebooks/inventory_recommendation.ipynb))
+- **Prescriptive analytics**: demand forecast × safety factor − current stock = restock qty
+- **Urgency levels**: KRITIS / SEGERA / PERLU / AMAN
+- Output di-serve via API dan accessible via chatbot
 
-SAKU: 📊 Ringkasan Keuangan (bulan ini):
-      💰 Total Penjualan    : Rp1.250.000
-      ➕ Pemasukan Lain     : Rp200.000
-      💸 Total Pengeluaran  : Rp450.000
-      📈 Laba Bersih        : Rp1.000.000
-```
-### 🛒 Halaman Kasir
-![Halaman Kasir](docs/screenshots/kasir.png)
+---
 
-### 📊 Halaman Dashboard
-![Halaman Dashboard](docs/screenshots/dashboard.png)
+## 🤖 AI Chatbot — 9 LangChain Tools
 
-### 📦 Halaman Inventaris
-![Halaman Inventaris](docs/screenshots/inventaris.png)
+| Tool | Fungsi |
+|---|---|
+| `catat_pengeluaran` | Catat pengeluaran (listrik, gaji, bahan) |
+| `catat_pemasukan` | Catat pemasukan di luar kasir |
+| `catat_hutang` | Catat hutang pelanggan/supplier |
+| `ringkasan_keuangan` | Ringkasan laba rugi per periode |
+| `cek_hutang` | Daftar hutang belum lunas |
+| `produk_terlaris` | Ranking produk terlaris |
+| `cek_stok_kritis` | Produk yang stoknya menipis |
+| `prediksi_penjualan` | 🆕 Prediksi revenue N hari ke depan (ML) |
+| `rekomendasi_restock` | 🆕 Rekomendasi restock berdasarkan ML + inventory |
 
-### 📒 Halaman Akuntansi
-![Halaman Akuntansi](docs/screenshots/akuntansi.png)
- 
-### 🤖 AI Chatbot
-![AI Chatbot](docs/screenshots/chatbot.png)
+---
 
-## 🛠️ Teknologi yang Digunakan
+## 🛠️ Tech Stack
 
 | Teknologi | Kegunaan |
 |---|---|
 | Python 3.11 | Bahasa pemrograman utama |
-| LangChain | Framework agent & tool calling |
-| Groq API | LLM provider |
-| SQLAlchemy | ORM untuk database |
-| SQLite | Database lokal (development) |
-| PostgreSQL / Supabase | Database production |
-| Streamlit | UI/UX & deployment |
-| FastAPI | Server backend |
-| HTML, CSS, JS | Komponen UI tambahan |
+| FastAPI | Backend REST API |
+| SQLAlchemy + SQLite | ORM & database |
+| LangChain + Groq | LLM agent framework + API provider |
+| scikit-learn, XGBoost | Machine learning models |
+| Pandas, NumPy | Data processing |
+| Matplotlib, Seaborn | Visualisasi |
+| HTML/CSS/JS | Frontend UI |
+| Docker | Containerization & deployment |
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Python 3.11+
+- [Groq API Key](https://console.groq.com)
+
+### Setup
+```bash
+# Clone
+git clone https://github.com/tegarkusuma12/saku-smart-pos.git
+cd saku-smart-pos
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Setup environment
+cp .env.example .env
+# Edit .env → masukkan GROQ_API_KEY
+
+# Generate data & run ETL
+python data/dummy/generate_data.py
+python -m src.pipeline.etl
+
+# Run API
+uvicorn api.main:app --reload
+```
+
+### Docker
+```bash
+docker build -t saku-pos .
+docker run -p 8000:8000 --env-file .env saku-pos
+```
+
+---
 
 ## 🤝 Catatan Penggunaan AI
 
-Proyek ini dikembangkan dengan bantuan **Claude (Anthropic)** sebagai AI assistant.
+Proyek ini dikembangkan dengan bantuan AI assistant.
 
 | Bagian | Dikerjakan |
 |---|---|
@@ -99,18 +190,11 @@ Proyek ini dikembangkan dengan bantuan **Claude (Anthropic)** sebagai AI assista
 | `database/models.py` | Mandiri + review AI |
 | `src/akuntansi/*.py` | Mandiri + review AI |
 | `src/ai/agent.py` | Mandiri + bantuan AI |
-| `src/ai/prompts.py` | Mandiri |
 | `src/ai/tools.py` | Mandiri + review AI |
-| `app/pages/2_chatbot.py` | Bantuan AI |
-| `notebooks/demo_chatbot.ipynb` | Mandiri + review AI |
+| `src/ml/forecasting.py` | Mandiri + bantuan AI |
+| `notebooks/*.ipynb` | Mandiri + review AI |
+| Frontend HTML/CSS/JS | Mandiri + bantuan AI |
 | Debugging & error fixing | Bantuan AI |
-
----
-
-## 📄 Lisensi
-
-Proyek ini dibuat untuk keperluan **portofolio akademik dan pengembangan diri**.
-Bebas digunakan sebagai referensi dengan mencantumkan kredit.
 
 ---
 
