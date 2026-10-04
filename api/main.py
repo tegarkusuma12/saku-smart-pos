@@ -5,13 +5,15 @@ from sqlalchemy import func
 from pydantic import BaseModel, Field
 from datetime import datetime, timedelta
 
-from database.connection import get_db
+from database.connection import get_db, engine, Base
 from database.models import Product, Category, ItemType, Transaction, TransactionDetail, InventoryMovement, Debt, Expense, Income
 from src.ai.agent import run_agent
 from src.akuntansi.pengeluaran import catat_pengeluaran
 from src.akuntansi.pemasukan import catat_pemasukan
 from src.ml.forecasting import predict_revenue, get_restock_recommendations
 
+# Auto generate table
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="SAKU Smart POS API",
