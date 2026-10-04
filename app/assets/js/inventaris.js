@@ -240,7 +240,7 @@ function generateProductCode(id) {
 }
 
 /* ============================================================
-RESTOCK
+RESTOCK (DIPERBAIKI)
 ============================================================ */
 async function addStock(productId) {
     const product = inventory.find(item => item.id === productId);
@@ -263,6 +263,8 @@ async function addStock(productId) {
         return;
     }
 
+    const totalHarga = quantity * (product.cost_price || 0);
+
     try {
         const response = await fetch(`${API_BASE_URL}/api/inventory/${productId}/restock`, {
             method: "POST",
@@ -270,7 +272,9 @@ async function addStock(productId) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                quantity: quantity
+                quantity: quantity,
+                total_harga: totalHarga,
+                catatan: "Restock via Web"
             })
         });
 
