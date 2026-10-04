@@ -318,50 +318,179 @@
 
 </main>
 
-    <!-- MODAL TAMBAH PRODUK -->
-    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- TOAST -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" id="toastContainer" style="z-index:1100;"></div>
+
+    <!-- MODAL PRODUK (TAMBAH / EDIT) -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="addProductForm">
+                <form id="productForm">
+                    <input type="hidden" id="productId">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addProductModalLabel">Tambah Produk Baru</h5>
+                        <h5 class="modal-title" id="productModalTitle">Tambah Produk Baru</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="form-label">Nama Produk <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="productName" required>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-6">
+                        <div class="row g-3">
+                            <div class="col-md-8">
+                                <label class="form-label">Nama Produk <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="productName" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Tipe Item</label>
+                                <select class="form-select" id="productType">
+                                    <option value="produk_dijual">Produk Dijual</option>
+                                    <option value="bahan_baku">Bahan Baku</option>
+                                    <option value="kemasan">Kemasan</option>
+                                    <option value="perlengkapan">Perlengkapan</option>
+                                    <option value="lainnya">Lainnya</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Kategori</label>
+                                <select class="form-select" id="productCategory"></select>
+                            </div>
+                            <div class="col-md-6 d-none" id="newCategoryGroup">
+                                <label class="form-label">Nama Kategori Baru <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="newCategoryName" maxlength="100">
+                            </div>
+
+                            <div class="col-md-6">
                                 <label class="form-label">Harga Modal <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="productCost" required min="0">
+                                <input type="number" class="form-control" id="productCost" required min="0" step="any">
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <label class="form-label">Harga Jual <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" id="productPrice" required min="0">
+                                <input type="number" class="form-control" id="productPrice" required min="0" step="any">
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-6">
+
+                            <div class="col-md-4">
                                 <label class="form-label">Stok Awal</label>
-                                <input type="number" class="form-control" id="productStock" value="0" min="0">
+                                <input type="number" class="form-control" id="productStock" value="0" min="0" step="any">
+                                <div class="form-text d-none" id="productStockHelp">
+                                    Ubah stok lewat tombol Restock atau Penyesuaian.
+                                </div>
                             </div>
-                            <div class="col-6">
-                                <label class="form-label">Satuan</label>
-                                <input type="text" class="form-control" id="productUnit" placeholder="pcs, kg, liter" value="pcs" required>
+                            <div class="col-md-4">
+                                <label class="form-label">Stok Minimum</label>
+                                <input type="number" class="form-control" id="productMinStock" value="5" min="0" step="any">
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Deskripsi</label>
-                            <textarea class="form-control" id="productDescription" rows="2"></textarea>
+                            <div class="col-md-4">
+                                <label class="form-label">Satuan <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="productUnit" value="pcs" required>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label">Deskripsi</label>
+                                <textarea class="form-control" id="productDescription" rows="2" maxlength="255"></textarea>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan Produk</button>
+                        <button type="submit" class="btn btn-primary" id="productSubmit">Simpan Produk</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL RESTOCK -->
+    <div class="modal fade" id="restockModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="restockForm">
+                    <input type="hidden" id="restockProductId">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Restock: <span id="restockProductName"></span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Jumlah Masuk <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="restockQuantity" required min="0.01" step="any">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Total Harga Pembelian</label>
+                            <input type="number" class="form-control" id="restockTotal" min="0" step="any" value="0">
+                            <div class="form-text">Jika diisi lebih dari 0, otomatis tercatat sebagai pengeluaran.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Catatan</label>
+                            <input type="text" class="form-control" id="restockNote" maxlength="255" placeholder="Contoh: beli di Supplier A">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary" id="restockSubmit">Tambah Stok</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PENYESUAIAN STOK -->
+    <div class="modal fade" id="adjustModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="adjustForm">
+                    <input type="hidden" id="adjustProductId">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Penyesuaian Stok: <span id="adjustProductName"></span></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted small mb-3">Stok saat ini: <strong id="adjustCurrentStock"></strong></p>
+                        <div class="mb-3">
+                            <label class="form-label">Jenis</label>
+                            <select class="form-select" id="adjustType">
+                                <option value="adjustment">Koreksi stok (hasil stok opname)</option>
+                                <option value="waste">Barang rusak / kadaluarsa / hilang</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Jumlah <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="adjustQuantity" required step="any">
+                            <div class="form-text" id="adjustHelp">Positif menambah stok, negatif mengurangi stok.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Alasan <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="adjustReason" required maxlength="255">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary" id="adjustSubmit">Simpan Penyesuaian</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL RIWAYAT STOK -->
+    <div class="modal fade" id="historyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Riwayat Stok: <span id="historyProductName"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <table class="table table-sm table-hover align-middle mb-0">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Jenis</th>
+                                <th class="text-end">Perubahan</th>
+                                <th class="text-end">Stok Akhir</th>
+                                <th>Catatan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTable"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -411,6 +540,7 @@
 
 </nav>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/config.js"></script>
 <script src="../assets/js/sidebar.js"></script>
 
