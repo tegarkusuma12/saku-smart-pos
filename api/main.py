@@ -1,11 +1,12 @@
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from pydantic import BaseModel, Field
 from datetime import datetime, timedelta
 
 from database.connection import get_db
-from database.models import Product, ItemType, Transaction, TransactionDetail, InventoryMovement, Debt, Expense, Income
+from database.models import Product, Category, ItemType, Transaction, TransactionDetail, InventoryMovement, Debt, Expense, Income
 from src.ai.agent import run_agent
 from src.akuntansi.pengeluaran import catat_pengeluaran
 from src.akuntansi.pemasukan import catat_pemasukan
@@ -52,24 +53,32 @@ class RestockRequest(BaseModel):
 class ProductCreateRequest(BaseModel):
     name: str = Field(..., min_length=1)
     category_id: int | None = None
+    item_type: ItemType = ItemType.PRODUK_DIJUAL
     cost_price: float = Field(..., ge=0)
     price: float = Field(..., ge=0)
-    stock: int = Field(0, ge=0)
+    stock: float = Field(0, ge=0)
+    min_stock: float = Field(5, ge=0)
     unit: str = Field("pcs", min_length=1)
     description: str | None = None
-
 
 class ProductUpdateRequest(BaseModel):
     name: str = Field(..., min_length=1)
     category_id: int | None = None
+    item_type: ItemType | None = None
     cost_price: float = Field(..., ge=0)
     price: float = Field(..., ge=0)
+    min_stock: float | None = Field(None, ge=0)
     unit: str = Field("pcs", min_length=1)
     description: str | None = None
 
 class StockAdjustmentRequest(BaseModel):
-    quantity: int
-    reason: str = Field(..., min_length=1)
+    quantity: float                      # positif = tambah, negatif = kurangi
+    movement_type: str = Field("adjustment", pattern="^(adjustment|waste)$")
+    reason: str = Field(..., min_length=1, max_length=255)
+
+
+class CategoryCreateRequest(BaseModel):
+    name: str = Field(..., min_length=1, max_length=100)
 
 class TransactionItemRequest(BaseModel):
     product_id: int
@@ -111,6 +120,7 @@ def product_to_dict(product: Product):
         "cost_price": product.cost_price,
         "price": product.price,
         "stock": product.stock,
+        "min_stock": product.min_stock,
         "unit": product.unit,
         "description": product.description,
         "is_active": product.is_active,
@@ -573,38 +583,43 @@ def lunasi_hutang(
 # ============================================================
 # PRODUK 
 # ============================================================
+def validasi_kategori(db: Session, category_id: int | None):
+    if category_id is None:
+        return
+    if not db.query(Category).filter(Category.id == category_id).first():
+        raise HTTPException(status_code=404, detail="Kategori tidak ditemukan.")
 
 @app.post("/api/produk")
 def tambah_produk(
     request: ProductCreateRequest,
     db: Session = Depends(get_db)
 ):
-    # Cek duplikat nama
+    nama = request.name.strip()
+
     existing = db.query(Product).filter(
-        Product.name == request.name,
+        func.lower(Product.name) == nama.lower(),
         Product.is_active == True
     ).first()
 
     if existing:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Produk '{request.name}' sudah ada."
-        )
+        raise HTTPException(status_code=400, detail=f"Produk '{nama}' sudah ada.")
+
+    validasi_kategori(db, request.category_id)
 
     produk = Product(
-        name        = request.name,
+        name        = nama,
         category_id = request.category_id,
+        item_type   = request.item_type,
         cost_price  = request.cost_price,
         price       = request.price,
         stock       = request.stock,
-        unit        = request.unit,
+        min_stock   = request.min_stock,
+        unit        = request.unit.strip(),
         description = request.description,
-        item_type   = ItemType.PRODUK_DIJUAL,
     )
     db.add(produk)
     db.flush()
 
-    # Catat opening stock sebagai movement
     if request.stock > 0:
         db.add(InventoryMovement(
             product_id      = produk.id,
@@ -623,7 +638,6 @@ def tambah_produk(
         "data":    product_to_dict(produk)
     }
 
-
 @app.put("/api/produk/{product_id}")
 def edit_produk(
     product_id: int,
@@ -636,30 +650,31 @@ def edit_produk(
     ).first()
 
     if not produk:
-        raise HTTPException(
-            status_code=404,
-            detail="Produk tidak ditemukan."
-        )
+        raise HTTPException(status_code=404, detail="Produk tidak ditemukan.")
 
-    # Cek duplikat nama (kecuali produk itu sendiri)
+    nama = request.name.strip()
+
     existing = db.query(Product).filter(
-        Product.name == request.name,
+        func.lower(Product.name) == nama.lower(),
         Product.id != product_id,
         Product.is_active == True
     ).first()
 
     if existing:
-        raise HTTPException(
-            status_code=400,
-            detail=f"Nama '{request.name}' sudah dipakai produk lain."
-        )
+        raise HTTPException(status_code=400, detail=f"Nama '{nama}' sudah dipakai produk lain.")
 
-    produk.name        = request.name
+    validasi_kategori(db, request.category_id)
+
+    produk.name        = nama
     produk.category_id = request.category_id
     produk.cost_price  = request.cost_price
     produk.price       = request.price
-    produk.unit        = request.unit
+    produk.unit        = request.unit.strip()
     produk.description = request.description
+    if request.item_type is not None:
+        produk.item_type = request.item_type
+    if request.min_stock is not None:
+        produk.min_stock = request.min_stock
 
     db.commit()
     db.refresh(produk)
@@ -669,7 +684,6 @@ def edit_produk(
         "message": "Produk berhasil diupdate.",
         "data":    product_to_dict(produk)
     }
-
 
 @app.delete("/api/produk/{product_id}")
 def hapus_produk(
@@ -699,7 +713,6 @@ def hapus_produk(
 # ============================================================
 # INVENTORY
 # ============================================================
-
 @app.get("/api/inventory")
 def get_inventory(
     db: Session = Depends(get_db)
@@ -808,17 +821,20 @@ def restock_product(
 
     product.stock += request.quantity
 
-    deskripsi = f"Beli {product.name} {request.quantity} {product.unit}"
-    if request.catatan:
-        deskripsi += f" — {request.catatan}"
-    expense = catat_pengeluaran(db, deskripsi, request.total_harga, "bahan_baku")
+    expense_id = None
+    if request.total_harga > 0:
+        deskripsi = f"Beli {product.name} {request.quantity} {product.unit}"
+        if request.catatan:
+            deskripsi += f" — {request.catatan}"
+        expense = catat_pengeluaran(db, deskripsi, request.total_harga, "bahan_baku")
+        expense_id = expense.id
 
-    catat_movement(                       
+    catat_movement(
         db,
         product,
         quantity_change = +request.quantity,
         reason          = "purchase",
-        reference_id = expense.id,
+        reference_id    = expense_id,
         notes           = request.catatan,
     )
 
@@ -829,4 +845,132 @@ def restock_product(
         "status": "success",
         "message": "Stok berhasil ditambahkan dan pengeluaran tercatat.",
         "data": product_to_dict(product)
+    }
+
+# ============================================================
+# KATEGORI
+# ============================================================
+@app.get("/api/kategori")
+def get_kategori(db: Session = Depends(get_db)):
+    categories = db.query(Category).order_by(Category.name.asc()).all()
+    return {
+        "status": "success",
+        "total": len(categories),
+        "data": [{"id": c.id, "name": c.name} for c in categories]
+    }
+
+@app.post("/api/kategori")
+def tambah_kategori(
+    request: CategoryCreateRequest,
+    db: Session = Depends(get_db)
+):
+    nama = request.name.strip()
+    if not nama:
+        raise HTTPException(status_code=400, detail="Nama kategori tidak boleh kosong.")
+
+    existing = db.query(Category).filter(
+        func.lower(Category.name) == nama.lower()
+    ).first()
+    if existing:
+        raise HTTPException(status_code=400, detail=f"Kategori '{nama}' sudah ada.")
+
+    kategori = Category(name=nama)
+    db.add(kategori)
+    db.commit()
+    db.refresh(kategori)
+
+    return {
+        "status": "success",
+        "message": "Kategori berhasil ditambahkan.",
+        "data": {"id": kategori.id, "name": kategori.name}
+    }
+
+# ============================================================
+# PENYESUAIAN STOK & RIWAYAT
+# ============================================================
+@app.post("/api/inventory/{product_id}/adjust")
+def adjust_stock(
+    product_id: int,
+    request: StockAdjustmentRequest,
+    db: Session = Depends(get_db)
+):
+    product = db.query(Product).filter(
+        Product.id == product_id,
+        Product.is_active == True
+    ).first()
+
+    if not product:
+        raise HTTPException(status_code=404, detail="Produk tidak ditemukan.")
+
+    if request.quantity == 0:
+        raise HTTPException(status_code=400, detail="Jumlah penyesuaian tidak boleh 0.")
+
+    if request.movement_type == "waste" and request.quantity > 0:
+        raise HTTPException(status_code=400, detail="Barang rusak/hilang harus mengurangi stok.")
+
+    new_stock = product.stock + request.quantity
+    if new_stock < 0:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Stok tidak boleh negatif. Stok saat ini: {product.stock} {product.unit}."
+        )
+
+    product.stock = new_stock
+
+    catat_movement(
+        db,
+        product,
+        quantity_change = request.quantity,
+        reason          = request.movement_type,
+        notes           = request.reason,
+    )
+
+    db.commit()
+    db.refresh(product)
+
+    return {
+        "status": "success",
+        "message": "Stok berhasil disesuaikan.",
+        "data": product_to_dict(product)
+    }
+
+@app.get("/api/inventory/{product_id}/movements")
+def get_movements(
+    product_id: int,
+    limit: int = 50,
+    db: Session = Depends(get_db)
+):
+    product = db.query(Product).filter(
+        Product.id == product_id,
+        Product.is_active == True
+    ).first()
+
+    if not product:
+        raise HTTPException(status_code=404, detail="Produk tidak ditemukan.")
+
+    limit = max(1, min(limit, 200))
+
+    movements = db.query(InventoryMovement).filter(
+        InventoryMovement.product_id == product_id
+    ).order_by(
+        InventoryMovement.timestamp.desc(),
+        InventoryMovement.id.desc()
+    ).limit(limit).all()
+
+    return {
+        "status": "success",
+        "product": product.name,
+        "total": len(movements),
+        "data": [
+            {
+                "id": m.id,
+                "timestamp": m.timestamp.isoformat() if hasattr(m.timestamp, "isoformat") else str(m.timestamp),
+                "quantity_change": m.quantity_change,
+                "stock_after": m.stock_after,
+                "reason": m.reason,
+                "reference_id": m.reference_id,
+                "notes": m.notes,
+            }
+            for m in movements
+        ]
     }
