@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async function () {
+﻿document.addEventListener("DOMContentLoaded", async function () {
 
     const sidebarContainer = document.getElementById("sidebar-container");
 
@@ -104,10 +104,11 @@ function setActiveSidebar() {
 
     }
 
-    else if (currentPath.includes("5_akuntansi")) {
-
+        else if (currentPath.includes("5_akuntansi")) {
         activePage = "akuntansi";
-
+    }
+    else if (currentPath.includes("6_hutang")) {
+        activePage = "hutang";
     }
 
 
