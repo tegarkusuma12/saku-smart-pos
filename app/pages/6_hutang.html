@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hutang & Kasbon - SAKU POS</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .unpaid-row { border-left: 4px solid #f59e0b; }
+        .paid-row { border-left: 4px solid #10b981; opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar Placeholder -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <div class="main-content flex-grow-1 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2 class="fw-bold mb-1">Buku Hutang & Kasbon</h2>
+                    <p class="text-muted">Catat piutang pelanggan dan hutang ke supplier.</p>
+                </div>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalHutang">
+                    <i class="bi bi-plus-lg me-2"></i>Catat Baru
+                </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                            <i class="bi bi-journal-x"></i>
+                        </div>
+                        <div class="stat-details">
+                            <p class="stat-label">Total Belum Lunas (Kasbon)</p>
+                            <h3 class="stat-value text-warning" id="valTotalBelumLunas">Rp 0</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="stat-card">
+                        <div class="stat-icon bg-success bg-opacity-10 text-success">
+                            <i class="bi bi-journal-check"></i>
+                        </div>
+                        <div class="stat-details">
+                            <p class="stat-label">Total Sudah Lunas</p>
+                            <h3 class="stat-value text-success" id="valTotalLunas">Rp 0</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-4">Tanggal</th>
+                                    <th>Nama / Keterangan</th>
+                                    <th>Tipe</th>
+                                    <th>Jumlah (Rp)</th>
+                                    <th>Status</th>
+                                    <th class="text-center pe-4">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="hutangTableBody">
+                                <!-- Data injected via JS -->
+                                <tr><td colspan="6" class="text-center py-4">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Tambah Hutang -->
+    <div class="modal fade" id="modalHutang" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold">Catat Hutang/Kasbon</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formHutang">
+                        <div class="mb-3">
+                            <label class="form-label">Tipe Pencatatan</label>
+                            <select class="form-select" id="inputTipe" required>
+                                <option value="customer">Kasbon Pelanggan (Piutang)</option>
+                                <option value="supplier">Hutang ke Supplier / Kulakan</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nama Orang / Toko</label>
+                            <input type="text" class="form-control" id="inputNama" placeholder="Contoh: Pak Budi" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Jumlah (Rp)</label>
+                            <input type="number" class="form-control" id="inputJumlah" required min="1000">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Catatan Tambahan</label>
+                            <input type="text" class="form-control" id="inputCatatan" placeholder="Contoh: Ambil beras 5kg">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2">Simpan Catatan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/sidebar.js"></script>
+    <script src="../assets/js/hutang.js"></script>
+</body>
+</html>
