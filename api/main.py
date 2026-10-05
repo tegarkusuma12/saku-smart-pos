@@ -982,3 +982,67 @@ def get_movements(
             for m in movements
         ]
     }
+
+# ============================================================
+# HUTANG
+# ============================================================
+
+class DebtCreate(BaseModel):
+    customer_name: str
+    amount: float
+    debt_type: str = "customer"
+    notes: str = None
+
+@app.get("/api/hutang")
+def get_semua_hutang(db: Session = Depends(get_db)):
+    from sqlalchemy import desc
+    debts = db.query(Debt).order_by(Debt.is_paid.asc(), desc(Debt.timestamp)).all()
+    return {
+        "status": "success",
+        "data": [
+            {
+                "id": d.id,
+                "customer_name": d.customer_name,
+                "amount": d.amount,
+                "timestamp": d.timestamp.isoformat() if hasattr(d.timestamp, "isoformat") else str(d.timestamp),
+                "is_paid": d.is_paid,
+                "paid_at": d.paid_at.isoformat() if d.paid_at and hasattr(d.paid_at, "isoformat") else (str(d.paid_at) if d.paid_at else None),
+                "notes": d.notes,
+                "debt_type": d.debt_type
+            }
+            for d in debts
+        ]
+    }
+
+@app.post("/api/hutang")
+def catat_hutang_baru(req: DebtCreate, db: Session = Depends(get_db)):
+    baru = Debt(
+        customer_name=req.customer_name,
+        amount=req.amount,
+        debt_type=req.debt_type,
+        notes=req.notes
+    )
+    db.add(baru)
+    db.commit()
+    return {"status": "success", "message": "Catatan hutang berhasil ditambahkan."}
+
+@app.put("/api/hutang/{debt_id}/lunas")
+def lunasi_hutang(debt_id: int, db: Session = Depends(get_db)):
+    hutang = db.query(Debt).filter(Debt.id == debt_id).first()
+    if not hutang:
+        raise HTTPException(status_code=404, detail="Hutang tidak ditemukan")
+    
+    hutang.is_paid = True
+    hutang.paid_at = datetime.now()
+    
+    # Otomatis catat sebagai pemasukan ke Akuntansi jika kasbon pelanggan dibayar
+    if hutang.debt_type == "customer":
+        pemasukan = Income(
+            description=f"Pelunasan Kasbon - {hutang.customer_name}",
+            amount=hutang.amount,
+            source="Pelunasan Hutang"
+        )
+        db.add(pemasukan)
+    
+    db.commit()
+    return {"status": "success", "message": "Hutang berhasil dilunasi."}
