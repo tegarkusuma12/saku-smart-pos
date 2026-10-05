@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException
+﻿from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import func
@@ -376,7 +376,7 @@ def catat_transaksi(
     total_amount = 0.0
     details_data = []
 
-    # ── Validasi semua item sebelum commit apapun ──
+    # â”€â”€ Validasi semua item sebelum commit apapun â”€â”€
     for item in request.items:
         product = db.query(Product).filter(
             Product.id == item.product_id,
@@ -413,7 +413,7 @@ def catat_transaksi(
             "subtotal":      subtotal,
         })
 
-    # ── Semua valid — mulai commit ──
+    # â”€â”€ Semua valid â€” mulai commit â”€â”€
 
     # 1. Buat transaksi
     transaksi = Transaction(
@@ -445,7 +445,7 @@ def catat_transaksi(
             reference_id    = transaksi.id,
         )
 
-    # 3. Kalau Kasbon → otomatis catat hutang
+    # 3. Kalau Kasbon â†’ otomatis catat hutang
     if request.payment_method == "Kasbon":
         hutang = Debt(
             customer_name=request.customer_name,
@@ -709,7 +709,7 @@ def hapus_produk(
             detail="Produk tidak ditemukan."
         )
 
-    # Soft delete — data historis tetap aman
+    # Soft delete â€” data historis tetap aman
     produk.is_active = False
     db.commit()
 
@@ -833,7 +833,7 @@ def restock_product(
     if request.total_harga > 0:
         deskripsi = f"Beli {product.name} {request.quantity} {product.unit}"
         if request.catatan:
-            deskripsi += f" — {request.catatan}"
+            deskripsi += f" â€” {request.catatan}"
         expense = catat_pengeluaran(db, deskripsi, request.total_harga, "bahan_baku")
         expense_id = expense.id
 
@@ -1046,3 +1046,4 @@ def lunasi_hutang(debt_id: int, db: Session = Depends(get_db)):
     
     db.commit()
     return {"status": "success", "message": "Hutang berhasil dilunasi."}
+

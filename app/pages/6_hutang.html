@@ -100,6 +100,11 @@
                 <div class="modal-body">
                     <form id="formHutang">
                         <div class="mb-3">
+                            <label class="form-label">Tanggal & Waktu (Opsional)</label>
+                            <input type="datetime-local" class="form-control" id="inputTanggal">
+                            <small class="text-muted">Kosongi jika ingin menggunakan waktu saat ini.</small>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label">Tipe Pencatatan</label>
                             <select class="form-select" id="inputTipe" required>
                                 <option value="customer">Kasbon Pelanggan (Piutang)</option>
@@ -132,3 +137,4 @@
     <script src="../assets/js/hutang.js"></script>
 </body>
 </html>
+

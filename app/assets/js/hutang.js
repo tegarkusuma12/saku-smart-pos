@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
     const tableBody = document.getElementById("hutangTableBody");
     const formHutang = document.getElementById("formHutang");
     const modalHutangElement = document.getElementById("modalHutang");
@@ -96,17 +96,24 @@ document.addEventListener("DOMContentLoaded", function () {
         formHutang.addEventListener("submit", async function(e) {
             e.preventDefault();
             
+            const tglVal = document.getElementById("inputTanggal").value;
             const payload = {
                 debt_type: document.getElementById("inputTipe").value,
                 customer_name: document.getElementById("inputNama").value,
                 amount: parseFloat(document.getElementById("inputJumlah").value),
                 notes: document.getElementById("inputCatatan").value
             };
+            
+            // Jika tanggal diisi, format ke ISO string
+            if (tglVal) {
+                payload.timestamp = new Date(tglVal).toISOString();
+            }
 
             const res = await apiRequest("/api/hutang", "POST", payload);
             if (res && res.status === "success") {
                 modalHutang.hide();
                 formHutang.reset();
+                document.getElementById("inputTanggal").value = "";
                 
                 Swal.fire({
                     toast: true,
@@ -153,3 +160,4 @@ document.addEventListener("DOMContentLoaded", function () {
     // Muat data saat pertama kali buka
     loadHutang();
 });
+
