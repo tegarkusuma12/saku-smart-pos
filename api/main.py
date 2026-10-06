@@ -1,8 +1,8 @@
-﻿from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from pydantic import BaseModel, Field
+from api.schemas import *
 from datetime import datetime, timedelta
 
 from database.connection import get_db, engine, Base
@@ -20,7 +20,6 @@ app = FastAPI(
     description="Backend API untuk SAKU Smart POS",
     version="1.0.0",
 )
-
 
 # ============================================================
 # CORS
@@ -40,70 +39,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-# ============================================================
-# REQUEST SCHEMA
-# ============================================================
-
-class RestockRequest(BaseModel):
-    quantity: float = Field(
-        ...,
-        gt=0,
-        description="Jumlah stok yang ditambahkan"
-    )
-    total_harga: float = Field(
-        ...,
-        ge=0,
-        description="Total harga pembelian"
-    )
-    catatan: str | None = None
-
-class ProductCreateRequest(BaseModel):
-    name: str = Field(..., min_length=1)
-    category_id: int | None = None
-    item_type: ItemType = ItemType.PRODUK_DIJUAL
-    cost_price: float = Field(..., ge=0)
-    price: float = Field(..., ge=0)
-    stock: float = Field(0, ge=0)
-    min_stock: float = Field(5, ge=0)
-    unit: str = Field("pcs", min_length=1)
-    description: str | None = None
-
-class ProductUpdateRequest(BaseModel):
-    name: str = Field(..., min_length=1)
-    category_id: int | None = None
-    item_type: ItemType | None = None
-    cost_price: float = Field(..., ge=0)
-    price: float = Field(..., ge=0)
-    min_stock: float | None = Field(None, ge=0)
-    unit: str = Field("pcs", min_length=1)
-    description: str | None = None
-
-class StockAdjustmentRequest(BaseModel):
-    quantity: float                      # positif = tambah, negatif = kurangi
-    movement_type: str = Field("adjustment", pattern="^(adjustment|waste)$")
-    reason: str = Field(..., min_length=1, max_length=255)
-
-
-class CategoryCreateRequest(BaseModel):
-    name: str = Field(..., min_length=1, max_length=100)
-
-class TransactionItemRequest(BaseModel):
-    product_id: int
-    quantity: int = Field(..., gt=0)
-
-class TransactionRequest(BaseModel):
-    items: list[TransactionItemRequest]
-    payment_method: str = Field(..., pattern="^(Cash|QRIS|Kasbon)$")
-    customer_name: str | None = None   # wajib 
-    notes: str | None = None
-
-class LunasHutangRequest(BaseModel):
-    catatan: str | None = None
-class ChatRequest(BaseModel):
-    message: str
-    chat_history: list[dict] = Field(default_factory=list)
-
 # ============================================================
 # HELPER
 # ============================================================
@@ -115,7 +50,6 @@ def get_stock_status(stock: float, min_stock: float) -> str:
         return "Menipis"
     else:
         return "Aman"
-
 
 def product_to_dict(product: Product):
 
@@ -178,7 +112,6 @@ def forecast_revenue(days: int = 7):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
 
-
 @app.get("/api/ml/restock-recommendations")
 def restock_recommendations(safety_factor: float = 1.3):
     """Rekomendasi restock berdasarkan analisis inventory + demand."""
@@ -209,14 +142,12 @@ def root():
         "status": "running"
     }
 
-
 @app.get("/api/health")
 def health_check():
 
     return {
         "status": "ok"
     }
-
 
 # ============================================================
 # DATABASE TEST
@@ -741,7 +672,6 @@ def get_inventory(
         ]
     }
 
-
 # ============================================================
 # INVENTORY STATISTICS
 # ============================================================
@@ -802,7 +732,6 @@ def get_inventory_stats(
             "total_nilai_jual": total_nilai_jual
         }
     }
-
 
 # ============================================================
 # RESTOCK INVENTORY
@@ -987,12 +916,6 @@ def get_movements(
 # HUTANG
 # ============================================================
 
-class DebtCreate(BaseModel):
-    customer_name: str
-    amount: float
-    debt_type: str = "customer"
-    notes: str = None
-
 @app.get("/api/hutang")
 def get_semua_hutang(db: Session = Depends(get_db)):
     from sqlalchemy import desc
@@ -1046,4 +969,3 @@ def lunasi_hutang(debt_id: int, db: Session = Depends(get_db)):
     
     db.commit()
     return {"status": "success", "message": "Hutang berhasil dilunasi."}
-
