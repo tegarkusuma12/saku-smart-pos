@@ -2,27 +2,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     const canvas = document.getElementById("salesChart");
     if (!canvas) return;
 
+    let myChart = null;
+
     try {
-        // 1. Ambil Data History (Aktual)
+        // 1. Ambil Data History (Aktual) dulu agar UI cepat tampil
         const resStats = await fetch(API_BASE_URL + "/api/dashboard/stats");
         const data = await resStats.json();
-
-        // Ambil ML Forecast (Bisa gagal jika model belum di-train)
-        let forecastLabels = [];
-        let forecastValues = [];
-        try {
-            const resForecast = await fetch(API_BASE_URL + "/api/ml/forecast?days=7");
-            if (resForecast.ok) {
-                const forecastJson = await resForecast.json();
-                forecastLabels = forecastJson.data.map(item => {
-                    const d = new Date(item.date);
-                    return d.toLocaleDateString('id-ID', { weekday: 'short', day: '2-digit', month: 'short' });
-                });
-                forecastValues = forecastJson.data.map(item => item.predicted_revenue);
-            }
-        } catch (e) {
-            console.log("ML Forecast belum tersedia, melewati grafik prediksi.");
-        }
 
         // 2. Format Helper
         const formatRp = (num) => "Rp" + (num || 0).toLocaleString("id-ID");
@@ -33,9 +18,9 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("valTotalLaba").innerText = formatRp(data.total_profit);
         document.getElementById("valTotalTransaksi").innerText = data.total_transactions || 0;
 
-        // 4. LOGIC CHART
-        const combinedLabels = [...(data.chart_labels || []), ...forecastLabels];
-        const actualData = [...(data.chart_data || []), ...Array(forecastLabels.length || 0).fill(null)];
+        // 4. LOGIC CHART (Render Awal)
+        const combinedLabels = [...(data.chart_labels || [])];
+        const actualData = [...(data.chart_data || [])];
         
         let datasets = [
             {
@@ -49,22 +34,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         ];
 
-        if (forecastValues.length > 0 && data.chart_data && data.chart_data.length > 0) {
-            const lastActualValue = data.chart_data[data.chart_data.length - 1];
-            const predictedData = [...Array(data.chart_labels.length - 1).fill(null), lastActualValue, ...forecastValues];
-            datasets.push({
-                label: "Prediksi ML",
-                data: predictedData,
-                borderWidth: 3,
-                tension: 0.4,
-                fill: false,
-                borderDash: [5, 5],
-                borderColor: "#f97316",
-                backgroundColor: "transparent"
-            });
-        }
-
-        new Chart(canvas, {
+        myChart = new Chart(canvas, {
             type: "line",
             data: { labels: combinedLabels, datasets: datasets },
             options: {
@@ -81,16 +51,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (prodContainer && data.top_products) {
             prodContainer.innerHTML = "";
             data.top_products.forEach((p, index) => {
-                prodContainer.innerHTML += \
-                    <div class="top-product">
-                        <div class="product-rank">\</div>
-                        <div class="product-info">
-                            <strong>\</strong>
-                            <small>\ terjual</small>
-                        </div>
-                        <strong>\</strong>
-                    </div>
-                \;
+                prodContainer.innerHTML += '<div class="top-product"><div class="product-rank">' + p.rank + '</div><div class="product-info"><strong>' + p.name + '</strong><small>' + p.sold + ' terjual</small></div><strong>' + formatRp(p.revenue) + '</strong></div>';
             });
         }
 
@@ -105,21 +66,53 @@ document.addEventListener("DOMContentLoaded", async function () {
                     timeStr = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
                 }
                 
-                trxContainer.innerHTML += `
-                    <tr>
-                        <td>${t.id}</td>
-                        <td>${timeStr}</td>
-                        <td>Kasir 1</td>
-                        <td>${t.method}</td>
-                        <td><span class="badge text-bg-success">${t.status}</span></td>
-                        <td class="text-end">Rp${(t.total || 0).toLocaleString('id-ID')}</td>
-                    </tr>
-                `;
+                let html = '<tr>';
+                html += '<td>' + t.id + '</td>';
+                html += '<td>' + timeStr + '</td>';
+                html += '<td>Kasir 1</td>';
+                html += '<td>' + t.method + '</td>';
+                html += '<td><span class="badge text-bg-success">' + t.status + '</span></td>';
+                html += '<td class="text-end">Rp' + (t.total || 0).toLocaleString('id-ID') + '</td>';
+                html += '</tr>';
+                trxContainer.innerHTML += html;
             });
         }
+
+        // 7. Ambil ML Forecast Asynchronously tanpa nge-block UI
+        fetch(API_BASE_URL + "/api/ml/forecast?days=7").then(res => res.json()).then(forecastJson => {
+            if (forecastJson && forecastJson.status === "success") {
+                const forecastLabels = forecastJson.data.map(item => {
+                    const d = new Date(item.date);
+                    return d.toLocaleDateString('id-ID', { weekday: 'short', day: '2-digit', month: 'short' });
+                });
+                const forecastValues = forecastJson.data.map(item => item.predicted_revenue);
+
+                if (forecastValues.length > 0 && data.chart_data && data.chart_data.length > 0) {
+                    const lastActualValue = data.chart_data[data.chart_data.length - 1];
+                    const predictedData = [...Array(data.chart_labels.length - 1).fill(null), lastActualValue, ...forecastValues];
+                    
+                    myChart.data.labels = [...data.chart_labels, ...forecastLabels];
+                    myChart.data.datasets.push({
+                        label: "Prediksi ML",
+                        data: predictedData,
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: false,
+                        borderDash: [5, 5],
+                        borderColor: "#f97316",
+                        backgroundColor: "transparent"
+                    });
+                    
+                    // Panjangkan data aktual dengan null
+                    myChart.data.datasets[0].data = [...data.chart_data, ...Array(forecastLabels.length).fill(null)];
+                    myChart.update();
+                }
+            }
+        }).catch(e => {
+            console.log("ML Forecast belum tersedia atau gagal dimuat.", e);
+        });
 
     } catch (error) {
         console.error("Gagal memuat dashboard:", error);
     }
 });
-
