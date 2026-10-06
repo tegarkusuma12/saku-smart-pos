@@ -58,11 +58,11 @@
             </div>
 
 
-            <div class="d-flex gap-2"><button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPemasukan"><i class="fa-solid fa-arrow-down me-1"></i> Catat Pemasukan</button><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalPengeluaran"><i class="fa-solid fa-arrow-up me-1"></i> Catat Pengeluaran</button><button class="btn btn-outline-primary" onclick="exportCSV()">
+            <div class="d-flex gap-2"><button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPemasukan"><i class="fa-solid fa-arrow-down me-1"></i> Catat Pemasukan</button><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalPengeluaran"><i class="fa-solid fa-arrow-up me-1"></i> Catat Pengeluaran</button><div class="dropdown"><button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
 
                 <i class="fa-solid fa-download me-2"></i>
 
-                Export CSV</button></div>
+                Export Data</button><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item" href="#" onclick="exportCSV(event)"><i class="fa-solid fa-file-csv me-2 text-success"></i>Export ke CSV</a></li><li><a class="dropdown-item" href="#" onclick="exportExcel(event)"><i class="fa-solid fa-file-excel me-2 text-success"></i>Export ke Excel (.xlsx)</a></li></ul></div></div>
 
         </div>
 
@@ -298,11 +298,14 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Sumber Dana</label>
-                            <select class="form-select" id="inSumber" required>
+                            <select class="form-select" id="inSumber" onchange="toggleCustomInput(this, 'inSumberCustom')" required>
+                                <option value="" disabled selected>Pilih Sumber Dana...</option>
                                 <option value="Suntikan Modal">Suntikan Modal</option>
-                                <option value="Lain-lain">Lain-lain (Jual Rongsokan, dll)</option>
-                                <option value="Cashback">Cashback / Promo</option>
+                                <option value="Jual Rongsok / Kardus">Jual Rongsok / Kardus</option>
+                                <option value="Cashback / Promo">Cashback / Promo</option>
+                                <option value="custom" class="text-primary fw-bold">+ Tambah Kategori Lain...</option>
                             </select>
+                            <input type="text" class="form-control mt-2 d-none" id="inSumberCustom" placeholder="Tulis sumber dana baru...">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Keterangan Tambahan</label>
@@ -336,14 +339,17 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Kategori Pengeluaran</label>
-                            <select class="form-select" id="exKategori" required>
-                                <option value="Operasional">Operasional (Listrik, Internet)</option>
+                            <select class="form-select" id="exKategori" onchange="toggleCustomInput(this, 'exKategoriCustom')" required>
+                                <option value="" disabled selected>Pilih Kategori Pengeluaran...</option>
+                                <option value="Operasional (Listrik, Air, Internet)">Operasional (Listrik, Air, Internet)</option>
                                 <option value="Gaji Karyawan">Gaji Karyawan</option>
-                                <option value="Perlengkapan">Perlengkapan (Kantong Plastik, ATK)</option>
-                                <option value="Insidentil">Insidentil (Ban Bocor, Maintenance)</option>
-                                <option value="Prive">Prive (Keperluan Pribadi Owner)</option>
-                                <option value="Sumbangan">Sumbangan / Amal</option>
+                                <option value="Perlengkapan (Plastik, ATK)">Perlengkapan (Plastik, ATK)</option>
+                                <option value="Insidentil (Perbaikan, dll)">Insidentil (Perbaikan, dll)</option>
+                                <option value="Prive (Keperluan Pribadi)">Prive (Keperluan Pribadi)</option>
+                                <option value="Sumbangan / Amal">Sumbangan / Amal</option>
+                                <option value="custom" class="text-primary fw-bold">+ Tambah Kategori Lain...</option>
                             </select>
+                            <input type="text" class="form-control mt-2 d-none" id="exKategoriCustom" placeholder="Tulis kategori pengeluaran baru...">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Keterangan Tambahan</label>
@@ -367,7 +373,12 @@
 
 <script src="../assets/js/akuntansi.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 </body>
 
 </html>
+
+
+
+
 

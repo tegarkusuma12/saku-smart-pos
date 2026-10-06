@@ -1,4 +1,4 @@
-﻿let ledger = [];
+let ledger = [];
 
 document.addEventListener("DOMContentLoaded", async function () {
     await loadLedger();
@@ -114,8 +114,12 @@ document.addEventListener("DOMContentLoaded", function () {
         formIn.addEventListener("submit", async function(e) {
             e.preventDefault();
             const tgl = document.getElementById("inTgl").value;
+            let sourceVal = document.getElementById("inSumber").value;
+            if (sourceVal === "custom") {
+                sourceVal = document.getElementById("inSumberCustom").value;
+            }
             const payload = {
-                source: document.getElementById("inSumber").value,
+                source: sourceVal,
                 description: document.getElementById("inKet").value,
                 amount: parseFloat(document.getElementById("inJumlah").value)
             };
@@ -137,8 +141,12 @@ document.addEventListener("DOMContentLoaded", function () {
         formEx.addEventListener("submit", async function(e) {
             e.preventDefault();
             const tgl = document.getElementById("exTgl").value;
+            let catVal = document.getElementById("exKategori").value;
+            if (catVal === "custom") {
+                catVal = document.getElementById("exKategoriCustom").value;
+            }
             const payload = {
-                category: document.getElementById("exKategori").value,
+                category: catVal,
                 description: document.getElementById("exKet").value,
                 amount: parseFloat(document.getElementById("exJumlah").value)
             };
@@ -156,3 +164,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+
+function toggleCustomInput(selectElem, customInputId) {
+    const customInput = document.getElementById(customInputId);
+    if (selectElem.value === "custom") {
+        customInput.classList.remove("d-none");
+        customInput.required = true;
+        customInput.focus();
+    } else {
+        customInput.classList.add("d-none");
+        customInput.required = false;
+        customInput.value = "";
+    }
+}
+
+
