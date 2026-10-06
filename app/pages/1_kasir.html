@@ -28,6 +28,7 @@
         href="../assets/css/style.css"
     >
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 
@@ -237,7 +238,7 @@
                         <button
                             id="checkoutBtn"
                             class="btn btn-primary w-100"
-                            onclick="checkout()"
+                            onclick="openPaymentModal()"
                         >
 
                             <i class="fa-solid fa-check me-2"></i>
@@ -255,6 +256,68 @@
         </div>
 
 
+    <!-- Modal Pembayaran -->
+    <div class="modal fade" id="modalPayment" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header border-bottom-0 pb-0">
+                    <h5 class="modal-title fw-bold">Proses Pembayaran</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="bg-light p-3 rounded mb-3 text-center">
+                        <small class="text-muted d-block">Total Tagihan</small>
+                        <h2 class="text-primary fw-bold mb-0" id="payTotalAmount">Rp 0</h2>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Metode Pembayaran</label>
+                        <select class="form-select" id="payMethod" onchange="togglePaymentFields()">
+                            <option value="Cash">Tunai (Cash)</option>
+                            <option value="QRIS">QRIS / Transfer</option>
+                            <option value="Kasbon">Kasbon (Hutang)</option>
+                        </select>
+                    </div>
+
+                    <!-- Fields for Kasbon -->
+                    <div class="mb-3 d-none" id="payCustomerBlock">
+                        <label class="form-label fw-semibold text-danger">Nama Pelanggan (Wajib)</label>
+                        <input type="text" class="form-control" id="payCustomerName" placeholder="Masukkan nama pelanggan">
+                    </div>
+
+                    <!-- Fields for Cash -->
+                    <div id="payCashBlock">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Uang Diterima</label>
+                            <div class="input-group">
+                                <span class="input-group-text">Rp</span>
+                                <input type="number" class="form-control" id="payReceived" onkeyup="calculateChange()" placeholder="0">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center bg-white border p-2 rounded mb-2">
+                            <span class="text-muted fw-semibold">Kembalian:</span>
+                            <span class="fw-bold text-success fs-5" id="payChange">Rp 0</span>
+                        </div>
+                        <div class="d-flex gap-2 flex-wrap mb-3">
+                            <button class="btn btn-outline-secondary btn-sm" onclick="setCash(20000)">20rb</button>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="setCash(50000)">50rb</button>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="setCash(100000)">100rb</button>
+                            <button class="btn btn-outline-secondary btn-sm" onclick="setCash('pas')">Uang Pas</button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3 mt-2">
+                        <label class="form-label fw-semibold">Catatan (Opsional)</label>
+                        <input type="text" class="form-control" id="payNotes" placeholder="Catatan transaksi...">
+                    </div>
+
+                    <button class="btn btn-primary w-100 py-2 mt-2" onclick="submitPayment()">
+                        <i class="fa-solid fa-check me-2"></i> Konfirmasi Pembayaran
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     </main>
 
 </div>
@@ -290,6 +353,7 @@
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/config.js"></script>
 <script src="../assets/js/sidebar.js"></script>
 
