@@ -1,4 +1,4 @@
-let ledger = [];
+﻿let ledger = [];
 
 document.addEventListener("DOMContentLoaded", async function () {
     await loadLedger();
@@ -87,3 +87,72 @@ function exportCSV() {
     link.click();
     URL.revokeObjectURL(url);
 }
+// ======================================
+// FASE 4: CRUD Pemasukan & Pengeluaran
+// ======================================
+
+// Helper fetch API
+async function apiPost(endpoint, data) {
+    try {
+        const res = await fetch(API_BASE_URL + endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+        return await res.json();
+    } catch (e) {
+        console.error(e);
+        return { status: "error" };
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const formIn = document.getElementById("formPemasukan");
+    const formEx = document.getElementById("formPengeluaran");
+
+    if (formIn) {
+        formIn.addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const tgl = document.getElementById("inTgl").value;
+            const payload = {
+                source: document.getElementById("inSumber").value,
+                description: document.getElementById("inKet").value,
+                amount: parseFloat(document.getElementById("inJumlah").value)
+            };
+            if (tgl) payload.timestamp = new Date(tgl).toISOString();
+
+            const res = await apiPost("/api/akuntansi/income", payload);
+            if (res.status === "success") {
+                bootstrap.Modal.getInstance(document.getElementById('modalPemasukan')).hide();
+                formIn.reset();
+                Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Berhasil dicatat', showConfirmButton: false, timer: 2000 });
+                loadLedger();
+            } else {
+                Swal.fire("Error", "Gagal menyimpan data", "error");
+            }
+        });
+    }
+
+    if (formEx) {
+        formEx.addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const tgl = document.getElementById("exTgl").value;
+            const payload = {
+                category: document.getElementById("exKategori").value,
+                description: document.getElementById("exKet").value,
+                amount: parseFloat(document.getElementById("exJumlah").value)
+            };
+            if (tgl) payload.timestamp = new Date(tgl).toISOString();
+
+            const res = await apiPost("/api/akuntansi/expense", payload);
+            if (res.status === "success") {
+                bootstrap.Modal.getInstance(document.getElementById('modalPengeluaran')).hide();
+                formEx.reset();
+                Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Berhasil dicatat', showConfirmButton: false, timer: 2000 });
+                loadLedger();
+            } else {
+                Swal.fire("Error", "Gagal menyimpan data", "error");
+            }
+        });
+    }
+});
