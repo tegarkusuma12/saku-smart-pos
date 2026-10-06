@@ -993,3 +993,5 @@ def lunasi_hutang(debt_id: int, db: Session = Depends(get_db)):
     
     db.commit()
     return {"status": "success", "message": "Hutang berhasil dilunasi."}
+
+

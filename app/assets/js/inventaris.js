@@ -512,7 +512,7 @@ async function openHistoryModal(productId) {
             const change = m.quantity_change;
             const changeClass = change > 0 ? "text-success" : "text-danger";
             const sign = change > 0 ? "+" : "";
-            const date = new Date(m.timestamp).toLocaleString("id-ID", {
+            const ts = m.timestamp.endsWith("Z") || m.timestamp.includes("+") ? m.timestamp : m.timestamp + "Z";`n                const date = new Date(ts).toLocaleString("id-ID", {
                 day: "2-digit", month: "short", year: "numeric",
                 hour: "2-digit", minute: "2-digit"
             });

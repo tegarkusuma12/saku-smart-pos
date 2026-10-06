@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
     const tableBody = document.getElementById("hutangTableBody");
     const formHutang = document.getElementById("formHutang");
     const modalHutangElement = document.getElementById("modalHutang");
@@ -12,7 +12,7 @@
     const formatRp = (num) => "Rp" + parseInt(num).toLocaleString("id-ID");
     
     const formatDate = (isoString) => {
-        const d = new Date(isoString);
+        const d = new Date(isoString.endsWith("Z") || isoString.includes("+") ? isoString : isoString + "Z");
         return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
     };
 
@@ -160,4 +160,5 @@
     // Muat data saat pertama kali buka
     loadHutang();
 });
+
 

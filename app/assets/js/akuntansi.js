@@ -75,7 +75,9 @@ function formatRupiah(value) {
 function exportCSV() {
     let csv = "Tanggal,Akun,Keterangan,Debit,Kredit\n";
     ledger.forEach(function (item) {
-        csv += `${item.date},"${item.account}","${item.description}",${item.debit},${item.credit}\n`;
+        const d = new Date(item.date);
+        const dateStr = String(d.getDate()).padStart(2, "0") + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + d.getFullYear() + " " + String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+        csv += `${dateStr},"${item.account}","${item.description}",${item.debit},${item.credit}\n`;
     });
 
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -178,5 +180,6 @@ function toggleCustomInput(selectElem, customInputId) {
         customInput.value = "";
     }
 }
+
 
 

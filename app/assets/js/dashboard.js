@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", async function () {
+document.addEventListener("DOMContentLoaded", async function () {
     const canvas = document.getElementById("salesChart");
     if (!canvas) return;
 
@@ -99,16 +99,22 @@
         if (trxContainer && data.recent_transactions) {
             trxContainer.innerHTML = "";
             data.recent_transactions.forEach(t => {
-                trxContainer.innerHTML += \
+                const d = new Date(t.time);
+                let timeStr = t.time;
+                if (!isNaN(d.getTime())) {
+                    timeStr = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+                }
+                
+                trxContainer.innerHTML += `
                     <tr>
-                        <td>\</td>
-                        <td>\</td>
+                        <td>${t.id}</td>
+                        <td>${timeStr}</td>
                         <td>Kasir 1</td>
-                        <td>\</td>
-                        <td><span class="badge text-bg-success">\</span></td>
-                        <td class="text-end">\</td>
+                        <td>${t.method}</td>
+                        <td><span class="badge text-bg-success">${t.status}</span></td>
+                        <td class="text-end">Rp${(t.total || 0).toLocaleString('id-ID')}</td>
                     </tr>
-                \;
+                `;
             });
         }
 
@@ -116,3 +122,4 @@
         console.error("Gagal memuat dashboard:", error);
     }
 });
+
