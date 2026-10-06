@@ -460,6 +460,30 @@ def get_akuntansi_ledger(db: Session = Depends(get_db)):
         "data": formatted_ledger
     }
 
+@app.post("/api/akuntansi/expense")
+def add_expense(req: ExpenseCreate, db: Session = Depends(get_db)):
+    baru = Expense(
+        description=req.description,
+        amount=req.amount,
+        category=req.category,
+        timestamp=req.timestamp or datetime.now()
+    )
+    db.add(baru)
+    db.commit()
+    return {"status": "success", "message": "Pengeluaran berhasil dicatat"}
+
+@app.post("/api/akuntansi/income")
+def add_income(req: IncomeCreate, db: Session = Depends(get_db)):
+    baru = Income(
+        description=req.description,
+        amount=req.amount,
+        source=req.source,
+        timestamp=req.timestamp or datetime.now()
+    )
+    db.add(baru)
+    db.commit()
+    return {"status": "success", "message": "Pemasukan berhasil dicatat"}
+
 # ============================================================
 # HUTANG
 # ============================================================
